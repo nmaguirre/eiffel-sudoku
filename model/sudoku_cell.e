@@ -41,7 +41,7 @@ feature -- Status setting
 	set_value (new_value: INTEGER)
 		-- sets the cell with new_value
 	do
-
+		value:=new_value
 	end
 
 end
