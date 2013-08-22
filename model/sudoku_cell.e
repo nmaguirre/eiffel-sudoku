@@ -23,8 +23,15 @@ feature -- Initialisation
 	make_with_value (new_value: INTEGER)
 		-- Constructor of the class
 		-- Initializes the cell set with new_value
+	require
+		new_value > 0
+		new_value < 10
 	do
-
+		value := new_value
+		is_set := true
+	ensure
+		value = new_value
+		is_set = true
 	end
 
 feature -- Access
@@ -44,5 +51,9 @@ feature -- Status setting
 	do
 
 	end
+
+invariant
+
+	cell_value: value >= 0 and value <= 9 -- the value of the cell is always between 0 and 9 (0 when created and 1-9 when seted)
 
 end
