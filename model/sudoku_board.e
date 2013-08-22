@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {SUDOKU_BOARD}."
+	description: "{SUDOKU_BOARD} represents the sudoku board. Consisting of 81 cells. Situation reports (complete-valid-solved)"
 	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	date: "22-08-2013"
+	revision: "0.1"
 
 class
 	SUDOKU_BOARD
@@ -35,7 +35,7 @@ feature -- Status report
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
 		-- returns value of cell in row and col
 	do
-		
+
 	end
 
 	is_complete: BOOLEAN
