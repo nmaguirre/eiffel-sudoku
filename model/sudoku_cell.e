@@ -46,7 +46,9 @@ feature -- Status report
 
 	is_set: BOOLEAN
 		-- indicates if this cell is set.
-
+	do	
+		Result:= value /= 0
+	end
 feature -- Status setting
 
 	set_value (new_value: INTEGER)
