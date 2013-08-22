@@ -35,7 +35,7 @@ feature -- Status report
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
 		-- returns value of cell in row and col
 	do
-		
+
 	end
 
 	is_complete: BOOLEAN
@@ -51,7 +51,7 @@ feature -- Status setting
 
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
 	do
-
+		cells.item(row,col).set_value (value)
 	end
 
 	unset_cell (row: INTEGER; col: INTEGER)
