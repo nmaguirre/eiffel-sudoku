@@ -44,4 +44,8 @@ feature -- Status setting
 
 	end
 
+invariant:
+
+	cell_value: value >= 0 and value <= 9 -- the value of the cell is always between 0 and 9 (0 when created and 1-9 when seted)
+
 end
