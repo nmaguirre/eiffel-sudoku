@@ -49,6 +49,9 @@ feature -- Status report
 
 feature -- Status setting
 
+	--Description: This rutine inserts value "value" passed as parameter into a cell at row "row" and column "col"
+	--Require: The require should be cell = Void
+	--Ensure: The ensure should be cell /= Void and value dont exist in row and column
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
     require
         set_cell_row: row>=1 and row<=9
