@@ -51,8 +51,12 @@ feature -- Status setting
 
 	set_value (new_value: INTEGER)
 		-- sets the cell with new_value
+	require
+		new_value > 0 and new_value < 10
 	do
 		value:=new_value
+	ensure
+		value = new_value and is_set = true
 	end
 
 invariant
