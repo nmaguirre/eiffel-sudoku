@@ -24,7 +24,7 @@ feature -- Initialisation
 		-- Initializes the cell set with new_value
 	require
 		new_value > 0
-		new_value < 9
+		new_value < 10
 	do
 		value := new_value
 		is_set := true
