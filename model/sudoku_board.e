@@ -60,6 +60,9 @@ feature -- Status setting
         cell_value(row, col) = value
 	end
 
+	--Description: this routine unsets the value of the cell at row "row" and column "col"
+	--Require: the value of the cell is diferent from Void and value<=9 and value>=1
+	--Ensure: the value of the cell is Void
 	unset_cell (row: INTEGER; col: INTEGER)
 	do
 
