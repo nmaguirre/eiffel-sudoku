@@ -16,7 +16,8 @@ feature -- Initialisation
 		-- Default constructor of class.
 		-- Makes the cell "empty", i.e., unset.
 	do
-
+		is_set:= false
+		value:= 0
 	end
 
 	make_with_value (new_value: INTEGER)
