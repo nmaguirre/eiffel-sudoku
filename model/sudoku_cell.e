@@ -18,6 +18,9 @@ feature -- Initialisation
 	do
 		is_set:= false
 		value:= 0
+	ensure
+		-- is_set value is false and value is initially 0
+		is_set = false and value = 0
 	end
 
 	make_with_value (new_value: INTEGER)
