@@ -50,8 +50,14 @@ feature -- Status report
 feature -- Status setting
 
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
+    require
+        set_cell_row: row>=1 and row<=9
+        set_cell_col: col>=1 and col<=9
+        set_cell_value: value>=1 and value<=9
 	do
 
+    ensure
+        cell_value(row, col) = value
 	end
 
 	unset_cell (row: INTEGER; col: INTEGER)
