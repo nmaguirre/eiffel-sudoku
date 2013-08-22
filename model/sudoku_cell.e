@@ -16,7 +16,6 @@ feature -- Initialisation
 		-- Default constructor of class.
 		-- Makes the cell "empty", i.e., unset.
 	do
-		is_set:= false
 		value:= 0
 	ensure
 		-- is_set value is false and value is initially 0
@@ -31,7 +30,6 @@ feature -- Initialisation
 		new_value < 10
 	do
 		value := new_value
-		is_set := true
 	ensure
 		value = new_value
 		is_set = true
@@ -46,7 +44,9 @@ feature -- Status report
 
 	is_set: BOOLEAN
 		-- indicates if this cell is set.
-
+	do	
+		Result:= value /= 0
+	end
 feature -- Status setting
 
 	set_value (new_value: INTEGER)
