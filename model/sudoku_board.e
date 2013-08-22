@@ -1,8 +1,8 @@
 note
-	description: "{SUDOKU_BOARD} represents the sudoku board. Consisting of 81 cells. Situation reports (complete-valid-solved)"
+	description: "Summary description for {SUDOKU_BOARD}."
 	author: ""
-	date: "22-08-2013"
-	revision: "0.1"
+	date: "$Date$"
+	revision: "$Revision$"
 
 class
 	SUDOKU_BOARD
@@ -14,8 +14,13 @@ feature {NONE} -- Initialization
 
 	make
 			-- Initializes the board as empty
+		require
+			true
 		do
 
+		ensure
+			board_created: cells /= void and not is_complete and is_valid and not is_solved
+			board_size: cells.count=81
 		end
 
 	make_with_random_values
@@ -51,7 +56,7 @@ feature -- Status setting
 
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
 	do
-		cells.item(row,col).set_value (value)
+
 	end
 
 	unset_cell (row: INTEGER; col: INTEGER)
