@@ -39,8 +39,12 @@ feature -- Status report
 
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
 		-- returns value of cell in row and col
+	require
+		(row > 0 and row < 10) and (col > 0 and col < 10)
 	do
-
+		Result := cells.item(row, col).value
+	ensure
+		Result >= 0 and Result < 10
 	end
 
 	is_complete: BOOLEAN
@@ -54,22 +58,11 @@ feature -- Status report
 
 feature -- Status setting
 
-	--Description: This rutine inserts value "value" passed as parameter into a cell at row "row" and column "col"
-	--Require: The require should be cell = Void
-	--Ensure: The ensure should be cell /= Void and value dont exist in row and column
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
-    require
-        set_cell_row: row>=1 and row<=9
-        set_cell_col: col>=1 and col<=9
-        set_cell_value: value>=1 and value<=9
 	do
-<<<<<<< HEAD
-
-=======
 		cells.item(row,col).set_value (value)
     ensure
         cell_value(row, col) = value
->>>>>>> 0456584b79bf29b8652b3e5694c47edacbcdea49
 	end
 
 	--Description: this routine unsets the value of the cell at row "row" and column "col"
