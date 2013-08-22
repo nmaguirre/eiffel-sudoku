@@ -35,7 +35,7 @@ feature -- Status report
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
 		-- returns value of cell in row and col
 	do
-		
+
 	end
 
 	is_complete: BOOLEAN
@@ -54,6 +54,9 @@ feature -- Status setting
 
 	end
 
+	--Description: this routine unsets the value of the cell at row "row" and column "col"
+	--Require: the value of the cell is diferent from Void and value<=9 and value>=1
+	--Ensure: the value of the cell is Void
 	unset_cell (row: INTEGER; col: INTEGER)
 	do
 
