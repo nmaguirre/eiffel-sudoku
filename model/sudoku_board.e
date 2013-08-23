@@ -53,8 +53,11 @@ feature -- Status report
 	is_valid: BOOLEAN
 		-- is the board valid (no conflicts so far)?
 
-	is_solved: BOOLEAN
 		-- is the board solved? (valid and complete)
+	is_solved: BOOLEAN
+    do
+        Result:= is_valid and is_complete
+    end
 
 feature -- Status setting
 
