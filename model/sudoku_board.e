@@ -73,8 +73,11 @@ feature -- Status setting
 	--Require: the value of the cell is diferent from Void and value<=9 and value>=1
 	--Ensure: the value of the cell is Void
 	unset_cell (row: INTEGER; col: INTEGER)
+    require
+        cell_value(row, col)>=1 and cell_value(row, col)<=9
 	do
-
+    ensure
+        cell_value(row, col)=Void
 	end
 
 feature {NONE} -- Implementation
