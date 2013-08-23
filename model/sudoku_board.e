@@ -17,7 +17,7 @@ feature {NONE} -- Initialization
 		do
 
 		ensure
-			board_created: cells /= void and not is_complete and not is_valid and not is_solved
+			board_created: cells /= void and not is_complete and is_valid and not is_solved
 			board_size: cells.count=81
 		end
 
