@@ -1,8 +1,8 @@
 note
-	description: "{SUDOKU_BOARD} represents the sudoku board. Consisting of 81 cells. Situation reports (complete-valid-solved)"
+	description: "Summary description for {SUDOKU_BOARD}."
 	author: ""
-	date: "22-08-2013"
-	revision: "0.1"
+	date: "$Date$"
+	revision: "$Revision$"
 
 class
 	SUDOKU_BOARD
@@ -14,8 +14,13 @@ feature {NONE} -- Initialization
 
 	make
 			-- Initializes the board as empty
+		require
+			true
 		do
 
+		ensure
+			board_created: cells /= void and not is_complete and is_valid and not is_solved
+			board_size: cells.count=81
 		end
 
 	make_with_random_values
@@ -34,8 +39,12 @@ feature -- Status report
 
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
 		-- returns value of cell in row and col
+	require
+		(row > 0 and row < 10) and (col > 0 and col < 10)
 	do
-
+		Result := cells.item(row, col).value
+	ensure
+		Result >= 0 and Result < 10
 	end
 
 	is_complete: BOOLEAN
@@ -60,6 +69,9 @@ feature -- Status setting
         cell_value(row, col) = value
 	end
 
+	--Description: this routine unsets the value of the cell at row "row" and column "col"
+	--Require: the value of the cell is diferent from Void and value<=9 and value>=1
+	--Ensure: the value of the cell is Void
 	unset_cell (row: INTEGER; col: INTEGER)
 	do
 
@@ -68,6 +80,5 @@ feature -- Status setting
 feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
-
 
 end
