@@ -23,7 +23,6 @@ feature -- Access
     	-- Value of column in a board
 
 feature {NONE}
-	background_color:= black
 
 feature -- Status Setting
 
