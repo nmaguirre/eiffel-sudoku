@@ -12,7 +12,7 @@ inherit
 
 
 feature {ANY} -- Initialization
-
+    controller: SUDOKU_CONTROLLER
 
 feature -- Access
 
@@ -28,17 +28,21 @@ feature {NONE}
 feature -- Status Setting
 
     set (value: INTEGER)
-		do
-
-		end
-
+        require
+            value>=0 and value<=9
+        do
+            controller.set_cell(row, col, value)
+        end
 
     unset
     	do
-
+            controller.model.set_cell(row, col, 0)
     	end
 
+feature -- Controller setting
 
-
-
+    set_controller(cont: SUDOKU_CONTROLLER)
+    do
+        controller:= cont
+    end
 end

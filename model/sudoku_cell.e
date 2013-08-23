@@ -44,7 +44,7 @@ feature -- Status report
 
 	is_set: BOOLEAN
 		-- indicates if this cell is set.
-	do	
+	do
 		Result:= value /= 0
 	end
 feature -- Status setting
@@ -52,7 +52,7 @@ feature -- Status setting
 	set_value (new_value: INTEGER)
 		-- sets the cell with new_value
 	require
-		new_value > 0 and new_value < 10
+		new_value >= 0 and new_value < 10
 	do
 		value:=new_value
 	ensure

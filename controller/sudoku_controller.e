@@ -18,10 +18,10 @@ feature {NONE} -- Initialization
 
 		end
 
-feature {NONE} -- Implementation
+feature {SUDOKU_BOARD, MAIN_WINDOW} -- Implementation
 
 	model: SUDOKU_BOARD
-	
+
 	gui: MAIN_WINDOW
 
 end
