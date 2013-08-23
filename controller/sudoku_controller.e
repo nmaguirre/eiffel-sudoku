@@ -18,10 +18,21 @@ feature {NONE} -- Initialization
 
 		end
 
-feature {SUDOKU_BOARD, MAIN_WINDOW} -- Implementation
+feature {NONE} -- Implementation
 
 	model: SUDOKU_BOARD
 
 	gui: MAIN_WINDOW
+
+feature {ANY}
+
+ 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
+    require
+        set_cell_row: row>=0 and row<=9
+        set_cell_col: col>=0 and col<=9
+        set_cell_value: value>=1 and value<=9
+	do
+        model.set_cell(row, col, value)
+	end
 
 end

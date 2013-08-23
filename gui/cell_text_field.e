@@ -36,7 +36,7 @@ feature -- Status Setting
 
     unset
     	do
-            controller.model.set_cell(row, col, 0)
+            controller.set_cell(row, col, 0)
     	end
 
 feature -- Controller setting
