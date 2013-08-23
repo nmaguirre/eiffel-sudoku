@@ -45,8 +45,32 @@ feature -- Status report
 		Result >= 0 and Result < 10
 	end
 
+	-- Return true iff the board is complete (all cells are seted with a nonzero value)
 	is_complete: BOOLEAN
-		-- is the board complete (all cells set)
+	local
+		i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
+		filled: BOOLEAN -- flag that indicates if the current cell is filled with a nonzero value
+	do
+		filled := true
+		from -- index for the rows
+			i := 1
+		until
+			i > 9 and filled
+		loop
+			from -- index for the colums
+				j := 1
+			until
+				j > 9 and filled
+			loop
+				if cell_value(i,j) = 0 then
+					filled := false
+				end
+				j := j + 1
+			end -- colums
+			i := i + 1
+		end -- rows
+		Result := filled
+	end
 
 	is_valid: BOOLEAN
 		-- is the board valid (no conflicts so far)?
