@@ -72,9 +72,27 @@ feature -- Status report
 		Result := filled
 	end
 
+        -- is the board valid (no conflicts so far)?
 	is_valid: BOOLEAN
-		-- is the board valid (no conflicts so far)?
-
+    local
+        i, j: INTEGER
+        repeated: BOOLEAN
+    do
+        --first check all rows and columns.
+        j:= 1
+        from
+            i:= 1
+        until
+            i > 9 and not repeated
+        loop
+            if repeated_elem_row(i) or repeated_elem_col(i) then
+                repeated:= true
+            end
+            if i=1 or 1=4 or i=7 then
+                repeated:= repeated_elements_in_square(i,i)
+            end
+        end
+    end
 		-- is the board solved? (valid and complete)
 	is_solved: BOOLEAN
     do
@@ -109,4 +127,110 @@ feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
 
+    -- Return true iff no repeating elements in row.
+    repeated_elem_row(row: INTEGER): BOOLEAN
+    local
+        i, j: INTEGER --Index for the columns.
+        flag: BOOLEAN --False if repeating elements in row.
+    do
+        flag:= true
+        from
+            i := 1
+        until
+            i > 9 and flag
+        loop
+            if cell_value(row, i) /= 0 then
+                from
+                    j:= 1
+                until
+                    j > 9 and flag
+                loop
+                    if i /= j and cell_value(row, i) = cell_value(row, j) then
+                        flag := false
+                    end
+                    j:= j + 1
+                end
+            end
+            i:= i + 1
+        end
+        Result:= flag
+    end
+
+    -- Return true iff no repeating elements in col.
+    repeated_elem_col(col: INTEGER): BOOLEAN
+    local
+        i, j: INTEGER -- Index for the rows
+        flag: BOOLEAN --False if repeating elements in col.
+    do
+        flag:= true
+        from
+            i := 1
+        until
+            i > 9 and flag
+        loop
+            if cell_value(i, col) /= 0 then
+                from
+                    j:= 1
+                until
+                    j > 9 and flag
+                loop
+                    if i /= j and cell_value(i, col) = cell_value(j, col) then
+                        flag := false
+                    end
+                    j:= j + 1
+                end
+            end
+            i:= i + 1
+        end
+        Result:= flag
+    end
+
+    repeated_elements_in_square(row, col: INTEGER): BOOLEAN
+    local
+        i, j, i_aux: INTEGER
+        aux: ARRAY[INTEGER]
+        flag: BOOLEAN
+    do
+        --Load sub_board in aux array.
+        i_aux:= 1
+        create aux.make (1, 9)
+        from
+            i:= row
+        until
+            i > row + 3
+        loop
+            from
+                j:= col
+            until
+                j > col + 3
+            loop
+                aux[i_aux]:= cell_value(i, j)
+                j:= j + 1
+                i_aux:= i_aux + 1
+            end
+            i:= i + 1
+        end
+        --Verify repeated elements in aux array.
+        flag:= true
+        from
+            i := 1
+        until
+            i > 9 and flag
+        loop
+            if aux[i] /= 0 then
+                from
+                    j:= 1
+                until
+                    j > 9 and flag
+                loop
+                    if i /= j and aux[i] = aux[j] then
+                        flag := false
+                    end
+                    j:= j + 1
+                end
+            end
+            i:= i + 1
+        end
+        Result:= flag
+    end
 end
