@@ -88,10 +88,24 @@ feature -- Status report
             if repeated_element_in_row(i) or repeated_element_in_col(i) then
                 repeated:= true
             end
-            if i=1 or 1=4 or i=7 then
-                repeated:= repeated_elements_in_square(i,i)
-            end
         end
+        -- now check sub boards valids in the main board.
+        from 
+            i:=1
+        until
+            i > 9 and not repeated
+        loop
+            from
+                j:=1
+            until
+                j > 9 and not repeated
+            loop
+                repeated:= repeated_elements_in_square(i,i)
+                j:= j + 3
+            end
+            i:= i + 3
+        end
+        Result:= repeated
     end
 		-- is the board solved? (valid and complete)
 	is_solved: BOOLEAN
