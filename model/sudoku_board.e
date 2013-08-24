@@ -85,7 +85,7 @@ feature -- Status report
         until
             i > 9 and not repeated
         loop
-            if repeated_elem_row(i) or repeated_elem_col(i) then
+            if repeated_element_in_row(i) or repeated_element_in_col(i) then
                 repeated:= true
             end
             if i=1 or 1=4 or i=7 then
@@ -127,8 +127,8 @@ feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
 
-    -- Return true iff no repeating elements in row.
-    repeated_elem_row(row: INTEGER): BOOLEAN
+    -- Return true iff there are not repeated elements in each row.
+    repeated_element_in_row(row: INTEGER): BOOLEAN
     local
         i, j: INTEGER --Index for the columns.
         flag: BOOLEAN --False if repeating elements in row.
@@ -156,8 +156,8 @@ feature {NONE} -- Implementation
         Result:= flag
     end
 
-    -- Return true iff no repeating elements in col.
-    repeated_elem_col(col: INTEGER): BOOLEAN
+    -- Return true iff there are not repeated elements in each row.
+    repeated_element_in_col(col: INTEGER): BOOLEAN
     local
         i, j: INTEGER -- Index for the rows
         flag: BOOLEAN --False if repeating elements in col.
@@ -185,6 +185,7 @@ feature {NONE} -- Implementation
         Result:= flag
     end
 
+    -- Return true iff there are not repeated elements in each row and in each col of square 3x3.
     repeated_elements_in_square(row, col: INTEGER): BOOLEAN
     local
         i, j, i_aux: INTEGER
