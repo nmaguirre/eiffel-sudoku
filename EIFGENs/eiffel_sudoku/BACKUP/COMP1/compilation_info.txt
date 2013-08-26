@@ -1,5 +1,0 @@
-Compiler version: 6.4.7.8984 GPL Edition - windows
-Type: Quick_melt
-batch mode: False
-new session: True
-starting date: 08/23/2013 4:38:17.800 PM
