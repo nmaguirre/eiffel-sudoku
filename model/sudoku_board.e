@@ -14,7 +14,25 @@ feature {NONE} -- Initialization
 
 	make
 			-- Initializes the board as empty
+		local
+			i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
 		do
+			cells.make (9, 9)
+		from -- index for the rows
+			i := 1
+		until
+			i > 9
+		loop
+			from -- index for the colums
+				j := 1
+			until
+				j > 9
+			loop
+				cells.item(i,j).set_value (0)
+				j := j + 1
+			end -- colums
+			i := i + 1
+		end -- rows
 
 		ensure
 			board_created: cells /= void and not is_complete and is_valid and not is_solved
@@ -90,7 +108,7 @@ feature -- Status report
             end
         end
         -- now check sub boards valids in the main board.
-        from 
+        from
             i:=1
         until
             i > 9 and not repeated
@@ -134,7 +152,7 @@ feature -- Status setting
         cell_value(row, col)>=1 and cell_value(row, col)<=9
 	do
     ensure
-        cell_value(row, col)=Void
+        cell_value(row, col)=0
 	end
 
 feature {NONE} -- Implementation
