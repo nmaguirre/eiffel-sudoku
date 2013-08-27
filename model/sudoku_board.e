@@ -151,6 +151,7 @@ feature -- Status setting
     require
         cell_value(row, col)>=1 and cell_value(row, col)<=9
 	do
+		set_value(row, col, 0)
     ensure
         cell_value(row, col)=0
 	end
