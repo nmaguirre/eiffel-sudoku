@@ -151,8 +151,10 @@ feature -- Status setting
     require
         cell_value(row, col)>=1 and cell_value(row, col)<=9
 	do
+		cells[row,col].set_value (0)
     ensure
-        cell_value(row, col)=0
+    	not cells[row,col].is_set
+        --cell_value(row, col)=0
 	end
 
 feature {NONE} -- Implementation
