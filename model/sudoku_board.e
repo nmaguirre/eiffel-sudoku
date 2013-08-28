@@ -18,21 +18,21 @@ feature {NONE} -- Initialization
 			i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
 		do
 			cells.make (9, 9)
-		from -- index for the rows
-			i := 1
-		until
-			i > 9
-		loop
-			from -- index for the colums
-				j := 1
+			from -- index for the rows
+				i := 1
 			until
-				j > 9
+				i > 9
 			loop
-				cells.item(i,j).set_value (0)
-				j := j + 1
-			end -- colums
-			i := i + 1
-		end -- rows
+				from -- index for the colums
+					j := 1
+				until
+					j > 9
+				loop
+					cells.item(i,j).set_value (0)
+					j := j + 1
+				end -- colums
+				i := i + 1
+			end -- rows
 
 		ensure
 			board_created: cells /= void and not is_complete and is_valid and not is_solved
@@ -41,7 +41,34 @@ feature {NONE} -- Initialization
 
 	make_with_random_values
 			-- Initializes the board as with some cells set with random numbers
+
+		local
+			count, random_row, random_col, random_num: INTEGER
+			random_sequence: RANDOM
 		do
+			cells.make (9, 9)
+			create random_sequence.make
+			from
+				count := 1
+			until
+				count > 32
+			loop
+				random_sequence.forth
+				random_num := random_sequence.item \\ 9 + 1
+				random_sequence.forth
+				random_row := random_sequence.item \\ 9 + 1
+				random_sequence.forth
+				random_col := random_sequence.item \\ 9 + 1
+
+				if cell_value(random_row, random_col) = 0 then
+					set_cell (random_row, random_col, random_num)
+					if is_valid then
+						count := count + 1
+					else
+						unset_cell(random_row, random_col)
+					end
+				end
+			end
 
 		end
 
