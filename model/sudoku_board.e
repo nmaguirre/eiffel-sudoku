@@ -87,7 +87,7 @@ feature -- Status report
 	require
 		(row > 0 and row < 10) and (col > 0 and col < 10)
 	do
-		Result := cells.item(row, col).value
+		Result := cells.item(row, col).get_value
 	ensure
 		Result >= 0 and Result < 10
 	end
