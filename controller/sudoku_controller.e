@@ -18,6 +18,17 @@ feature  -- Initialization
 			the_instance := current
 		end
 
+	set_main_window (first_window: MAIN_WINDOW)
+			-- set window reference to this controller
+		require
+			first_window_void: first_window /= Void
+		do
+			gui := first_window
+		ensure
+			window_linked: is_window_linked
+		end
+
+
 	set_model (first_model: SUDOKU_BOARD)
 		require
 			model_void: first_model /= void
@@ -29,6 +40,14 @@ feature  -- Initialization
 			-- return reference to this object
 		do
 			Result := the_instance
+		end
+
+feature -- Status report
+
+	is_window_linked: BOOLEAN
+			--is window linked  with this controller
+		do
+			Result := (gui /= Void)
 		end
 
 feature {NONE} -- Implementation
