@@ -18,6 +18,12 @@ feature  -- Initialization
 			the_instance := current
 		end
 
+	get_controller: SUDOKU_CONTROLLER
+			-- return reference to this object
+		do
+			Result := the_instance
+		end
+
 feature {NONE} -- Implementation
 
 	the_instance: SUDOKU_CONTROLLER
