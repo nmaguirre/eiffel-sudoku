@@ -246,7 +246,7 @@ feature {NONE} -- Implementation / Constants
 	Window_width: INTEGER = 280
 			-- Initial width for this window.
 
-	Window_height: INTEGER = 240
+	Window_height: INTEGER = 280
 			-- Initial height for this window.
 
 
