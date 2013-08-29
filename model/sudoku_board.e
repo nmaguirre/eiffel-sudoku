@@ -8,9 +8,13 @@ class
 	SUDOKU_BOARD
 
 create
-	make
+	make, make_with_random_values
 
+<<<<<<< HEAD
+feature {EQA_TEST_SET} -- Initialization
+=======
 feature -- Initialization
+>>>>>>> 0f079cea2a2534ba982136d9f6f3bcd6b8c4b670
 
 	make
 			-- Initializes the board as empty
@@ -73,8 +77,6 @@ feature -- Initialization
 			end
 
 		end
-
-
 
 feature -- Access
 
@@ -159,6 +161,34 @@ feature -- Status report
     do
         Result:= is_valid and is_complete
     end
+
+feature{EQA_TEST_SET} --feature only for testing
+
+	count_seted_cells:INTEGER --count the cells that have been seted
+	local
+		i: INTEGER
+		j: INTEGER
+		count:INTEGER
+	do
+		count:=0
+		from
+			i:=1
+		until
+			i>9
+		loop
+			from
+				j:=1
+			until
+				j>9
+			loop
+				if(cell_value(i,j)/=0) then
+					count:=count+1
+				end
+			end
+		end
+		Result:=count
+	end
+
 
 feature -- Status setting
 
