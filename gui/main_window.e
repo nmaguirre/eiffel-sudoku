@@ -178,10 +178,13 @@ feature {NONE} -- Implementation
 			current_text_field : CELL_TEXT_FIELD
 			row,col: INTEGER
 			font : EV_FONT
+			a_color,b_color: EV_COLOR
 		do
 			main_container.enable_sensitive -- the container is unlocked
 			create font.default_create
 			font.set_weight( (create {EV_FONT_CONSTANTS}).weight_bold)
+			create a_color.make_with_rgb(0.6,0.6,0.6)
+			create b_color.make_with_rgb (0.9,0.9,0.9)
 			from
 				row:= 1
 			until
@@ -196,6 +199,11 @@ feature {NONE} -- Implementation
 					current_text_field.set_capacity (1)
 					current_text_field.align_text_center
 					current_text_field.set_minimum_width_in_characters (1)
+					if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
+						current_text_field.set_background_color (b_color)
+					else
+						current_text_field.set_background_color (a_color)
+					end
 					l_table.put_at_position (current_text_field, col,row,1,1)
 					col := col +1
 				end
