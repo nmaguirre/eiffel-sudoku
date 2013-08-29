@@ -10,7 +10,7 @@ class
 create
 	make
 
-feature {NONE} -- Initialization
+feature -- Initialization
 
 	make
 			-- Initializes the board as empty
