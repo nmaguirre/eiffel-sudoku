@@ -16,8 +16,9 @@ feature -- Initialization
 			-- Initializes the board as empty
 		local
 			i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
+			cell : SUDOKU_CELL
 		do
-			cells.make (9, 9)
+			create cells.make (9, 9)
 			from -- index for the rows
 				i := 1
 			until
@@ -28,7 +29,8 @@ feature -- Initialization
 				until
 					j > 9
 				loop
-					cells.item(i,j).set_value (0)
+					create cell.make
+					cells.item (i, j):=cell
 					j := j + 1
 				end -- colums
 				i := i + 1
