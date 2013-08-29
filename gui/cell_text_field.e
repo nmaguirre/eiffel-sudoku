@@ -24,6 +24,28 @@ feature -- Access
 
 feature {NONE}
 
+feature --init
+
+	--Should be called straight after cell's init because it add the character control function in each cell
+	add_control_caracter
+	do
+		current.change_actions.extend (agent control_text)
+	end
+
+	control_text
+	do
+		if current.text.is_integer then
+			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
+			-- set(current.text.to_integer)
+		else
+			if not current.text.is_empty then
+				print("Value entered : " + current.text + "%N" + "---> Reset %N")
+				current.remove_text
+				-- unset
+			end
+		end
+	end
+
 feature -- Status Setting
 
     set (value: INTEGER)
@@ -35,6 +57,7 @@ feature -- Status Setting
 
     unset
     	do
+    		current.set_text (" ");
             controller.set_cell(row, col, 0)
     	end
 
@@ -44,4 +67,16 @@ feature -- Controller setting
     do
         controller:= cont
     end
+
+feature -- Position Setting
+
+	set_position(newrow, newcol : INTEGER)
+	require
+		newrow > 0 and newrow <= 9
+		newcol > 0 and newcol <= 9
+	do
+		row := newrow
+		col := newcol
+	end
+
 end
