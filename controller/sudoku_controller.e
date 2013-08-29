@@ -10,15 +10,17 @@ class
 create
 	make
 
-feature {NONE} -- Initialization
+feature  -- Initialization
 
 	make
 			-- Initialization for `Current'.
-		do
-
+		once
+			the_instance := current
 		end
 
 feature {NONE} -- Implementation
+
+	the_instance: SUDOKU_CONTROLLER
 
 	model: SUDOKU_BOARD
 
