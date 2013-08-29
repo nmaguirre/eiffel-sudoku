@@ -18,6 +18,13 @@ feature  -- Initialization
 			the_instance := current
 		end
 
+	set_model (first_model: SUDOKU_BOARD)
+		require
+			model_void: first_model /= void
+		do
+			model := first_model
+		end
+
 	get_controller: SUDOKU_CONTROLLER
 			-- return reference to this object
 		do
