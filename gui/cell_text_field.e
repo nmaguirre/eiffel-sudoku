@@ -38,7 +38,10 @@ feature --init
 			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
 			-- set(current.text.to_integer)
 		else
-			if not current.text.is_empty then
+			if current.text.is_empty then
+				print("No value entered. %N---> Need to unset cell %N")
+				-- unset
+			else
 				print("Value entered : " + current.text + "%N" + "---> Reset %N")
 				current.remove_text
 				-- unset
