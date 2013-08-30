@@ -61,6 +61,7 @@ feature {NONE} -- Initialization
 		end
 
 feature --access
+
 	--allows to set one cell value
 	set_value_of_cell(row,col,value : INTEGER)
 		require
