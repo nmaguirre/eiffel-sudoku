@@ -10,11 +10,11 @@ class
 create
 	make, make_with_random_values
 
-<<<<<<< HEAD
+
 feature {EQA_TEST_SET} -- Initialization
-=======
+
 feature -- Initialization
->>>>>>> 0f079cea2a2534ba982136d9f6f3bcd6b8c4b670
+
 
 	make
 			-- Initializes the board as empty
