@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 
 				-- Execute `request_close_window' when the user clicks
 				-- on the cross in the title bar.
-			close_request_actions.extend (agent request_close_window)
+			close_request_actions.extend (agent request_about_quit)
 
 				-- Set the title of the window
 			set_title (Window_title)
