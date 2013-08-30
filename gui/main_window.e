@@ -147,8 +147,10 @@ feature {NONE} -- Menu Implementation
 			file_menu.extend (separator_item)  	 --Separator
 
 			create menu_item.make_with_text (Menu_file_exit_item)
-			menu_item.select_actions.extend (agent request_close_window)
-			file_menu.extend (menu_item)         --Close
+			menu_item.select_actions.extend (agent request_about_quit)
+			-- menu_item.select_actions.extend (agent request_close_window)
+			file_menu.extend (menu_item)        --Close
+
 		ensure
 			file_menu_created: file_menu /= Void and then not file_menu.is_empty
 		end
@@ -198,6 +200,18 @@ feature -- Implementation, Close event
 				--| TODO: Remove this line if you don't want the application
 				--|       to end when the first window is closed..
 			(create {EV_ENVIRONMENT}).application.destroy
+		end
+
+
+feature -- Implementation, Open About Quit to ask if a user really want to quit the application
+
+	request_about_quit
+		local
+			about_window: ABOUT_QUIT
+		do
+			create about_window
+			about_window.add_close_action(Current)
+			about_window.show
 		end
 
 feature -- Implementation, Open About

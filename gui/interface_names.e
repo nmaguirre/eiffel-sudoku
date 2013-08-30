@@ -12,6 +12,9 @@ feature -- Access
 	Button_ok_item: STRING = "OK"
 			-- String for "OK" buttons.
 
+	Button_cancel_item: STRING = "Cancel"
+			-- String for "Cancel" buttons.			
+
 	Menu_file_item: STRING = "&File"
 			-- String for menu "File"
 
