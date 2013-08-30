@@ -45,9 +45,9 @@ feature -- Initialization
 			board_size: cells.count=81
 		end
 
-	make_with_random_values
+	make_with_random_values(level:INTEGER)
 			-- Initializes the board as with some cells set with random numbers
-
+			-- Level is a parameter indicating how many number will be at the start in the bord
 		local
 			count, random_row, random_col, random_num: INTEGER
 			random_sequence: RANDOM
@@ -57,7 +57,7 @@ feature -- Initialization
 			from
 				count := 1
 			until
-				count > 32
+				count > level
 			loop
 				random_sequence.forth
 				random_num := random_sequence.item \\ 9 + 1

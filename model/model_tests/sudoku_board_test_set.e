@@ -20,7 +20,7 @@ feature -- Test routines
 			board:SUDOKU_BOARD
 		do
 			--create board.make
-			create board.make_with_random_values
+			create board.make_with_random_values(32)
 			assert ("count cells seted ok",board.count_seted_cells=32)
 		end
 end
