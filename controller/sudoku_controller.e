@@ -10,15 +10,49 @@ class
 create
 	make
 
-feature {NONE} -- Initialization
+feature  -- Initialization
 
 	make
 			-- Initialization for `Current'.
-		do
+		once
+			the_instance := current
+		end
 
+	set_main_window (first_window: MAIN_WINDOW)
+			-- set window reference to this controller
+		require
+			first_window_void: first_window /= Void
+		do
+			gui := first_window
+		ensure
+			window_linked: is_window_linked
+		end
+
+
+	set_model (first_model: SUDOKU_BOARD)
+		require
+			model_void: first_model /= void
+		do
+			model := first_model
+		end
+
+	get_controller: SUDOKU_CONTROLLER
+			-- return reference to this object
+		do
+			Result := the_instance
+		end
+
+feature -- Status report
+
+	is_window_linked: BOOLEAN
+			--is window linked  with this controller
+		do
+			Result := (gui /= Void)
 		end
 
 feature {NONE} -- Implementation
+
+	the_instance: SUDOKU_CONTROLLER
 
 	model: SUDOKU_BOARD
 

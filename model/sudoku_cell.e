@@ -49,6 +49,11 @@ feature -- Status report
 	end
 feature -- Status setting
 
+	get_value : INTEGER
+	do
+		Result:= value
+	end
+
 	set_value (new_value: INTEGER)
 		-- sets the cell with new_value
 	require

@@ -34,7 +34,7 @@ feature --init
 
 	control_text
 	do
-		if current.text.is_integer then
+		if current.text.is_integer and (current.text.to_integer>0) and (current.text.to_integer<10) then
 			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
 			-- set(current.text.to_integer)
 		else

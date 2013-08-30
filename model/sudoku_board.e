@@ -8,16 +8,21 @@ class
 	SUDOKU_BOARD
 
 create
-	make
+	make, make_with_random_values
 
-feature {NONE} -- Initialization
+<<<<<<< HEAD
+feature {EQA_TEST_SET} -- Initialization
+=======
+feature -- Initialization
+>>>>>>> 0f079cea2a2534ba982136d9f6f3bcd6b8c4b670
 
 	make
 			-- Initializes the board as empty
 		local
 			i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
+			cell : SUDOKU_CELL
 		do
-			cells.make (9, 9)
+			create cells.make (9, 9)
 			from -- index for the rows
 				i := 1
 			until
@@ -28,7 +33,8 @@ feature {NONE} -- Initialization
 				until
 					j > 9
 				loop
-					cells.item(i,j).set_value (0)
+					create cell.make
+					cells.item (i, j):=cell
 					j := j + 1
 				end -- colums
 				i := i + 1
@@ -72,8 +78,6 @@ feature {NONE} -- Initialization
 
 		end
 
-
-
 feature -- Access
 
 feature -- Measurement
@@ -85,7 +89,7 @@ feature -- Status report
 	require
 		(row > 0 and row < 10) and (col > 0 and col < 10)
 	do
-		Result := cells.item(row, col).value
+		Result := cells.item(row, col).get_value
 	ensure
 		Result >= 0 and Result < 10
 	end
@@ -157,6 +161,34 @@ feature -- Status report
     do
         Result:= is_valid and is_complete
     end
+
+feature{EQA_TEST_SET} --feature only for testing
+
+	count_seted_cells:INTEGER --count the cells that have been seted
+	local
+		i: INTEGER
+		j: INTEGER
+		count:INTEGER
+	do
+		count:=0
+		from
+			i:=1
+		until
+			i>9
+		loop
+			from
+				j:=1
+			until
+				j>9
+			loop
+				if(cell_value(i,j)/=0) then
+					count:=count+1
+				end
+			end
+		end
+		Result:=count
+	end
+
 
 feature -- Status setting
 
