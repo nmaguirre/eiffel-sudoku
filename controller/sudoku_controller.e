@@ -35,4 +35,24 @@ feature {ANY}
         model.set_cell(row, col, value)
 	end
 
+	update_gui
+	local
+		row,col,current_value : INTEGER
+	do
+		-- need to change 1 et 9 by lower and upper
+		from
+			row := 1
+		until
+			row > 9
+		loop
+			from
+				col := 1
+			until
+				col > 9
+			loop
+				current_value := model.cell_value (row, col)
+				gui.set_value_of_cell(row,col,current_value)
+			end
+		end
+	end
 end

@@ -60,6 +60,24 @@ feature {NONE} -- Initialization
 			Result := True
 		end
 
+feature --access
+	--allows to set one cell value
+	set_value_of_cell(row,col,value : INTEGER)
+		require
+			col >= 1 and col <= 9
+			row >= 1 and row <= 9
+			value >= 0 and value <= 9
+		local
+			current_cell : CELL_TEXT_FIELD
+		do
+			current_cell ?= l_table.item_at_position (col, row)
+			if value = 0 then
+				current_cell.set_text ("")
+			else
+				current_cell.set_text (value.out)
+			end
+		end
+
 feature {NONE} -- Menu Implementation
 
 	standard_menu_bar: EV_MENU_BAR
