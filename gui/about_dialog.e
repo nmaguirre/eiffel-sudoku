@@ -134,6 +134,6 @@ feature {NONE} -- Implementation / Constants
 		"YourCompany (R) eiffel_sudoku%N%
 		%Version 1.0%N%
 		%%N%
-		%Copyright (C) 2001 YourCompany"
+		%Copyright (C) 2013 YourCompany"
 
 end -- class ABOUT_DIALOG
