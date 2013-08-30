@@ -117,20 +117,38 @@ feature {NONE} -- Menu Implementation
 		require
 			file_menu_not_yet_created: file_menu = Void
 		local
-			menu_item: EV_MENU_ITEM
+			menu_item : EV_MENU_ITEM
 			separator_item : EV_MENU_SEPARATOR
 		do
 			create file_menu.make_with_text (Menu_file_item)
 
 			create menu_item.make_with_text (Menu_file_new_item)
-			file_menu.extend (menu_item)
+			file_menu.extend (menu_item)    	-- New
+
+			create menu_item.make_with_text (Menu_file_close_item)
+		    file_menu.extend (menu_item)   		-- Close
 
 			create separator_item.default_create
-			file_menu.extend (separator_item)
+			file_menu.extend (separator_item) 	-- Separator
+
+            create menu_item.make_with_text (Menu_file_save_item)
+			file_menu.extend (menu_item)     	-- Save
+
+			create menu_item.make_with_text (Menu_file_saveas_item)
+			file_menu.extend (menu_item)       	-- Save All
+
+			create separator_item.default_create
+			file_menu.extend (separator_item) 	-- Separator
+
+			create menu_item.make_with_text (Menu_file_open_item)
+			file_menu.extend (menu_item)    	-- Open
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 --Separator
 
 			create menu_item.make_with_text (Menu_file_exit_item)
 			menu_item.select_actions.extend (agent request_close_window)
-			file_menu.extend (menu_item)
+			file_menu.extend (menu_item)         --Close
 		ensure
 			file_menu_created: file_menu /= Void and then not file_menu.is_empty
 		end
