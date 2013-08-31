@@ -41,7 +41,7 @@ feature -- Initialization
 			end -- rows
 
 		ensure
-			board_created: cells /= void and not is_complete and is_valid and not is_solved
+			board_created: cells /= void and not is_complete -- and is_valid and not is_solved
 			board_size: cells.count=81
 		end
 
@@ -52,7 +52,7 @@ feature -- Initialization
 			count, random_row, random_col, random_num: INTEGER
 			random_sequence: RANDOM
 		do
-			cells.make (9, 9)
+			create cells.make (9, 9)
 			create random_sequence.make
 			from
 				count := 1
@@ -104,12 +104,12 @@ feature -- Status report
 		from -- index for the rows
 			i := 1
 		until
-			i > 9 and filled
+			i > 9 or not filled
 		loop
 			from -- index for the colums
 				j := 1
 			until
-				j > 9 and filled
+				j > 9 or not filled
 			loop
 				if cell_value(i,j) = 0 then
 					filled := false
@@ -328,4 +328,37 @@ feature {NONE} -- Implementation
         end
         Result:= flag
     end
+
+feature -- out
+
+	print_sudoku
+	local
+		row, col : INTEGER
+		current_value : INTEGER
+	do
+		from
+			row := 1
+		until
+			row > 9
+		loop
+			print("| ")
+			from
+				col := 1
+			until
+				col > 9
+			loop
+				current_value := cell_value(row,col)
+				if current_value = 0 then
+					print("  | ");
+				else
+					print(current_value.out + " | ");
+				end
+				col := col + 1
+			end
+			print("%N");
+			row := row + 1
+		end
+	end
+
+
 end
