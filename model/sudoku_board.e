@@ -150,7 +150,7 @@ feature -- Status report
             until
                 j > 9 or repeated
             loop
-            	print("Check square at (" + i.out + "," + j.out + ")")
+            	
                 repeated := repeated_elements_in_square(i,j)
                 j:= j + 3
             end
