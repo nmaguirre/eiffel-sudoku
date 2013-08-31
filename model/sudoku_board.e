@@ -130,7 +130,7 @@ feature -- Status report
         --first check all rows and columns.
         j:= 1
         from
-            i:= 1
+            i := 1
         until
             i > 9 or repeated
         loop
@@ -148,14 +148,15 @@ feature -- Status report
             from
                 j := 1
             until
-                j > 9 and not repeated
+                j > 9 or repeated
             loop
-                repeated:= repeated_elements_in_square(i,i)
+            	print("Check square at (" + i.out + "," + j.out + ")")
+                repeated := repeated_elements_in_square(i,j)
                 j:= j + 3
             end
             i := i + 3
         end
-        Result:= repeated
+        Result := repeated
     end
 		-- is the board solved? (valid and complete)
 	is_solved: BOOLEAN
@@ -222,7 +223,7 @@ feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
 
-    -- Return true if there are no repeated elements in each row.
+    -- Return true if there are repeated elements in each row.
     repeated_element_in_row(row: INTEGER): BOOLEAN
     local
         i, j: INTEGER --Index for the columns.
@@ -249,10 +250,10 @@ feature {NONE} -- Implementation
             end
             i:= i + 1
         end
-        Result:= not repeat
+        Result:= repeat
     end
 
-    -- Return true if there are no repeated elements in each row.
+    -- Return true if there are repeated elements in each row.
     repeated_element_in_col(col: INTEGER): BOOLEAN
     local
         i, j: INTEGER -- Index for the rows
@@ -278,10 +279,10 @@ feature {NONE} -- Implementation
             end
             i:= i + 1
         end
-        Result:= not repeat
+        Result:= repeat
     end
 
-    -- Return true if there are no repeated elements in each row and in each col of square 3x3.
+    -- Return true if there are repeated elements in each row and in each col of square 3x3.
     repeated_elements_in_square(row, col: INTEGER): BOOLEAN
     local
         i, j, i_aux: INTEGER
@@ -294,12 +295,12 @@ feature {NONE} -- Implementation
         from
             i:= row
         until
-            i > row + 3
+            i > row + 2
         loop
             from
                 j:= col
             until
-                j > col + 3
+                j > col + 2
             loop
                 aux[i_aux]:= cell_value(i, j)
                 j:= j + 1
@@ -329,7 +330,7 @@ feature {NONE} -- Implementation
             end
             i:= i + 1
         end
-        Result:= not repeat
+        Result:= repeat
     end
 
 feature -- out
