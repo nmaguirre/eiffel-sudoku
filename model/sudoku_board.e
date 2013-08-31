@@ -136,9 +136,7 @@ feature -- Status report
         until
             i > 9 or repeated
         loop
-            if repeated_element_in_row(i) or repeated_element_in_col(i) then
-                repeated:= true
-            end
+            repeated:= repeated_element_in_row(i) or repeated_element_in_col(i)
             i := i + 1
         end
         -- now check sub boards valids in the main board.
@@ -152,12 +150,12 @@ feature -- Status report
             until
                 j > 9 or repeated
             loop
-
-                repeated := repeated_elements_in_square(i,j)
+	            repeated := repeated_elements_in_square(i,j)
                 j:= j + 3
             end
             i := i + 3
         end
+        --valid if nothing is repeated
         Result := not repeated
     end
 		-- is the board solved? (valid and complete)
