@@ -41,7 +41,9 @@ feature -- Initialization
 			end -- rows
 
 		ensure
-			board_created: cells /= void and not is_solved
+			board_created: cells /= void
+			not is_complete
+			is_valid
 			board_size: cells.count=81
 		end
 
@@ -150,13 +152,13 @@ feature -- Status report
             until
                 j > 9 or repeated
             loop
-            	
+
                 repeated := repeated_elements_in_square(i,j)
                 j:= j + 3
             end
             i := i + 3
         end
-        Result := repeated
+        Result := not repeated
     end
 		-- is the board solved? (valid and complete)
 	is_solved: BOOLEAN
