@@ -41,7 +41,7 @@ feature -- Initialization
 			end -- rows
 
 		ensure
-			board_created: cells /= void and not is_complete -- and is_valid and not is_solved
+			board_created: cells /= void and not is_solved
 			board_size: cells.count=81
 		end
 
@@ -132,27 +132,28 @@ feature -- Status report
         from
             i:= 1
         until
-            i > 9 and not repeated
+            i > 9 or repeated
         loop
             if repeated_element_in_row(i) or repeated_element_in_col(i) then
                 repeated:= true
             end
+            i := i + 1
         end
         -- now check sub boards valids in the main board.
         from
             i:=1
         until
-            i > 9 and not repeated
+            i > 9 or repeated
         loop
             from
-                j:=1
+                j := 1
             until
                 j > 9 and not repeated
             loop
                 repeated:= repeated_elements_in_square(i,i)
                 j:= j + 3
             end
-            i:= i + 3
+            i := i + 3
         end
         Result:= repeated
     end
@@ -221,70 +222,71 @@ feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
 
-    -- Return true iff there are not repeated elements in each row.
+    -- Return true if there are no repeated elements in each row.
     repeated_element_in_row(row: INTEGER): BOOLEAN
     local
         i, j: INTEGER --Index for the columns.
-        flag: BOOLEAN --False if repeating elements in row.
+        repeat : BOOLEAN --True if repeating elements in row.
     do
-        flag:= true
+        repeat := false
+
         from
             i := 1
         until
-            i > 9 and flag
+            i > 9 or repeat
         loop
             if cell_value(row, i) /= 0 then
                 from
                     j:= 1
                 until
-                    j > 9 and flag
+                    j > 9 or repeat
                 loop
                     if i /= j and cell_value(row, i) = cell_value(row, j) then
-                        flag := false
+                        repeat := true
                     end
                     j:= j + 1
                 end
             end
             i:= i + 1
         end
-        Result:= flag
+        Result:= not repeat
     end
 
-    -- Return true iff there are not repeated elements in each row.
+    -- Return true if there are no repeated elements in each row.
     repeated_element_in_col(col: INTEGER): BOOLEAN
     local
         i, j: INTEGER -- Index for the rows
-        flag: BOOLEAN --False if repeating elements in col.
+        repeat : BOOLEAN --true if repeating elements in col.
     do
-        flag:= true
+    	repeat := false
         from
             i := 1
         until
-            i > 9 and flag
+            i > 9 or repeat
         loop
             if cell_value(i, col) /= 0 then
                 from
                     j:= 1
                 until
-                    j > 9 and flag
+                    j > 9 or repeat
                 loop
                     if i /= j and cell_value(i, col) = cell_value(j, col) then
-                        flag := false
+                    	repeat := true
                     end
                     j:= j + 1
                 end
             end
             i:= i + 1
         end
-        Result:= flag
+        Result:= not repeat
     end
 
-    -- Return true iff there are not repeated elements in each row and in each col of square 3x3.
+    -- Return true if there are no repeated elements in each row and in each col of square 3x3.
     repeated_elements_in_square(row, col: INTEGER): BOOLEAN
     local
         i, j, i_aux: INTEGER
         aux: ARRAY[INTEGER]
-        flag: BOOLEAN
+        repeat : BOOLEAN
     do
         --Load sub_board in aux array.
         i_aux:= 1
@@ -306,27 +308,28 @@ feature {NONE} -- Implementation
             i:= i + 1
         end
         --Verify repeated elements in aux array.
-        flag:= true
+        repeat := false
         from
             i := 1
         until
-            i > 9 and flag
+            i > 9 or repeat
         loop
             if aux[i] /= 0 then
                 from
-                    j:= 1
+                	--from the one after i to the last one no need to start at 1
+                    j := i + 1
                 until
-                    j > 9 and flag
+                    j > 9 or repeat
                 loop
-                    if i /= j and aux[i] = aux[j] then
-                        flag := false
+                    if aux[i] = aux[j] then
+                        repeat := true
                     end
                     j:= j + 1
                 end
             end
             i:= i + 1
         end
-        Result:= flag
+        Result:= not repeat
     end
 
 feature -- out
