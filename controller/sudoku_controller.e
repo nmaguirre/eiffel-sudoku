@@ -97,7 +97,7 @@ feature{ANY}
 	local
 		new_model:SUDOKU_BOARD
 	do
-		create new_model.make
+		create new_model.make_with_random_values (32)
 		set_model(new_model)
 		update_gui
 

@@ -61,7 +61,7 @@ feature -- Status setting
 	do
 		value:=new_value
 	ensure
-		value = new_value and is_set = true
+		value = new_value --and is_set = true set_value is used for set with 0 too!!!
 	end
 
 invariant

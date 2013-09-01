@@ -22,7 +22,7 @@ feature -- Initialization
 			i, j : INTEGER -- indexes used to pass through the matrix of SUDOKU_CELL
 			cell : SUDOKU_CELL
 		do
-			create cells.make (9, 9)
+			create cells.make (9, 9) --Need to inicialize cells, because they are void
 			from -- index for the rows
 				i := 1
 			until
@@ -54,7 +54,7 @@ feature -- Initialization
 			count, random_row, random_col, random_num: INTEGER
 			random_sequence: RANDOM
 		do
-			create cells.make (9, 9)
+			current.make
 			create random_sequence.make
 			from
 				count := 1
