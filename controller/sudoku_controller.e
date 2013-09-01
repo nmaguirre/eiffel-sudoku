@@ -86,7 +86,26 @@ feature {ANY}
 			loop
 				current_value := model.cell_value (row, col)
 				gui.set_value_of_cell(row,col,current_value)
+				col:=col+1
 			end
+			row:=row+1
 		end
 	end
+
+feature{ANY}
+	reset_game
+	local
+		new_model:SUDOKU_BOARD
+	do
+		create new_model.make
+		set_model(new_model)
+		update_gui
+
+	end
+
+	set_gui(view:MAIN_WINDOW)
+	do
+		gui:=view
+	end
+
 end

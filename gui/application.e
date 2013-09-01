@@ -35,6 +35,11 @@ feature {NONE} -- Initialization
 				--| TODO: Remove this line if you don't want the first
 				--|       window to be shown at the start of the program.
 			first_window.show
+
+			--conect controller with gui
+			create controller.make -- controller create
+			first_window.set_controller(controller) -- set a controller in main windows
+			controller.set_gui(first_window) --set a gui in controller
 		end
 
 feature {NONE} -- Implementation

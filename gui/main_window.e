@@ -123,7 +123,8 @@ feature {NONE} -- Menu Implementation
 			create file_menu.make_with_text (Menu_file_item)
 
 			create menu_item.make_with_text (Menu_file_new_item)
-			file_menu.extend (menu_item)    	-- New
+			menu_item.select_actions.extend (agent request_about_new) --controller for click in new
+ 			file_menu.extend (menu_item)    	-- New
 
 			create menu_item.make_with_text (Menu_file_close_item)
 		    file_menu.extend (menu_item)   		-- Close
@@ -291,6 +292,16 @@ feature {NONE} -- Implementation
 			main_container_created: main_container /= Void
 		end
 
+		request_about_new
+		do
+			controller.reset_game
+		end
+
+	feature {ANY}
+		set_controller(ctller:SUDOKU_CONTROLLER)
+	do
+		controller:=ctller
+	end
 
 
 
@@ -310,6 +321,7 @@ feature {NONE} -- Implementation / Constants
 
 	mine_icon: EV_PIXMAP
 
+	controller: SUDOKU_CONTROLLER
 
 feature {ANY}
 
