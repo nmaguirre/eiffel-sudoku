@@ -238,11 +238,11 @@ feature {NONE} -- Implementation
         loop
             if cell_value(row, i) /= 0 then
                 from
-                    j:= 1
+                    j:= i + 1
                 until
                     j > 9 or repeat
                 loop
-                    if i /= j and cell_value(row, i) = cell_value(row, j) then
+                    if cell_value(row, i) = cell_value(row, j) then
                         repeat := true
                     end
                     j:= j + 1
@@ -267,11 +267,11 @@ feature {NONE} -- Implementation
         loop
             if cell_value(i, col) /= 0 then
                 from
-                    j:= 1
+                    j:= i + 1
                 until
                     j > 9 or repeat
                 loop
-                    if i /= j and cell_value(i, col) = cell_value(j, col) then
+                    if cell_value(i, col) = cell_value(j, col) then
                     	repeat := true
                     end
                     j:= j + 1
