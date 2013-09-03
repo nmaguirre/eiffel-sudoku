@@ -36,15 +36,15 @@ feature --init
 	do
 		if current.text.is_integer and (current.text.to_integer>0) and (current.text.to_integer<10) then
 			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
-			-- set(current.text.to_integer)
+			set(current.text.to_integer)
 		else
 			if current.text.is_empty then
 				print("No value entered. %N---> Need to unset cell %N")
-				-- unset
+				unset
 			else
 				print("Value entered : " + current.text + "%N" + "---> Reset %N")
 				current.remove_text
-				-- unset
+				unset
 			end
 		end
 	end
@@ -60,8 +60,7 @@ feature -- Status Setting
 
     unset
     	do
-    		current.remove_text;
-            controller.set_cell(row, col, 0)
+            controller.unset_cell(row,col)
     	end
 
 feature -- Controller setting

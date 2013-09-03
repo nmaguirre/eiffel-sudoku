@@ -297,12 +297,43 @@ feature {NONE} -- Implementation
 			controller.reset_game
 		end
 
-	feature {ANY}
+
+feature {ANY} -- setters
 		set_controller(ctller:SUDOKU_CONTROLLER)
+	require
+		ctller /= Void
 	do
 		controller:=ctller
+		set_controller_for_each_cell
 	end
 
+feature {NONE} -- setter private
+
+	-- Set the controller in each cell
+	set_controller_for_each_cell
+	require
+		controller /= Void
+	local
+		current_cell : CELL_TEXT_FIELD
+		row, col : INTEGER
+	do
+		from
+			row := 1
+		until
+			row > 9
+		loop
+			from
+				col := 1
+			until
+				col > 9
+			loop
+				current_cell ?= l_table.item_at_position (col, row)
+				current_cell.set_controller (controller)
+				col := col + 1
+			end
+			row := row + 1
+		end
+	end
 
 
 

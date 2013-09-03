@@ -16,6 +16,7 @@ feature  -- Initialization
 			-- Initialization for `Current'.
 		once
 			the_instance := current
+			create model.make
 		end
 
 	set_main_window (first_window: MAIN_WINDOW)
@@ -67,6 +68,17 @@ feature {ANY}
         set_cell_value: value>=1 and value<=9
 	do
         model.set_cell(row, col, value)
+	end
+
+	unset_cell (row,col : INTEGER)
+	require
+        unset_cell_row: row>=0 and row<=9
+        unset_cell_col: col>=0 and col<=9
+	do
+		--if cell is not set then we can't do anything
+		if model.cell_value (row, col) /= 0 then
+			model.unset_cell (row, col)
+		end
 	end
 
 	update_gui
