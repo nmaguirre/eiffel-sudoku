@@ -53,9 +53,18 @@ feature -- Initialization
 		local
 			count, random_row, random_col, random_num: INTEGER
 			random_sequence: RANDOM
+			l_time: TIME
+      		l_seed: INTEGER
 		do
 			current.make
 			create random_sequence.make
+			create l_time.make_now
+      		l_seed := l_time.hour
+      		l_seed := l_seed * 60 + l_time.minute
+      		l_seed := l_seed * 60 + l_time.second
+      		l_seed := l_seed * 1000 + l_time.milli_second
+			create random_sequence.set_seed (l_seed)
+			-- change seed
 			from
 				count := 1
 			until
