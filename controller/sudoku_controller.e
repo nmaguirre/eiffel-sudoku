@@ -103,9 +103,4 @@ feature{ANY}
 
 	end
 
-	set_gui(view:MAIN_WINDOW)
-	do
-		gui:=view
-	end
-
 end

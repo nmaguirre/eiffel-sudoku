@@ -39,7 +39,7 @@ feature {NONE} -- Initialization
 			--conect controller with gui
 			create controller.make -- controller create
 			first_window.set_controller(controller) -- set a controller in main windows
-			controller.set_gui(first_window) --set a gui in controller
+			controller.set_main_window(first_window) --set a gui in controller
 		end
 
 feature {NONE} -- Implementation
