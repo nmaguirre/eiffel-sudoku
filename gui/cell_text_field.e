@@ -60,7 +60,7 @@ feature -- Status Setting
 
     unset
     	do
-    		current.set_text (" ");
+    		current.remove_text;
             controller.set_cell(row, col, 0)
     	end
 
