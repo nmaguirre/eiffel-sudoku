@@ -1,8 +1,8 @@
 note
-    description: "Text field for a cell of the SUDOKU board"
-    author: ""
-    date: "$Date$"
-    revision: "$Revision$"
+    description	: "Text field for a cell of the SUDOKU board"
+    author		: ""
+    date		: "Date"
+    revision	: "Revision"
 
 class
     CELL_TEXT_FIELD
