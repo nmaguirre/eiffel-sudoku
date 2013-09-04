@@ -57,7 +57,7 @@ feature -- Status setting
 		end
 
 	set_value (new_value: INTEGER)
-		-- ets the cell with new_value
+		-- Sets the cell with new_value
 		require
 			new_value >= 0 and new_value < 10
 		do
