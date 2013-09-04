@@ -77,12 +77,14 @@ feature {NONE} -- Initialization
 
 			create main_horizontal_box
 			main_horizontal_box.set_border_width (7)
+			
 			create ev_cell
 			ev_cell.set_minimum_width (21)
 			main_horizontal_box.extend (ev_cell)
 			main_horizontal_box.disable_item_expand (ev_cell)
 			main_horizontal_box.extend (left_vertical_box)
 			main_horizontal_box.disable_item_expand (left_vertical_box)
+			
 			create ev_cell
 			ev_cell.set_minimum_width (28)
 			main_horizontal_box.extend (ev_cell)
