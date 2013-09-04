@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {SUDOKU_CONTROLLER}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description	: "{SUDOKU_CONTROLLER}.Receive a number from the GUI then sends it to Model. Checks if sudoku is completed. Update the GUI when creating a board"
+	author		: ""
+	date		: "04/09/2013"
+	revision	: "0.1"
 
 class
 	SUDOKU_CONTROLLER
@@ -20,7 +20,7 @@ feature  -- Initialization
 		end
 
 	set_main_window (first_window: MAIN_WINDOW)
-			-- set window reference to this controller
+			-- Set window reference to this controller
 		require
 			first_window_void: first_window /= Void
 		do
@@ -38,7 +38,7 @@ feature  -- Initialization
 		end
 
 	get_controller: SUDOKU_CONTROLLER
-			-- return reference to this object
+			-- Return reference to this object
 		do
 			Result := the_instance
 		end
@@ -46,7 +46,7 @@ feature  -- Initialization
 feature -- Status report
 
 	is_window_linked: BOOLEAN
-			--is window linked  with this controller
+			-- Is window linked  with this controller
 		do
 			Result := (gui /= Void)
 		end
@@ -62,57 +62,56 @@ feature {NONE} -- Implementation
 feature {ANY}
 
  	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
-    require
-        set_cell_row: row>=0 and row<=9
-        set_cell_col: col>=0 and col<=9
-        set_cell_value: value>=1 and value<=9
-	do
-        model.set_cell(row, col, value)
-	end
+    	require
+        	set_cell_row: row>=0 and row<=9
+        	set_cell_col: col>=0 and col<=9
+        	set_cell_value: value>=1 and value<=9
+		do
+        	model.set_cell(row, col, value)
+		end
 
 	unset_cell (row,col : INTEGER)
-	require
-        unset_cell_row: row>=0 and row<=9
-        unset_cell_col: col>=0 and col<=9
-	do
-		--if cell is not set then we can't do anything
+		require
+        	unset_cell_row: row>=0 and row<=9
+        	unset_cell_col: col>=0 and col<=9
+		do
+			--if cell is not set then we can't do anything
 		if model.cell_value (row, col) /= 0 then
 			model.unset_cell (row, col)
+			end
 		end
-	end
 
 	update_gui
-	local
-		row,col,current_value : INTEGER
-	do
+		local
+			row,col,current_value : INTEGER
+		do
 		-- need to change 1 et 9 by lower and upper
-		from
-			row := 1
-		until
-			row > 9
-		loop
 			from
-				col := 1
+				row := 1
 			until
-				col > 9
+				row > 9
 			loop
-				current_value := model.cell_value (row, col)
-				gui.set_value_of_cell(row,col,current_value)
-				col:=col+1
+				from
+					col := 1
+				until
+					col > 9
+				loop
+					current_value := model.cell_value (row, col)
+					gui.set_value_of_cell(row,col,current_value)
+					col:=col+1
+				end
+				row:=row+1
 			end
-			row:=row+1
 		end
-	end
 
 feature{ANY}
+
 	reset_game
-	local
-		new_model:SUDOKU_BOARD
-	do
-		create new_model.make_with_random_values (32)
-		set_model(new_model)
-		update_gui
-
-	end
-
+		local
+			new_model:SUDOKU_BOARD
+		do
+			create new_model.make_with_random_values (32)
+			set_model(new_model)
+			update_gui
+		end
 end
