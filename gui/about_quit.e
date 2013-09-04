@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {ABOUT_QUIT}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description	: "Summary description for {ABOUT_QUIT}."
+	author		: ""
+	date		: "Date"
+	revision	: "Revision"
 
 class
 	ABOUT_QUIT
