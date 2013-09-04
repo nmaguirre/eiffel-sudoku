@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {SUDOKU_BOARD}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description	: "{SUDOKU_BOARD}.Initialization of the board, comprising 81 cells.Established with random values"
+	author		: ""
+	date		: "04/09/2013"
+	revision	: "0.1"
 
 class
 	SUDOKU_BOARD
