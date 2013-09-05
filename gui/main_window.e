@@ -292,9 +292,15 @@ feature {NONE} -- Implementation
 			main_container_created: main_container /= Void
 		end
 
+feature {ANY}
 		request_about_new
+		local
+			select_level:ABOUT_NEW
+
 		do
-			controller.reset_game
+			create select_level
+			select_level.set_controller (controller)
+			select_level.show
 		end
 
 

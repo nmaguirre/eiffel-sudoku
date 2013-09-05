@@ -117,11 +117,11 @@ feature {ANY}
 
 feature{ANY}
 
-	reset_game
+	reset_game(level:INTEGER)
 		local
 			new_model:SUDOKU_BOARD
 		do
-			create new_model.make_with_random_values (32)
+			create new_model.make_with_random_values (level)
 			set_model(new_model)
 			update_gui
 		end
