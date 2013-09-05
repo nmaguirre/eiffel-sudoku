@@ -11,16 +11,16 @@ create
 	make, make_with_value
 
 feature -- Initialization
-
 	make
 		-- Default constructor of class.
 		-- Makes the cell "empty", i.e., unset.
-		do
-			value:= 0
-		ensure
-			-- is_set value is false and value is initially 0
-			is_set = False and value = 0
-		end
+	do
+		value:= 0
+		settable:=true --celd settable default
+	ensure
+		-- is_set value is false and value is initially 0
+		is_set = false and value = 0
+	end
 
 		make_with_value (new_value: INTEGER)
 			-- Constructor of the class
@@ -39,6 +39,9 @@ feature -- Access
 
 	value: INTEGER assign set_value
 		-- Value of the cell. When set, contains a valid value between 1 and 9
+	settable: BOOLEAN
+		-- field that indicates if cell is settable. You can't change cell that has been initialized at beginning
+
 
 feature -- Status report
 
@@ -65,6 +68,12 @@ feature -- Status setting
 		ensure
 			value = new_value -- and is_set = true set_value is used for set with 0 too!!!
 		end
+
+feature{ANY}
+	is_settable(val:BOOLEAN)
+	do
+		settable:=val
+	end
 
 invariant
 
