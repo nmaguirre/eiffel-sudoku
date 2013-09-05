@@ -201,6 +201,7 @@ feature{EQA_TEST_SET} --feature only for testing
 	end
 
 
+
 feature -- Status setting
 
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
@@ -373,7 +374,7 @@ feature -- out
 		end
 	end
 
-invariant
-	sudoku_valid: is_valid
+-- invariant
+--	sudoku_valid: is_valid
 
 end
