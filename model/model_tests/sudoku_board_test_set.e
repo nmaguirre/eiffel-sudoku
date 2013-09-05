@@ -21,6 +21,7 @@ feature -- Test routines
 		do
 			--create board.make
 			create board.make_with_random_values(32)
+			print(board.count_seted_cells)
 			assert ("count cells seted ok",board.count_seted_cells=32)
 		end
 

@@ -77,12 +77,14 @@ feature -- Initialization
 				random_row := random_sequence.item \\ 9 + 1
 				random_sequence.forth
 				random_col := random_sequence.item \\ 9 + 1
-				valid:=set_cell (random_row, random_col, random_num)
-				if valid then
-					count := count + 1
-					cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
-				else
-					unset_cell(random_row,random_col)
+				if(cell_value(random_row,random_col)=0)then
+					valid:=set_cell (random_row, random_col, random_num)
+					if valid then
+						count := count + 1
+						cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
+					else
+						unset_cell(random_row,random_col)
+					end
 				end
 			end
 
@@ -194,7 +196,9 @@ feature{EQA_TEST_SET} --feature only for testing
 				if(cell_value(i,j)/=0) then
 					count:=count+1
 				end
+				j:=j+1
 			end
+			i:=i+1
 		end
 		Result:=count
 	end
