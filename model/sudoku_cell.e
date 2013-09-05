@@ -19,7 +19,7 @@ feature -- Initialization
 			value:= 0
 		ensure
 			-- is_set value is false and value is initially 0
-			is_set = False and value = 0
+			not is_set
 		end
 
 		make_with_value (new_value: INTEGER)
@@ -37,7 +37,7 @@ feature -- Initialization
 
 feature -- Access
 
-	value: INTEGER assign set_value
+	value: INTEGER 
 		-- Value of the cell. When set, contains a valid value between 1 and 9
 
 feature -- Status report
