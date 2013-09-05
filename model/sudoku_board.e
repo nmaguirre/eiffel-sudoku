@@ -81,6 +81,7 @@ feature -- Initialization
 					set_cell (random_row, random_col, random_num)
 					if is_valid then
 						count := count + 1
+						cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
 					else
 						unset_cell(random_row, random_col)
 					end
@@ -372,6 +373,12 @@ feature -- out
 			print("%N");
 			row := row + 1
 		end
+	end
+
+feature {ANY}
+	cell_is_settable(row,col:INTEGER):BOOLEAN
+	do
+		Result:= cells.item (row, col).settable
 	end
 
 -- invariant
