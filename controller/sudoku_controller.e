@@ -61,18 +61,19 @@ feature {NONE} -- Implementation
 
 feature {ANY}
 
-	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
+	set_cell (row: INTEGER; col: INTEGER; value: INTEGER):BOOLEAN
     require
         set_cell_row: row>=0 and row<=9
         set_cell_col: col>=0 and col<=9
         set_cell_value: value>=1 and value<=9
 	do
         if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
- 			model.set_cell(row, col, value)
+ 			Result:=model.set_cell(row, col, value)
         else
         	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
-        		      update_gui
+        		update_gui
         	end
+        	Result:=False
 		end
 	end
 

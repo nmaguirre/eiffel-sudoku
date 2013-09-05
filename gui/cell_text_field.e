@@ -36,7 +36,11 @@ feature --init
 	do
 		if current.text.is_integer and (current.text.to_integer>0) and (current.text.to_integer<10) then
 			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
-			set(current.text.to_integer)
+			if not set(current.text.to_integer) then
+				print_red
+			else
+				print_default
+			end
 		else
 			if current.text.is_empty then
 				print("No value entered. %N---> Need to unset cell %N")
@@ -50,12 +54,34 @@ feature --init
 	end
 
 feature -- Status Setting
+	print_red
+	local
+		color: EV_COLOR
+	do
+		create color.make_with_rgb (1, 0, 0)
+		current.set_background_color (color)
+	end
 
-    set (value: INTEGER)
+	print_default
+		local
+	a_color,b_color: EV_COLOR
+
+		do
+			create a_color.make_with_rgb(0.6,0.6,0.6)
+			create b_color.make_with_rgb (0.9,0.9,0.9)
+			if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
+						current.set_background_color (b_color)
+					else
+						current.set_background_color (a_color)
+					end
+
+		end
+
+    set (value: INTEGER):BOOLEAN
         require
             value>=0 and value<=9
         do
-            controller.set_cell(row, col, value)
+            Result:=controller.set_cell(row, col, value)
         end
 
     unset

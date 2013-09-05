@@ -77,14 +77,9 @@ feature -- Initialization
 				random_sequence.forth
 				random_col := random_sequence.item \\ 9 + 1
 
-				if cell_value(random_row, random_col) = 0 then
-					set_cell (random_row, random_col, random_num)
-					if is_valid then
-						count := count + 1
-						cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
-					else
-						unset_cell(random_row, random_col)
-					end
+				if set_cell (random_row, random_col, random_num) then
+					count := count + 1
+					cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
 				end
 			end
 
@@ -205,15 +200,19 @@ feature{EQA_TEST_SET} --feature only for testing
 
 feature -- Status setting
 
-	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
+	set_cell (row: INTEGER; col: INTEGER; value: INTEGER): BOOLEAN
     require
         set_cell_row: row>=0 and row<=9
         set_cell_col: col>=0 and col<=9
         set_cell_value: value>=1 and value<=9
 	do
 		cells.item(row,col).set_value (value)
+		if not is_valid then
+			cells.item (row, col).set_value (0)
+		end
+		Result:=cells.item (row, col).get_value/=0
     ensure
-        cell_value(row, col) = value
+        (cell_value(row, col) = value and is_valid) or (cell_value(row, col) = 0 and is_valid)
 	end
 
 	--Description: this routine unsets the value of the cell at row "row" and column "col"

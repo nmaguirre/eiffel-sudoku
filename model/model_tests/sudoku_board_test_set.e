@@ -13,7 +13,7 @@ inherit
 feature -- Test routines
 
 	test_random_values_count_32
-			
+
 		note
 			testing:  "covers/{SUDOKU_BOARD}.make_whit_random_values"
 		local
@@ -63,9 +63,10 @@ feature -- Test routines
 		test_cel_value
 			local
 				board:SUDOKU_BOARD
+				valid: BOOLEAN
 			do
 				create board.make
-				board.set_cell (1, 1, 1)
-				assert("cell value = 1", board.cell_value (1, 1)=1)
+				valid:=board.set_cell (1, 1, 1)
+				assert("cell value = 1", valid)
 			end
 end
