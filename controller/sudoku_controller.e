@@ -61,25 +61,36 @@ feature {NONE} -- Implementation
 
 feature {ANY}
 
- 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
-    	require
-        	set_cell_row: row>=0 and row<=9
-        	set_cell_col: col>=0 and col<=9
-        	set_cell_value: value>=1 and value<=9
-		do
-        	model.set_cell(row, col, value)
+	set_cell (row: INTEGER; col: INTEGER; value: INTEGER)
+    require
+        set_cell_row: row>=0 and row<=9
+        set_cell_col: col>=0 and col<=9
+        set_cell_value: value>=1 and value<=9
+	do
+        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
+ 			model.set_cell(row, col, value)
+        else
+        	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+        		      update_gui
+        	end
 		end
+	end
 
-	unset_cell (row,col : INTEGER)
-		require
-        	unset_cell_row: row>=0 and row<=9
-        	unset_cell_col: col>=0 and col<=9
-		do
-			--if cell is not set then we can't do anything
-		if model.cell_value (row, col) /= 0 then
+
+	unset_cell (row,col : INTEGER) --VER se recursiona el update de gui
+	require
+        unset_cell_row: row>=0 and row<=9
+        unset_cell_col: col>=0 and col<=9
+	do
+		--if cell is not set then we can't do anything
+		if model.cell_value (row, col) /= 0 and model.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
 			model.unset_cell (row, col)
+		else
+			if model.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
+				update_gui
 			end
 		end
+	end
 
 	update_gui
 		local
