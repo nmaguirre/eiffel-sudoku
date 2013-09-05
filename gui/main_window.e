@@ -126,9 +126,6 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_new) --controller for click in new
  			file_menu.extend (menu_item)    	-- New
 
-			create menu_item.make_with_text (Menu_file_close_item)
-		    file_menu.extend (menu_item)   		-- Close
-
 			create separator_item.default_create
 			file_menu.extend (separator_item) 	-- Separator
 
@@ -149,7 +146,6 @@ feature {NONE} -- Menu Implementation
 
 			create menu_item.make_with_text (Menu_file_exit_item)
 			menu_item.select_actions.extend (agent request_about_quit)
-			-- menu_item.select_actions.extend (agent request_close_window)
 			file_menu.extend (menu_item)        --Close
 
 		ensure
