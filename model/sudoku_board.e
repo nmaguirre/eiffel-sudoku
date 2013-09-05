@@ -373,5 +373,7 @@ feature -- out
 		end
 	end
 
+invariant
+	sudoku_valid: is_valid
 
 end
