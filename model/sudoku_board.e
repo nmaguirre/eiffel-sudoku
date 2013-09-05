@@ -55,6 +55,7 @@ feature -- Initialization
 			random_sequence: RANDOM
 			l_time: TIME
       		l_seed: INTEGER
+      		valid: BOOLEAN
 		do
 			current.make
 			create random_sequence.make
@@ -76,10 +77,12 @@ feature -- Initialization
 				random_row := random_sequence.item \\ 9 + 1
 				random_sequence.forth
 				random_col := random_sequence.item \\ 9 + 1
-
-				if set_cell (random_row, random_col, random_num) then
+				valid:=set_cell (random_row, random_col, random_num)
+				if valid then
 					count := count + 1
 					cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
+				else
+					unset_cell(random_row,random_col)
 				end
 			end
 
@@ -207,12 +210,9 @@ feature -- Status setting
         set_cell_value: value>=1 and value<=9
 	do
 		cells.item(row,col).set_value (value)
-		if not is_valid then
-			cells.item (row, col).set_value (0)
-		end
-		Result:=cells.item (row, col).get_value/=0
+		Result:=is_valid
     ensure
-        (cell_value(row, col) = value and is_valid) or (cell_value(row, col) = 0 and is_valid)
+        cell_value(row, col) = value
 	end
 
 	--Description: this routine unsets the value of the cell at row "row" and column "col"

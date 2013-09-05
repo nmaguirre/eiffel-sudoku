@@ -87,6 +87,7 @@ feature -- Status Setting
     unset
     	do
             controller.unset_cell(row,col)
+            print_default
     	end
 
 feature -- Controller setting

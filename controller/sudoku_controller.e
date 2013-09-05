@@ -73,7 +73,7 @@ feature {ANY}
         	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
         		update_gui
         	end
-        	Result:=False
+        	Result:=True
 		end
 	end
 
