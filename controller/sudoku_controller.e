@@ -124,7 +124,7 @@ feature {ANY}
 		require
 			update_gui_cell_row: row >= 0 and row <= 9
 			update_gui_cell_column: column >= 0 and column <= 9
-			update_gui_cell_value: value >= 1 and value <= 9
+			update_gui_cell_value: value >= 0 and value <= 9
 		do
 			gui.set_value_of_cell(row, column, value)
 		end
