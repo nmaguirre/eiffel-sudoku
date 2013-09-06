@@ -36,7 +36,7 @@ feature {NONE} -- Initialization
 				--|       window to be shown at the start of the program.
 			first_window.show
 
-			--conect controller with gui
+			-- Connect controller with gui
 			create controller.make -- controller create
 			first_window.set_controller(controller) -- set a controller in main windows
 			controller.set_main_window(first_window) --set a gui in controller
