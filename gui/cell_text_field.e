@@ -70,10 +70,10 @@ feature -- Status Setting
 			create a_color.make_with_rgb(0.6,0.6,0.6)
 			create b_color.make_with_rgb (0.9,0.9,0.9)
 			if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
-						current.set_background_color (b_color)
-					else
-						current.set_background_color (a_color)
-					end
+				current.set_background_color (b_color)
+			else
+				current.set_background_color (a_color)
+			end
 
 		end
 

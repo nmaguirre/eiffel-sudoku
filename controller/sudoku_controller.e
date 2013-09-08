@@ -62,7 +62,7 @@ feature {NONE} -- Implementation
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
-	-- Returns True iff the the model has been successfully setted or if the position 
+	-- Returns True iff the the model has been successfully setted or if the position
 	--				can't be changed because it's not settable
 	set_cell (row: INTEGER; col: INTEGER; value: INTEGER):BOOLEAN
     require
@@ -80,7 +80,7 @@ feature {ANY}
 		end
 	end
 
-	-- Unsets the cell in the model at the (row,col) position. 
+	-- Unsets the cell in the model at the (row,col) position.
 	unset_cell (row,col : INTEGER) --VER se recursiona el update de gui
 	require
         unset_cell_row: row>=0 and row<=9
@@ -111,7 +111,8 @@ feature {ANY}
 					col := 1
 				until
 					col > 9
-				loop					   -- model.cell_value returns the element in the board at the specified position
+				loop
+					-- model.cell_value returns the element in the board at the specified position
 					update_gui_cell(row, col, model.cell_value(row, col))
 					col := col + 1
 				end

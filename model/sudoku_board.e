@@ -233,6 +233,34 @@ feature -- Status setting
         cell_value(row, col)=0
 	end
 
+feature --Control for insertion
+
+	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the board
+	is_insertion_correct (row,col : INTEGER) : BOOLEAN
+	do
+		result := is_insertion_correct_in_row(row,col) and then is_insertion_correct_in_col(row,col) and then is_insertion_correct_in_square(row,col)
+	end
+
+	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the row
+	is_insertion_correct_in_row (row,col : INTEGER) : BOOLEAN
+	do
+		result := True
+	end
+
+	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the column
+	is_insertion_correct_in_col (row,col : INTEGER) : BOOLEAN
+	do
+		result := True
+	end
+
+	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the actual square
+	is_insertion_correct_in_square (row_square,col_square : INTEGER) : BOOLEAN
+	do
+		-- coords begin of square : (row//3)*3+1,(col//3)*3+1
+		result := True
+	end
+
+
 feature {NONE} -- Implementation
 
 	cells: ARRAY2[SUDOKU_CELL]
