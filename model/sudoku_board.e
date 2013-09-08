@@ -214,7 +214,7 @@ feature -- Status setting
         set_cell_value: value>=1 and value<=9
 	do
 		cells.item(row,col).set_value (value)
-		Result:=is_valid
+		Result:=is_insertion_correct(row,col)
     ensure
         cell_value(row, col) = value
 	end
@@ -238,26 +238,88 @@ feature --Control for insertion
 	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the board
 	is_insertion_correct (row,col : INTEGER) : BOOLEAN
 	do
+		-- if insertion is correct in the line, the column and the square then it is definitely correct!
 		result := is_insertion_correct_in_row(row,col) and then is_insertion_correct_in_col(row,col) and then is_insertion_correct_in_square(row,col)
 	end
 
 	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the row
 	is_insertion_correct_in_row (row,col : INTEGER) : BOOLEAN
+	local
+		cur_col : INTEGER
+		insertion_correct : BOOLEAN
 	do
-		result := True
+		insertion_correct := True
+		from
+			cur_col := 1
+		until
+			cur_col > 9
+		loop
+			-- if a cell in the row has the same as the cell we are checking then insertion is not correct
+			if col /= cur_col and then cell_value(row,col) = cell_value(row,cur_col) then
+				insertion_correct := False
+			end
+			cur_col := cur_col + 1
+		end
+		result := insertion_correct
 	end
 
 	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the column
 	is_insertion_correct_in_col (row,col : INTEGER) : BOOLEAN
+	local
+		cur_row : INTEGER
+		insertion_correct : BOOLEAN
 	do
-		result := True
+		insertion_correct := True
+		from
+			cur_row := 1
+		until
+			cur_row > 9
+		loop
+			-- if a cell in the column has the same as the cell we are checking then insertion is not correct
+			if row /= cur_row and then cell_value(row,col) = cell_value(cur_row,col) then
+				insertion_correct := False
+			end
+			cur_row := cur_row + 1
+		end
+		result := insertion_correct
 	end
 
 	-- Description : this routine allows user to know if a cell's value is in conflicts with another cell's value in the actual square
-	is_insertion_correct_in_square (row_square,col_square : INTEGER) : BOOLEAN
+	is_insertion_correct_in_square (row_cell,col_cell : INTEGER) : BOOLEAN
+	local
+		cur_row,cur_col : INTEGER
+		row_square, col_square : INTEGER
+		insertion_correct : BOOLEAN
 	do
-		-- coords begin of square : (row//3)*3+1,(col//3)*3+1
-		result := True
+		insertion_correct := True
+
+		-- coords of the square :
+		row_square := ((row_cell-1)//3)*3+1
+		col_square := ((col_cell-1)//3)*3+1
+		-- print("Coords of the square : (r:" + row_square.out + ",c:" + col_square.out + ")%N")
+		from
+			--beginning row index of the square
+			cur_row := row_square
+		until
+			--end row index of the square
+			cur_row > row_square+2
+		loop
+			from
+				--beginning column index of the square
+				cur_col := col_square
+			until
+				--end column index of the square
+				cur_col > col_square+2
+			loop
+				-- if a cell in the square has the same as the cell we are checking then insertion is not correct
+				if (row_cell /= cur_row or col_cell /= cur_col) and then cell_value(row_cell,col_cell) = cell_value(cur_row,cur_col) then
+					insertion_correct := False
+				end
+				cur_col := cur_col + 1
+			end
+			cur_row := cur_row + 1
+		end
+		result := insertion_correct
 	end
 
 
