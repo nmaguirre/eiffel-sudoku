@@ -252,7 +252,7 @@ feature --Control for insertion
 		from
 			cur_col := 1
 		until
-			cur_col > 9
+			cur_col > 9 or not insertion_correct
 		loop
 			-- if a cell in the row has the same as the cell we are checking then insertion is not correct
 			if col /= cur_col and then cell_value(row,col) = cell_value(row,cur_col) then
@@ -273,7 +273,7 @@ feature --Control for insertion
 		from
 			cur_row := 1
 		until
-			cur_row > 9
+			cur_row > 9 or not insertion_correct
 		loop
 			-- if a cell in the column has the same as the cell we are checking then insertion is not correct
 			if row /= cur_row and then cell_value(row,col) = cell_value(cur_row,col) then
@@ -302,14 +302,14 @@ feature --Control for insertion
 			cur_row := row_square
 		until
 			--end row index of the square
-			cur_row > row_square+2
+			cur_row > row_square+2 or not insertion_correct
 		loop
 			from
 				--beginning column index of the square
 				cur_col := col_square
 			until
 				--end column index of the square
-				cur_col > col_square+2
+				cur_col > col_square+2 or not insertion_correct
 			loop
 				-- if a cell in the square has the same as the cell we are checking then insertion is not correct
 				if (row_cell /= cur_row or col_cell /= cur_col) and then cell_value(row_cell,col_cell) = cell_value(cur_row,cur_col) then
