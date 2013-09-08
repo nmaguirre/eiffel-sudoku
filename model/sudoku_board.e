@@ -171,7 +171,7 @@ feature -- Status report
 		-- is the board solved? (valid and complete)
 	is_solved: BOOLEAN
     do
-        Result:= is_valid and is_complete
+        Result:= is_valid and then is_complete
     end
 
 feature{EQA_TEST_SET} --feature only for testing

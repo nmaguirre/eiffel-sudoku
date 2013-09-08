@@ -78,6 +78,10 @@ feature {ANY}
         	end
         	Result:=True
 		end
+		-- After setting a cell ask if board is solved if so... tell user he WON
+		if model.is_solved then
+			gui.request_about_winning_congrats
+		end
 	end
 
 	-- Unsets the cell in the model at the (row,col) position.

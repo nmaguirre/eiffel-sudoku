@@ -221,6 +221,16 @@ feature -- Implementation, Open About
 			about_window.show
 		end
 
+feature -- Implementation, Open About Win
+
+	request_about_winning_congrats
+		local
+			about_window: ABOUT_WIN
+		do
+			create about_window
+			about_window.show
+		end
+
 feature {NONE} -- Implementation
 
 	main_container : EV_VERTICAL_BOX
