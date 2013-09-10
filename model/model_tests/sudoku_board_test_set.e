@@ -70,4 +70,25 @@ feature -- Test routines
 				valid:=board.set_cell (1, 1, 1)
 				assert("cell value = 1", valid)
 			end
+
+		test_set_cell
+			local
+				board:SUDOKU_BOARD
+				valid: BOOLEAN
+			do
+				create board.make
+				valid:=board.set_cell (1, 1, 1)
+				assert("cell is setted", board.cell_value (1,1) = 1)
+			end
+
+		test_unset_cell
+			local
+				board:SUDOKU_BOARD
+				valid: BOOLEAN
+			do
+				create board.make
+				valid:=board.set_cell (1, 1, 1)
+				board.unset_cell (1,1)
+				assert("cell is unsetted", board.cell_value (1,1) = 0)
+			end
 end
