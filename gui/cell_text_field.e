@@ -29,19 +29,20 @@ feature --init
 	--Should be called straight after cell's init because it add the character control function in each cell
 	add_control_caracter
 	do
-		current.change_actions.extend (agent control_text)
+		current.change_actions.extend (agent control_text_v2)
 	end
 
 	control_text
+	obsolete
+		"use control_text_v2 instead"
 	do
 		if current.text.is_integer and (current.text.to_integer>0) and (current.text.to_integer<10) then
 			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
-			set_v2(current.text.to_integer)
---			if not set(current.text.to_integer) then
---				paint_red
---			else
---				paint_default
---			end
+			if not set(current.text.to_integer) then
+				paint_red
+			else
+				paint_default
+			end
 		else
 			if current.text.is_empty then
 				print("No value entered. %N---> Need to unset cell %N")
@@ -54,6 +55,22 @@ feature --init
 		end
 	end
 
+	control_text_v2
+	do
+		if current.text.is_integer and (current.text.to_integer>0) and (current.text.to_integer<10) then
+			print("Value entered : " + current.text.to_integer.out + "%N ---> OK %N")
+			set_v2(current.text.to_integer)
+		else
+			if current.text.is_empty then
+				print("No value entered. %N---> Need to unset cell %N")
+				unset
+			else
+				print("Value entered : " + current.text + "%N" + "---> Reset %N")
+				current.remove_text
+				unset
+			end
+		end
+	end
 
 feature -- Status Setting
 	paint_red
@@ -79,12 +96,14 @@ feature -- Status Setting
 
 		end
 
---    set (value: INTEGER):BOOLEAN
---        require
---            value>=0 and value<=9
---        do
---            Result:=controller.set_cell(row, col, value)
---        end
+    set (value: INTEGER):BOOLEAN
+    obsolete
+    	"use set_v2 instead"
+    require
+        value>=0 and value<=9
+    do
+        Result:=controller.set_cell(row, col, value)
+    end
 
     set_v2 (value: INTEGER)
     require

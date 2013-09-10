@@ -61,28 +61,30 @@ feature {NONE} -- Implementation
 
 feature {ANY}
 
---	-- Sets the cell in the model at the (row,col) position with the "value" value.
---	-- Returns True iff the the model has been successfully setted or if the position
---	--				can't be changed because it's not settable
---	set_cell (row: INTEGER; col: INTEGER; value: INTEGER):BOOLEAN
---    require
---        set_cell_row: row>=0 and row<=9
---        set_cell_col: col>=0 and col<=9
---        set_cell_value: value>=1 and value<=9
---	do
---        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
--- 			Result:=model.set_cell(row, col, value)
---        else
---        	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
---        		update_gui_cell(row, col, model.cell_value(row, col))
---        	end
---        	Result:=True
---		end
---		-- After setting a cell ask if board is solved if so... tell user he WON
---		if model.is_solved then
---			gui.request_about_winning_congrats
---		end
---	end
+	-- Sets the cell in the model at the (row,col) position with the "value" value.
+	-- Returns True iff the the model has been successfully setted or if the position
+	--				can't be changed because it's not settable
+	set_cell (row: INTEGER; col: INTEGER; value: INTEGER):BOOLEAN
+	obsolete
+		"use set_cell_v2 instead"
+    require
+        set_cell_row: row>=0 and row<=9
+        set_cell_col: col>=0 and col<=9
+        set_cell_value: value>=1 and value<=9
+	do
+        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
+ 			Result:=model.set_cell(row, col, value)
+        else
+        	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+        		update_gui_cell(row, col, model.cell_value(row, col))
+        	end
+        	Result:=True
+		end
+		-- After setting a cell ask if board is solved if so... tell user he WON
+		if model.is_solved then
+			gui.request_about_winning_congrats
+		end
+	end
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
     -- Returns True if the the model has been successfully setted or if the position
