@@ -62,7 +62,7 @@ feature {NONE} -- Initialization
 
 feature --access
 
-	--allows to set one cell value
+	--Description : allows user to set one cell value
 	set_value_of_cell(row,col,value : INTEGER)
 		require
 			col >= 1 and col <= 9
@@ -78,6 +78,32 @@ feature --access
 				current_cell.set_text (value.out)
 			end
 		end
+
+
+
+	--Description : allows user to paint one cell of the GUI in red
+	set_cell_background_color_red(row,col : INTEGER)
+	require
+		col >= 1 and col <= 9
+		row >= 1 and row <= 9
+	local
+		current_cell : CELL_TEXT_FIELD
+	do
+		current_cell ?= l_table.item_at_position (col, row)
+		current_cell.paint_red
+	end
+
+	--Description : allows user to paint one cell of the GUI in red
+	set_cell_background_color_default(row,col : INTEGER)
+	require
+		col >= 1 and col <= 9
+		row >= 1 and row <= 9
+	local
+		current_cell : CELL_TEXT_FIELD
+	do
+		current_cell ?= l_table.item_at_position (col, row)
+		current_cell.paint_default
+	end
 
 feature {NONE} -- Menu Implementation
 
@@ -270,7 +296,7 @@ feature {NONE} -- Implementation
 					current_text_field.set_position (row, col)
 
 					l_table.put_at_position (current_text_field, col,row,1,1)
-					current_text_field.print_default
+					current_text_field.paint_default
 					col := col +1
 				end
 				row := row +1
