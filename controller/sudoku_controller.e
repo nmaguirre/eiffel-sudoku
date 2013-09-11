@@ -219,8 +219,6 @@ feature {NONE} -- control of red cells
         	create coord.make_with_param(row,col)
         	nbr_red_cells := nbr_red_cells + 1
         	list_red_cells.put(coord,nbr_red_cells)
-        else
-        	print("cell is already present, we can't insert it")
     	end
     end
 
