@@ -29,5 +29,6 @@
 			</file_rule>
 			<tests name="model_tests" location=".\model\model_tests\"/>
 		</cluster>
+		<cluster name="solver" location="\home\gabriel\Algo\Eiffel\eiffel-sudoku\solver\"/>
 	</target>
 </system>
