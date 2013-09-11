@@ -123,11 +123,9 @@ feature {ANY}
 		-- we control here if this insertion was correct
 		if insertion_correct then
 			gui.set_cell_background_color_default(row,col)
-			print("Insertion at (r: " + row.out + ", c: " + col.out + ") correct %N")
 		else
 			gui.set_cell_background_color_red(row,col)
 			add_coord_red_cell(row,col)
-			print("Insertion at (r: " + row.out + ", c: " + col.out + ") INcorrect %N")
 		end
 
 		-- check current conflicts
@@ -253,7 +251,7 @@ feature {NONE} -- control of red cells
 		until
 			cell_index > nbr_red_cells
 		loop
-			print("cell_index : " + cell_index.out + "%N")
+
 			-- we get the coords
 			coords := list_red_cells.at (cell_index)
 
