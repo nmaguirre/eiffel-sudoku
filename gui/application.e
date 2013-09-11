@@ -18,9 +18,10 @@ feature {NONE} -- Initialization
 	make_and_launch
 			-- Initialize and launch application
 		do
-			default_create
-			prepare
-			launch
+			-- test_solver;
+			 default_create
+			 prepare
+			 launch
 		end
 
 	prepare
@@ -41,6 +42,46 @@ feature {NONE} -- Initialization
 			first_window.set_controller(controller) -- set a controller in main windows
 			controller.set_main_window(first_window) --set a gui in controller
 		end
+
+feature {NONE} -- tests for sudoku_solver
+
+	test_solver
+	local
+		solver : SUDOKU_SOLVER
+		board : SUDOKU_BOARD
+	do
+		print("###############%N")
+		print("## TEST_INIT ##%N")
+		print("###############%N")
+		create board.make
+		create solver.init_with_board (board)
+		if solver.is_initialized then
+			print("Solver initialized ---> OK %N")
+		else
+			print("Solver not initialized ---> FAIL %N")
+		end
+		if solver.has_board_to_solve then
+			print("Solver has a board to solve ---> OK %N")
+		else
+			print("Solver does not have a board to solve ---> FAIL  %N")
+		end
+		print("###################%N")
+		print("## TEST_GENERATE ##%N")
+		print("###################%N")
+		board := solver.generate_model
+		solver.set_model(board)
+		print("################%N")
+		print("## TEST_SOLVE ##%N")
+		print("################%N")
+		print("---> Postits before solve : %N")
+		solver.print_postits
+		print("---> Currently solving sudoku... %N")
+		solver.solve_board
+		print("---> Postits after solve : %N")
+		solver.print_postits
+		print("---> Result :%N")
+		solver.get_model.print_sudoku
+	end
 
 feature {NONE} -- Implementation
 
