@@ -215,10 +215,34 @@ feature {NONE} -- control of red cells
     local
         coord:COORDS;
     do
-        create coord.make_with_param(row,col)
-        nbr_red_cells := nbr_red_cells + 1
-        list_red_cells.put(coord,nbr_red_cells)
+    	if not is_already_present(row,col) then
+        	create coord.make_with_param(row,col)
+        	nbr_red_cells := nbr_red_cells + 1
+        	list_red_cells.put(coord,nbr_red_cells)
+        else
+        	print("cell is already present, we can't insert it")
+    	end
     end
+
+	-- Decription : Return if a cell is already present in the list
+	is_already_present(row,col : INTEGER) : BOOLEAN
+	local
+		index : INTEGER
+		already_present : BOOLEAN
+		current_coords : COORDS
+	do
+		from
+			index := list_red_cells.lower
+		until
+			index > nbr_red_cells or already_present
+		loop
+			current_coords := list_red_cells.at (index)
+			already_present := current_coords.x = row and current_coords.y = col
+			index := index + 1
+		end
+
+		result := already_present
+	end
 
 	-- Check if some cells are not in conflict anymore
 	check_red_cells
