@@ -37,18 +37,6 @@ feature -- Test routines
 				assert ("count cells seted ok",board.is_valid)
 			end
 
-		test_make_whit_random_values_and_is_complete_and_is_solved
-
-			note
-				testing:  "covers/{SUDOKU_BOARD}.make_whit_random_values"
-			local
-				board:SUDOKU_BOARD
-			do
-				--create board.make
-				create board.make_with_random_values(81)
-				assert ("board is solved",board.is_solved)
-			end
-
 		test_is_complete
 
 			note

@@ -106,7 +106,7 @@ feature -- Test routines
                 cell.set_value(0)
 				passed := True
 			end
-			assert ("set_with_value_0 broke", not passed)
+			assert ("set_with_value_0 broke", passed)
 		rescue
 			if (not rescued) then
 				rescued := True
