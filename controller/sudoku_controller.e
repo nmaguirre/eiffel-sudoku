@@ -199,6 +199,8 @@ feature{ANY}
 			create new_model.make_with_random_values (level)
 			set_model(new_model)
 			update_gui
+			-- need to reinitialisate list of red cells
+			nbr_red_cells := 0
 		end
 
 feature {NONE} -- control of red cells
