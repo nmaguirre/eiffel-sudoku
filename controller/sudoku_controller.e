@@ -14,10 +14,24 @@ feature  -- Initialization
 
 	make
 			-- Initialization for `Current'.
+
 		once
-			the_instance := current
+			the_instance := Current
+
+			init_red_cells_list
+
 			create model.make
 		end
+
+	init_red_cells_list
+	local
+		default_coords : COORDS
+	do
+			--initialize array with 81 coords set at (0,0) and set current_cell_number_zero
+			default_coords.initialize
+			create list_red_cells.make_filled (default_coords, 1, 81)
+			nbr_red_cells := 0
+	end
 
 	set_main_window (first_window: MAIN_WINDOW)
 			-- Set window reference to this controller
@@ -109,9 +123,16 @@ feature {ANY}
 		-- we control here if this insertion was correct
 		if insertion_correct then
 			gui.set_cell_background_color_default(row,col)
+			print("Insertion at (r: " + row.out + ", c: " + col.out + ") correct %N")
 		else
 			gui.set_cell_background_color_red(row,col)
+			add_coord_red_cell(row,col)
+			print("Insertion at (r: " + row.out + ", c: " + col.out + ") INcorrect %N")
 		end
+
+		-- check current conflicts
+		check_red_cells
+
 
 		-- After setting a cell ask if board is solved if so... tell user he WON
 		if model.is_solved then
@@ -129,6 +150,7 @@ feature {ANY}
 		--if cell is not set then we can't do anything
 		if model.cell_value (row, col) /= 0 and model.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
 			model.unset_cell (row, col)
+			check_red_cells
 		else
 			if model.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
 				update_gui_cell(row, col, model.cell_value(row, col))
@@ -180,4 +202,53 @@ feature{ANY}
 			set_model(new_model)
 			update_gui
 		end
+
+feature {NONE} -- control of red cells
+
+	-- Contains coords of all cells painted in red
+	list_red_cells : ARRAY[COORDS]
+	-- Contains the current number of red cells
+	nbr_red_cells : INTEGER
+
+	-- Add an element to the list of cells painted in red
+    add_coord_red_cell(row,col:INTEGER)
+    local
+        coord:COORDS;
+    do
+        create coord.make_with_param(row,col)
+        nbr_red_cells := nbr_red_cells + 1
+        list_red_cells.put(coord,nbr_red_cells)
+    end
+
+	-- Check if some cells are not in conflict anymore
+	check_red_cells
+	local
+		cell_index : INTEGER
+		coords : COORDS
+	do
+		from
+			cell_index := 1
+		until
+			cell_index > nbr_red_cells
+		loop
+			print("cell_index : " + cell_index.out + "%N")
+			-- we get the coords
+			coords := list_red_cells.at (cell_index)
+
+			-- if at this position the cell is no longer in conflict with another we change its color
+			-- and delete it from the list
+			if model.is_insertion_correct (coords.x,coords.y) then
+				gui.set_cell_background_color_default (coords.x, coords.y)
+
+				-- to delete it from the list we put the last coords at the place of the current coords
+				-- and we reduce the number of red_cells
+				list_red_cells.put (list_red_cells.at (nbr_red_cells), cell_index)
+				nbr_red_cells := nbr_red_cells - 1
+			-- else we just check the next one
+			else
+				cell_index := cell_index + 1
+			end
+		end
+	end
+
 end
