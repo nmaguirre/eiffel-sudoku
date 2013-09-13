@@ -1,12 +1,11 @@
 note
-	description	: "Summary description for {ABOUT_QUIT}."
-	author		: "Justine Compagnon"
-	date		: "Date"
-	revision	: "Revision"
+	description: "Summary description for {ABOUT_SOLVE}."
+	author: "Justine Compagnon"
+	date: "12/09/2013"
+	revision: "$Revision$"
 
 class
-	ABOUT_QUIT
-
+	ABOUT_SOLVE
 inherit
 	EV_DIALOG
 		redefine
@@ -19,6 +18,7 @@ inherit
 		undefine
 			default_create, copy
 		end
+
 
 create
 	default_create
@@ -54,12 +54,12 @@ feature {NONE} -- Initialization
 
 			create ok_button.make_with_text (Button_ok_item)
 			ok_button.set_minimum_size (75, 24)
-
 			ok_button.select_actions.extend (agent destroy)
 
 			create cancel_button.make_with_text (Button_cancel_item)
 			cancel_button.set_minimum_size (75, 24)
-			cancel_button.select_actions.extend (agent destroy)
+			cancel_button.select_actions.extend (agent destroy) --il we choose cancel then the window disapear and te player can continue to play
+
 
 			create buttons_box
 			buttons_box.extend (create {EV_CELL}) -- Fill in empty space on left
@@ -107,11 +107,10 @@ feature {NONE} -- Initialization
 		end
 
 feature -- Add actions
-
-		-- /!\ new to be added straight after init! If not added, it won't close the window
-		add_close_action(window_to_close : MAIN_WINDOW)
+	-- /!\ new to be added straight after init! If not added, it won't call the solve function from controller
+	add_solve_action(controller : SUDOKU_CONTROLLER)
 		do
-			ok_button.select_actions.extend (agent window_to_close.request_close_window)
+			ok_button.select_actions.extend (agent controller.solve_game)
 		end
 
 feature -- Access
@@ -146,14 +145,12 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation / Constants
 
-	Default_title: STRING = "About Quit"
+	Default_title: STRING = "Solve"
 			-- Default title for the dialog window.
 
-	Default_message: STRING
-	do Result := Label_confirm_close_window
-	 end
+	Default_message:STRING = "Are you sure you want to solve the sudoku?"
 
 	gui: MAIN_WINDOW
 
 
-end -- class ABOUT_DIALOG
+end -- class ABOUT_SOLVE

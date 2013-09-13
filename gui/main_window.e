@@ -138,6 +138,9 @@ feature {NONE} -- Menu Implementation
 				not standard_menu_bar.is_empty
 		end
 
+	menu_solve_item : EV_MENU_ITEM
+		-- help to locate the menu Solve
+
 	build_file_menu
 			-- Create and populate `file_menu'.
 		require
@@ -169,6 +172,9 @@ feature {NONE} -- Menu Implementation
 
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 --Separator
+
+			create menu_solve_item.make_with_text (Menu_file_solve_item)
+			file_menu.extend (menu_solve_item) 		 --Solve
 
 			create menu_item.make_with_text (Menu_file_exit_item)
 			menu_item.select_actions.extend (agent request_about_quit)
@@ -236,6 +242,28 @@ feature -- Implementation, Open About Quit to ask if a user really want to quit 
 			about_window.add_close_action(Current)
 			about_window.show
 		end
+
+
+feature -- Implementation, Open Solve to ask if the player want to solve or not the sodoku
+
+	request_about_solve
+		local
+			about_window: ABOUT_SOLVE
+		do
+			create about_window
+			about_window.add_solve_action(controller)
+			about_window.show
+		end
+
+
+	add_solve_action_to_menu_item
+	    --we need controller to be set before adding solve action therefore we should call it in set_controller
+	local
+		i : INTEGER
+	do
+		menu_solve_item.select_actions.extend (agent request_about_solve)
+	end
+
 
 feature -- Implementation, Open About
 
@@ -338,6 +366,8 @@ feature {ANY} -- setters
 	do
 		controller:=ctller
 		set_controller_for_each_cell
+		-- once the controller is set we can now add the solve action to the menu
+		add_solve_action_to_menu_item
 	end
 
 feature {NONE} -- setter private
@@ -387,6 +417,7 @@ feature {NONE} -- Implementation / Constants
 
 	controller: SUDOKU_CONTROLLER
 
+	current_menu_bar : EV_MENU_BAR
 feature {ANY}
 
 

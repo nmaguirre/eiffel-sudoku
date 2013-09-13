@@ -273,4 +273,20 @@ feature {NONE} -- control of red cells
 		end
 	end
 
+
+	feature --solve the game
+
+	solve_game
+	local
+		solver:SUDOKU_SOLVER
+	do
+		create solver.init_with_board (model)
+		print("Start solve %N")
+		solver.solve_board
+		print("Stop solve %N")
+		update_gui
+	end
+
+
+
 end
