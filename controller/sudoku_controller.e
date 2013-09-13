@@ -187,6 +187,11 @@ feature {ANY}
 				row := row + 1
 			end
 			updating_gui := false
+
+			--now that the gui is update we can check if the model is solved
+			if model.is_solved then
+				gui.request_about_winning_congrats
+			end
 		end
 
 	-- Updates at the GUI only the cell of coords (row, column) of the board with the value "value".
