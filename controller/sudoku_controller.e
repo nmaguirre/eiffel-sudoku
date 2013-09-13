@@ -73,6 +73,8 @@ feature {NONE} -- Implementation
 
 	gui: MAIN_WINDOW
 
+	updating_gui:BOOLEAN
+
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
@@ -111,30 +113,35 @@ feature {ANY}
     local
     	insertion_correct : BOOLEAN
 	do
-        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
- 			insertion_correct := model.set_cell(row, col, value)
-        else
-        	if value /= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
-        		update_gui_cell(row, col, model.cell_value(row, col))
-        	end
-        	insertion_correct := True
-		end
+		-- we are informing to set_cell if we are updating or not the gui
+		-- if not it means we have to set the cells from the model
+		if not  updating_gui  then
 
-		-- we control here if this insertion was correct
-		if insertion_correct then
-			gui.set_cell_background_color_default(row,col)
-		else
-			gui.set_cell_background_color_red(row,col)
-			add_coord_red_cell(row,col)
-		end
+	        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
+	 			insertion_correct := model.set_cell(row, col, value)
+	        else
+	        	if value /= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+	        		update_gui_cell(row, col, model.cell_value(row, col))
+	        	end
+	        	insertion_correct := True
+			end
 
-		-- check current conflicts
-		check_red_cells
+			-- we control here if this insertion was correct
+			if insertion_correct then
+				gui.set_cell_background_color_default(row,col)
+			else
+				gui.set_cell_background_color_red(row,col)
+				add_coord_red_cell(row,col)
+			end
+
+			-- check current conflicts
+			check_red_cells
 
 
-		-- After setting a cell ask if board is solved if so... tell user he WON
-		if model.is_solved then
-			gui.request_about_winning_congrats
+			-- After setting a cell ask if board is solved if so... tell user he WON
+			if model.is_solved then
+				gui.request_about_winning_congrats
+			end
 		end
 	end
 
@@ -161,6 +168,7 @@ feature {ANY}
 		local
 			row, col : INTEGER
 		do
+			updating_gui := true
 		-- need to change 1 et 9 by lower and upper
 			from
 				row := 1
@@ -178,6 +186,7 @@ feature {ANY}
 				end
 				row := row + 1
 			end
+			updating_gui := false
 		end
 
 	-- Updates at the GUI only the cell of coords (row, column) of the board with the value "value".
