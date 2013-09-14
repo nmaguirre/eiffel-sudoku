@@ -125,6 +125,14 @@ feature {ANY} -- solving function
 			-- Now check postits to apply changes and record if changes have been done
 			changes_done := apply_changes_for_one_value_postit
 
+			-- Now if no changes have been done and the board is still not solved
+			-- we search if there are cells that are the only one
+			-- of there square, row, column that could have a value and we set it
+			if not changes_done and then not model.is_solved then
+				print("No changes have be done by simple method, let's level up the solver dudes! %N")
+				changes_done := Set_val_possible_only_in_one_cell_of_board
+			end
+
 --			--print board for test
 --			if changes_done then
 --				print("Changes have been done%N")
@@ -324,6 +332,231 @@ feature {NONE} -- update all postits, telling for each cell which values are pos
 		end
 
 	end
+
+feature {NONE} --functions that set values who are possible only in a cell of column, row or square
+
+
+	Set_val_possible_only_in_one_cell_of_board : BOOLEAN
+	-- search fpr each value from 1 to 9, in the postit of each cell of the board if she is the only one that could have a value
+	-- from its line, column, square
+	-- if it's the case it put it in the board
+	require
+		is_initialized
+		has_board_to_solve
+	local
+		changes_done : BOOLEAN
+		row,col,row_square,col_square : INTEGER
+	do
+		from
+			row:=1
+		until
+			row > 9
+		loop
+			changes_done := (changes_done or Set_val_possible_only_in_one_cell_of_row (row))
+			row := row + 1
+		end
+		from
+			col:=1
+		until
+			col > 9
+		loop
+			changes_done := (changes_done or Set_val_possible_only_in_one_cell_of_col (col))
+			col := col + 1
+		end
+		from
+			row_square := 1
+		until
+			row_square > 7
+		loop
+			from
+				col_square := 1
+			until
+				col_square > 7
+			loop
+				changes_done := (changes_done or Set_val_possible_only_in_one_cell_of_square(row_square,col_square))
+				col_square := col_square + 3
+			end
+			row_square := row_square + 3
+		end
+		result := changes_done
+	end
+
+	Set_val_possible_only_in_one_cell_of_row (row_cell : INTEGER):BOOLEAN
+	--search in the postit of each cell of a line if a number is possible in only one of them
+	--if it's the case it put it in the board
+	require
+		is_initialized
+		has_board_to_solve
+	local
+		nbr_cell_with_val: INTEGER
+		val,col,record_col: INTEGER
+		current_postit_has_the_value : BOOLEAN
+		current_cell_has_one_value : BOOLEAN
+		value_taken : BOOLEAN
+		changes_done : BOOLEAN
+	do
+		from
+			val:= 1
+		until
+			val > 9
+		loop
+			nbr_cell_with_val:= 0
+			value_taken := False
+			from
+				col:=1
+			until
+				col > 9 or nbr_cell_with_val > 1 or value_taken
+			loop
+				--check if in postit the current value is allowed for the cell linked to the postit
+				current_postit_has_the_value := postits[row_cell,col].at (val)
+				--check if current cell is not already set
+				current_cell_has_one_value := postits[row_cell,col].has_only_one_value_possible
+				-- if we found the value and the post it is not already set, we can say that the current cell could have the value
+				-- else if we found the value and the post it is already set it means the value is taken we don't have to check other
+				-- cells
+				if (current_postit_has_the_value) then
+					if not (current_cell_has_one_value) then
+						nbr_cell_with_val:= nbr_cell_with_val + 1
+						record_col:= col
+					else
+						value_taken := True
+					end
+				end
+				col:= col + 1
+			end
+			-- if value was not taken by a cell and only one cell could have it then we have to set it in this cell
+			-- and remember changes have been done
+			if not value_taken and nbr_cell_with_val = 1 then
+				postits[row_cell,record_col].set_only_value_possible (val)
+				changes_done := True
+			end
+			val:= val + 1
+		end
+		result := changes_done
+	end
+
+	Set_val_possible_only_in_one_cell_of_col (col_cell : INTEGER):BOOLEAN
+	--search in the postit of each cell of a column if a number is possible in only one of them
+	--if it's the case it put it in the board
+	require
+		is_initialized
+		has_board_to_solve
+	local
+		nbr_cell_with_val: INTEGER
+		val,row,record_row: INTEGER
+		current_postit_has_the_value : BOOLEAN
+		current_cell_has_one_value : BOOLEAN
+		value_taken : BOOLEAN
+		changes_done : BOOLEAN
+	do
+	from
+			val:= 1
+		until
+			val > 9
+		loop
+			nbr_cell_with_val:= 0
+			value_taken := False
+			from
+				row:=1
+			until
+				row > 9 or nbr_cell_with_val > 1 or value_taken
+			loop
+				--check if in postit the current value is allowed for the cell linked to the postit
+				current_postit_has_the_value := postits[row,col_cell].at (val)
+				--check if current cell is not already set
+				current_cell_has_one_value := postits[row,col_cell].has_only_one_value_possible
+				-- if we found the value and the post it is not already set, we can say that the current cell could have the value
+				-- else if we found the value and the post it is already set it means the value is taken we don't have to check other
+				-- cells
+				if (current_postit_has_the_value) then
+					if not (current_cell_has_one_value) then
+						nbr_cell_with_val:= nbr_cell_with_val + 1
+						record_row:= row
+					else
+						value_taken := True
+					end
+				end
+				row:= row + 1
+			end
+			-- if value was not taken by a cell and only one cell could have it then we have to set it in this cell
+			-- and remember changes have been done
+			if not value_taken and nbr_cell_with_val = 1 then
+				postits[record_row,col_cell].set_only_value_possible (val)
+				changes_done := True
+			end
+			val:= val + 1
+		end
+		result := changes_done
+	end
+
+	Set_val_possible_only_in_one_cell_of_square (col_square,row_square : INTEGER):BOOLEAN
+	--search in the postit of each cell of a square if a number is possible in only one of them
+	--if it's the case it put it in the board
+	require
+		is_initialized
+		has_board_to_solve
+	local
+		nbr_cell_with_val: INTEGER
+		cur_row,cur_col : INTEGER
+		val,cur_value : INTEGER
+		record_row,record_col: INTEGER
+		current_postit_has_the_value : BOOLEAN
+		current_cell_has_one_value : BOOLEAN
+		value_taken : BOOLEAN
+		changes_done : BOOLEAN
+		do
+			-- print("Coords of the square : (r:" + row_square.out + ",c:" + col_square.out + ")%N")
+			from
+				val:= 1
+			until
+				val > 9
+			loop
+				nbr_cell_with_val:= 0
+				from
+					--beginning row index of the square
+					cur_row := row_square
+				until
+					--end row index of the square
+					cur_row > row_square+2 or nbr_cell_with_val > 1 or value_taken
+				loop
+					from
+						--beginning column index of the square
+						cur_col := col_square
+					until
+						--end column index of the square
+						cur_col > col_square+2 or nbr_cell_with_val > 1 or value_taken
+					loop
+						--check if in postit the current value is allowed for the cell linked to the postit
+						current_postit_has_the_value := postits[cur_row,cur_col].at (val)
+						--check if current cell is not already set
+						current_cell_has_one_value := postits[cur_row,cur_col].has_only_one_value_possible
+						-- if we found the value and the post it is not already set, we can say that the current cell could have the value
+						-- else if we found the value and the post it is already set it means the value is taken we don't have to check other
+						-- cells
+						if (current_postit_has_the_value) then
+							if not (current_cell_has_one_value) then
+								nbr_cell_with_val:= nbr_cell_with_val + 1
+								record_row:= cur_row
+								record_col:= cur_col
+							else
+								value_taken := True
+							end
+						end
+						cur_col := cur_col + 1
+					end
+					cur_row := cur_row + 1
+				end
+				-- if value was not taken by a cell and only one cell could have it then we have to set it in this cell
+				-- and remember changes have been done
+				if not value_taken and nbr_cell_with_val = 1 then
+					postits[record_row,record_col].set_only_value_possible (val)
+					changes_done:= True
+				end
+				val:= val + 1
+			end
+			result := changes_done
+		end
+
 
 
 feature {ANY} -- intern public variables
