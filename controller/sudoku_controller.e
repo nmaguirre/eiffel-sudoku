@@ -152,13 +152,17 @@ feature {ANY}
         unset_cell_row: row>=0 and row<=9
         unset_cell_col: col>=0 and col<=9
 	do
-		--if cell is not set then we can't do anything
-		if model.cell_value (row, col) /= 0 and model.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
-			model.unset_cell (row, col)
-			check_red_cells
-		else
-			if model.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
-				update_gui_cell(row, col, model.cell_value(row, col))
+		-- we are informing to set_cell if we are updating or not the gui
+		-- if not it means we have to unset the cells from the model
+		if not  updating_gui  then
+			--if cell is not set then we can't do anything
+			if model.cell_value (row, col) /= 0 and model.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
+				model.unset_cell (row, col)
+				check_red_cells
+			else
+				if model.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
+					update_gui_cell(row, col, model.cell_value(row, col))
+				end
 			end
 		end
 	end
