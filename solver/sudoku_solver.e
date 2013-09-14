@@ -337,7 +337,7 @@ feature {NONE} --functions that set values who are possible only in a cell of co
 
 
 	Set_val_possible_only_in_one_cell_of_board : BOOLEAN
-	-- search fpr each value from 1 to 9, in the postit of each cell of the board if she is the only one that could have a value
+	-- search for each value from 1 to 9, in the postit of each cell of the board if she is the only one that could have a value
 	-- from its line, column, square
 	-- if it's the case it put it in the board
 	require
