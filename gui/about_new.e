@@ -1,5 +1,5 @@
 note
-	description: "Summary description for {ABOUT_QUIT}."
+	description: "Summary description for {ABOUT_NEW}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
