@@ -414,7 +414,6 @@ feature {NONE} -- Implementation / Constants
 	Window_height: INTEGER = 280
 			-- Initial height for this window.
 
-
 	mine_icon: EV_PIXMAP
 
 	controller: SUDOKU_CONTROLLER
