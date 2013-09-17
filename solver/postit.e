@@ -1,8 +1,8 @@
 note
-	description: "POST_IT is an array 1..9 of BOOLEAN useful to know which values are possible for a cell"
-	author: "Gabriel Mabille"
-	date: "11/09/13"
-	revision: "NONE"
+	description	: "POST_IT is an array 1..9 of BOOLEAN useful to know which values are possible for a cell"
+	author		: "Gabriel Mabille"
+	date		: "11/09/13"
+	revision	: "NONE"
 
 class
 	POSTIT
