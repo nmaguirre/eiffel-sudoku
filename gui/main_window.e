@@ -77,6 +77,7 @@ feature --access
 			if value = 0 then
 				current_cell.set_text ("")
 			else
+				current_cell.paint_blue
 				current_cell.set_text (value.out)
 			end
 		end
@@ -93,6 +94,17 @@ feature --access
 	do
 		current_cell ?= l_table.item_at_position (col, row)
 		current_cell.paint_red
+	end
+
+	set_cell_background_initial_colour(row,col : INTEGER)
+	require
+		col >= 1 and col <= 9
+		row >= 1 and row <= 9
+	local
+		current_cell : CELL_TEXT_FIELD
+	do
+		current_cell ?= l_table.item_at_position (col, row)
+	    current_cell.paint_blue
 	end
 
 	--Description : allows user to paint one cell of the GUI in red

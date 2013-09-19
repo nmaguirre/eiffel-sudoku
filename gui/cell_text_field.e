@@ -81,6 +81,14 @@ feature -- Status Setting
 		current.set_background_color (color)
 	end
 
+	paint_blue
+	local
+		color: EV_COLOR
+	do
+		create color.make_with_rgb (0.900, 0.100, 0.500)
+		current.set_background_color (color)
+	end
+
 	paint_default
 		local
 	a_color,b_color: EV_COLOR
