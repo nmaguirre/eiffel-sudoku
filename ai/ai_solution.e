@@ -1,8 +1,8 @@
 note
-	description: "Solution of sudoku"
-	author: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez"
-	date: "20/09/2013"
-	revision: "v0.1"
+	description	: "Solution of sudoku"
+	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez"
+	date		: "20/09/2013"
+	revision	: "v0.1"
 
 class
 	AI_SOLUTION
