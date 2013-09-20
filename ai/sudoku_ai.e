@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {AI}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description	: "Summary description for {AI}."
+	author		: ""
+	date		: "$Date$"
+	revision	: "$Revision$"
 
 class
 	SUDOKU_AI
