@@ -1,8 +1,8 @@
 note
 	description: "Solves a SUDOKU_BOARD."
-	author: "Gabriel Mabille"
-	date: "10/09/13"
-	revision: "NONE"
+	author: "Gabriel Mabille, Leonel Gasparrini"
+	date: "20/09/13"
+	revision: "0.1"
 
 class
 	SUDOKU_SOLVER
@@ -18,7 +18,7 @@ feature -- init
 		--prepare intern variables, sets the board to solve
 	require
 		not is_initialized
-		new_model.is_valid
+		--new_model.is_valid
 	do
 		set_model(new_model)
 		is_initialized := True
@@ -84,14 +84,14 @@ feature -- set and get for model (SUDOKU_BOARD)
 	set_model(new_model : SUDOKU_BOARD)
 		-- Set model to new_model and initialize postits
 	require
-		new_model.is_valid
+		--new_model.is_valid
 	do
 		model := new_model
 		has_board_to_solve := True
 		init_postits
 	ensure
 		model = new_model
-		model.is_valid
+		--model.is_valid
 		has_board_to_solve
 	end
 
