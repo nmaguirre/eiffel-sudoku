@@ -23,7 +23,7 @@ feature {NONE} -- Initialization
 			create unsol_board.make --vacio
 			-- pongo el board solucionado al unsol para despues borrarle celdas al unsol
 			unsol_board := sol_board.get_board
-			delete_cells(10) --llevaria como parametro el nivel
+			delete_cells(3) --level 1 2 y 3 posibles
 			print ("%N")
 			unsol_board.print_sudoku
 		end
@@ -37,11 +37,16 @@ feature {NONE} -- Initialization
 			l_time: TIME
       		l_seed: INTEGER
 		do
-			--if de niveles
-			--n_borrados := level -- a cambiar despues
-			--ciclo
 			from
-				n_borrados := level
+				if level = 1 then
+					n_borrados := 10
+				else if level = 2 then
+					n_borrados := 15
+				else if level = 3 then
+					n_borrados := 20
+				end
+				end
+				end
 			until
 				n_borrados < 1
 			loop
