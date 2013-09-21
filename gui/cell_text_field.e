@@ -81,7 +81,7 @@ feature -- Status Setting
 		current.set_background_color (color)
 	end
 
-	paint_blue
+	paint_initial
 	local
 		color: EV_COLOR
 	do

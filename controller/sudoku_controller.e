@@ -122,6 +122,7 @@ feature {ANY}
 	        else
 	        	if value /= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
 	        		update_gui_cell(row, col, model.cell_value(row, col))
+	        		gui.set_cell_background_initial_colour (row, col)
 	        	end
 	        	insertion_correct := True
 			end
@@ -133,10 +134,8 @@ feature {ANY}
 				gui.set_cell_background_color_red(row,col)
 				add_coord_red_cell(row,col)
 			end
-
 			-- check current conflicts
 			check_red_cells
-
 
 			-- After setting a cell ask if board is solved if so... tell user he WON
 			if model.is_solved then
