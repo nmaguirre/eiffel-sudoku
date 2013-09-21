@@ -10,7 +10,7 @@ class
 create
 	make
 
-feature {NONE} -- Initialization 
+feature {NONE} -- Initialization
 
 	sol_board: SUDOKU_BOARD
 
@@ -136,6 +136,11 @@ feature {NONE} -- Initialization
 
 
 feature -- Access
+
+	get_board:SUDOKU_BOARD
+		do
+			Result := sol_board
+		end
 
 feature -- Measurement
 
