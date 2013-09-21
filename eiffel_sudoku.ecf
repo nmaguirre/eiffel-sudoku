@@ -9,6 +9,7 @@
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing.ecf"/>
 		<library name="time" location="$ISE_LIBRARY\library\time\time-safe.ecf"/>
 		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2.ecf"/>
+		<cluster name="ai" location="\home\pablo\EiffelProjects\eiffel-sudoku\ai\" recursive="true"/>
 		<cluster name="controller" location=".\controller\">
 			<file_rule>
 				<exclude>/.git$</exclude>
