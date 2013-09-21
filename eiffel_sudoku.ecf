@@ -14,7 +14,7 @@
 		<cluster name="ai" location=".\ai\">
 			<file_rule>
 				<exclude>/.git$</exclude>
-				<exclude>/EIFGENs$</exclude>
+				<exclude>/EIFGENs$</exclude> 
 			</file_rule>
 		</cluster>
 		<cluster name="controller" location=".\controller\">
