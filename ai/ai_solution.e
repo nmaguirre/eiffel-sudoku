@@ -41,7 +41,6 @@ feature {NONE} -- Initialization
 				until
 					j > 9
 				loop
-					--loop
 					if i = 2 and j = 1 then
 						n := 4
 					else if i = 3 and j = 1  then
@@ -66,7 +65,9 @@ feature {NONE} -- Initialization
 					end
 					end
 					end
-					print (n.out+sol_board.set_cell (i,j,n).out)
+					if not sol_board.set_cell (i,j,n)  then
+						print ("%N error set_cell %N")
+					end
 					j := j + 1
 					n :=  ((n+1) \\ 10)
 					if n = 0 then
@@ -75,12 +76,13 @@ feature {NONE} -- Initialization
 				end
 				i := i + 1
 			end
-			print ("sudoku inicial: %N")
-			sol_board.print_sudoku
+			--print ("initial sudoku: %N")
+			--sol_board.print_sudoku
+			--------------------------
 			from
 				n := 1
 			until
-				n > 100 -- numero de cambios
+				n > 100 -- numbers of swaps
 			loop
 				create l_time.make_now
       			l_seed := l_time.hour
@@ -98,14 +100,15 @@ feature {NONE} -- Initialization
 				random1 := random_sequence.item \\ 9 + 1
 				random_sequence.forth
 				random2 := random_sequence.item \\ 9 + 1
-				print( random1.out +" "+ random2.out )
+				--print( random1.out +" "+ random2.out )
 				swap(random1,random2)
 				n := n + 1
 			end
-			print ("%N")
+			-- Printing sudoku solution
+			print ("%N Sudoku solution: %N")
 			sol_board.print_sudoku
-			print ("%N valido? " + sol_board.is_solved.out)
-		end--make
+			print ("%N valid? " + sol_board.is_solved.out)
+		end
 
 	swap(n,m:INTEGER)
 		--Swap values 'n' and 'm'
@@ -123,9 +126,13 @@ feature {NONE} -- Initialization
 					j > 9
 				loop
 					if sol_board.cell_value (i,j) = n then
-						print(sol_board.set_cell (i,j,m).out)
+						if sol_board.set_cell (i,j,m) then
+							--print ("swaping...")
+						end
 					else if sol_board.cell_value (i,j) = m then
-						print(sol_board.set_cell (i,j,n).out)
+						if sol_board.set_cell (i,j,n) then
+							--print ("swaping...")
+						end
 					end
 					end
 					j := j + 1

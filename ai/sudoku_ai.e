@@ -1,8 +1,8 @@
 note
-	description	: "Summary description for {AI}."
-	author		: ""
-	date		: "$Date$"
-	revision	: "$Revision$"
+	description	: ""
+	author		: "Marconi-Alvarez-Farias-Astorga"
+	date		: "22/09/2013"
+	revision	: "v0.1"
 
 class
 	SUDOKU_AI
@@ -20,11 +20,10 @@ feature {NONE} -- Initialization
 			-- Initialization for `Current'.
 		do
 			create sol_board.make
-			create unsol_board.make --vacio
-			-- pongo el board solucionado al unsol para despues borrarle celdas al unsol
+			create unsol_board.make --unsolved board
 			unsol_board := sol_board.get_board
-			delete_cells(3) --level 1 2 y 3 posibles
-			print ("%N")
+			delete_cells(3) --level 1, 2 or 3
+			print ("%N Unsolved sudoku: %N")
 			unsol_board.print_sudoku
 		end
 
@@ -39,11 +38,11 @@ feature {NONE} -- Initialization
 		do
 			from
 				if level = 1 then
-					n_borrados := 10
+					n_borrados := 1
 				else if level = 2 then
-					n_borrados := 15
+					n_borrados := 2
 				else if level = 3 then
-					n_borrados := 20
+					n_borrados := 3
 				end
 				end
 				end
@@ -67,13 +66,10 @@ feature {NONE} -- Initialization
 				random_sequence.forth
 				random2 := random_sequence.item \\ 9 + 1
 				--print( random1.out +" "+ random2.out )
-				-- compruebo que la celda a borrar ya esta seteada
-				if unsol_board.cell_set (random1,random2) then --?
-					-- Si el valor esta seteado
+				if unsol_board.cell_set (random1,random2) then
 					unsol_board.unset_cell (random1,random2)
 					n_borrados := n_borrados - 1
-					--si el valor no esta seteado no deberia restar n_borrado
-					--comprobar unicidadddddddddddd					
+					--check unicity
 				end
 			end
 		end
