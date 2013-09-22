@@ -23,7 +23,7 @@ feature {ANY} --Initialize
 	local
 		default_player : PLAYER_TOP_FIVE
 	do
-		create default_player.make
+		create default_player.make_with_param ("Unknow", 600000)
 		make_filled (default_player,1,5)
 	end
 
@@ -36,6 +36,9 @@ feature {ANY} --
 		score_fift_player: integer
 	do
 		score_fift_player:= current.at (5).score
+		print("score_fift_player is : ")
+		print(score_fift_player)
+		print("%N")
 		-- if the score of the new player is higher than the score of the last player of the list
 		-- we replace the last player by him
 		if  score_fift_player > player_score then
