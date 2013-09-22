@@ -27,8 +27,10 @@ feature {ANY} --Initialize
 		make_filled (default_player,1,5)
 	end
 
-feature {ANY} --	
+feature {ANY}
 	add_player_to_top_five (player_name: STRING; player_score: INTEGER)
+	require
+		score_is_valid : player_score > 0
 	local
 		new_player_top_five:PLAYER_TOP_FIVE
 		score_fift_player: integer

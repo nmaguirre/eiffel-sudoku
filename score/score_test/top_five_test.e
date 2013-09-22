@@ -11,7 +11,8 @@ inherit
 	EQA_TEST_SET
 
 feature -- Test routines
-	test_add_player_to_top_five
+	test_add_player_to_top_five_1
+		-- Simpy test if we can add two players to top_five
 	local
 		player_name:STRING
 		score: INTEGER
@@ -29,5 +30,59 @@ feature -- Test routines
 		print("%N")
 		assert ("add_player_to_top_five ok",top_five.at (1).score = 300 )
 	end
+
+	test_add_player_to_top_five_2
+		-- Test if a player that should not be added to top five
+		-- can be added or not
+	local
+		player_name:STRING
+		top_five: TOP_FIVE
+		worked_well : BOOLEAN
+		i : INTEGER
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+
+		top_five.add_player_to_top_five ("Looser", 4000)
+		--We assume it worked fine
+		worked_well := True
+		from
+			i := 1
+		until
+			i > 5
+		loop
+			if top_five.at (i).name.is_equal ("Looser") then
+				worked_well := False
+			end
+			i := i + 1
+		end
+
+		assert ("add_player_to_top_five player should not be added ok",worked_well)
+	end
+
+	test_sort_by_score_1
+		-- Test if after adding five players to TOP_FIVE the array is sorted
+	local
+		top_five: TOP_FIVE
+		worked_well : BOOLEAN
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		worked_well := top_five.at (1).score = 100
+		worked_well := worked_well and top_five.at (2).score = 200
+		worked_well := worked_well and top_five.at (3).score = 200
+		worked_well := worked_well and top_five.at (4).score = 300
+		worked_well := worked_well and top_five.at (5).score = 400
+		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
+	end
+
 
 end
