@@ -27,7 +27,7 @@ feature -- Test routines
 		print("player_5 : ")
 		print(top_five.at (5).score)
 		print("%N")
-		assert ("add_player_to_top_five ok",top_five.at (5).score = 300 )
+		assert ("add_player_to_top_five ok",top_five.at (1).score = 300 )
 	end
 
 end

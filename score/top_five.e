@@ -37,6 +37,9 @@ feature {ANY} --
 		print("score_fift_player is : ")
 		print(score_fift_player)
 		print("%N")
+		print("score_player is : ")
+		print(player_score)
+		print("%N")
 		-- if the score of the new player is higher than the score of the last player of the list
 		-- we replace the last player by him
 		if  score_fift_player > player_score then
