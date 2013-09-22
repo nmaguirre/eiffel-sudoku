@@ -20,13 +20,10 @@ feature {NONE} -- Initialization
 	make_and_launch
 			-- Initialize and launch application
 		do
-			-- test_solver;
-			 --default_create
-			 --prepare
-			 --launch
-			--**********
-			--testing AI
-			create sudokuai.make
+			 --test_solver;
+			 default_create
+			 prepare
+			 launch
 		end
 
 	prepare

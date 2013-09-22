@@ -8,7 +8,7 @@ class
 	SUDOKU_AI
 
 create
-	make
+	make_with_level
 
 feature {NONE} -- Initialization
 
@@ -16,13 +16,13 @@ feature {NONE} -- Initialization
 	unsol_board: SUDOKU_BOARD
 	hint_counter: INTEGER
 
-	make
+	make_with_level(level:INTEGER)
 			-- Initialization for `Current'.
 		do
 			create sol_board.make
 			create unsol_board.make --unsolved board
 			unsol_board := sol_board.get_board
-			delete_cells(3) --level 1, 2 or 3
+			delete_cells(level) --level 37, 32 30
 			print ("%N Unsolved sudoku: %N")
 			unsol_board.print_sudoku
 		end
@@ -37,12 +37,12 @@ feature {NONE} -- Initialization
       		l_seed: INTEGER
 		do
 			from
-				if level = 1 then
-					n_borrados := 1
-				else if level = 2 then
-					n_borrados := 2
-				else if level = 3 then
-					n_borrados := 3
+				if level = 37 then
+					n_borrados := 1 --Numbers of delete cells in easy level
+				else if level = 32 then
+					n_borrados := 2 --Numbers of delete cells in medium level
+				else if level = 30 then
+					n_borrados := 3 --Numbers of deletes cells in hard level
 				end
 				end
 				end
@@ -75,6 +75,11 @@ feature {NONE} -- Initialization
 		end
 
 feature -- Access
+
+	get_unsolved_board:SUDOKU_BOARD
+		do
+			Result := unsol_board
+		end
 
 feature -- Measurement
 
