@@ -20,11 +20,12 @@ create
 
 feature {ANY} --Initialize
 	init
+	local
+		default_player : PLAYER_TOP_FIVE
 	do
-		--empty
+		create default_player.make
+		make_filled (default_player,1,5)
 	end
-
-feature {NONE}  --main variable
-
+	
 
 end
