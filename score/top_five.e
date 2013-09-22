@@ -10,7 +10,7 @@ class
 inherit
 	STORABLE
 
-	ARRAY[INTEGER]
+	ARRAY[PLAYER_TOP_FIVE]
 	undefine
 		is_equal,copy
 	end
