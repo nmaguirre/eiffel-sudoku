@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {TOP_FIVE}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "ARRAY of the five best player {TOP_FIVE}."
+	author: "Justine Compagnon"
+	date: "22/09/2013"
+	revision: "NONE"
 
 class
 	TOP_FIVE
@@ -17,10 +17,14 @@ inherit
 
 create
 	init
+
 feature {ANY} --Initialize
 	init
 	do
 		--empty
 	end
+
+feature {NONE}  --main variable
+
 
 end
