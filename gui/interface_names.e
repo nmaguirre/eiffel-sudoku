@@ -50,5 +50,6 @@ feature -- Access
 	Label_confirm_close_window: STRING = "You are about to close this window.%NClick OK to proceed."
 			-- String for the confirmation dialog box that appears
 			-- when the user try to close the first window.
+	Menu_hint: String= "&Get Hint"
 
 end -- class INTERFACE_NAMES

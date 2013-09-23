@@ -189,8 +189,20 @@ feature {NONE} -- Menu Implementation
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
+			create menu_item.make_with_text (Menu_hint)
+			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
+			file_menu.extend (menu_item)         --hint
+
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
 			create menu_solve_item.make_with_text (Menu_file_solve_item)
 			file_menu.extend (menu_solve_item) 	 -- Solve
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
 
 												 -- Create the File/Exit menu item and make it call
 												 -- `request_about_quit' when it is selected.
@@ -435,7 +447,12 @@ feature {NONE} -- Implementation / Constants
 	controller: SUDOKU_CONTROLLER
 
 	current_menu_bar : EV_MENU_BAR
-feature {ANY}
+
+feature {NONE}
+	request_about_hint
+	do
+		print("Should implementate request_about_hint in gui/MAIN_WINDOW")
+	end
 
 
 
