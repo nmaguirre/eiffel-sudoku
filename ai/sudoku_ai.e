@@ -1,6 +1,6 @@
 note
 	description	: ""
-	author		: "Marconi-Alvarez-Farias-Astorga"
+	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez"
 	date		: "22/09/2013"
 	revision	: "v0.1"
 
