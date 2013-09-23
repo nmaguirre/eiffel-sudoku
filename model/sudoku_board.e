@@ -480,7 +480,4 @@ feature {ANY}
 	end
 	
 
--- invariant
---	sudoku_valid: is_valid
-
 end
