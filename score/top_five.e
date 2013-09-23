@@ -107,6 +107,15 @@ feature {NONE} --Sorting array
 		array.put (player_copie, j)
 	end
 
+feature {ANY} --storing and getting from file
+
+	save (level : STRING)
+		--save the top_five in a file.
+		--there is a file by level
+	do
+		-- print("Saving top_five as :" + "./score/store_top_five/" + level + "_top_five" + "%N")
+		store_by_name ("./score/store_top_five/" + level + "_top_five")
+	end
 
 
 end
