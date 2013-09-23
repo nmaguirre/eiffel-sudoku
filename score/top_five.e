@@ -17,7 +17,6 @@ inherit
 
 create
 	init
-
 feature {ANY} --Initialize
 	init
 	local
@@ -27,8 +26,11 @@ feature {ANY} --Initialize
 		make_filled (default_player,1,5)
 	end
 
+
 feature {ANY}
+
 	add_player_to_top_five (player_name: STRING; player_score: INTEGER)
+		-- Create a new player thanks to his name and his score then add it to top five if he deserves it
 	require
 		score_is_valid : player_score > 0
 	local
@@ -53,11 +55,6 @@ feature {ANY}
 			sort_by_score()
 		end
 	end
-
-
-
-
-
 
 feature {NONE} --Sorting array
 
@@ -117,6 +114,24 @@ feature {ANY} --storing and getting from file
 		store_by_name ("./score/store_top_five/" + level + "_top_five")
 	end
 
+	retrieve (level : STRING)
+		--retrieve the top_five from the corresponding level file.
+	local
+		obj_retrieved : ANY
+		i : INTEGER
+	do
+		obj_retrieved := retrieve_by_name ("./score/store_top_five/" + level + "_top_five")
+		if attached {TOP_FIVE} obj_retrieved as existing_top_five then
+			from
+				i := 1
+			until
+				i > 5
+			loop
+				put(existing_top_five.at (i),i)
+				i := i + 1
+			end
+		end
+	end
 
 end
 
