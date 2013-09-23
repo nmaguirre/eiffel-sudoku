@@ -84,5 +84,32 @@ feature -- Test routines
 		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
 	end
 
+feature --test routines for storing top_five and getting it from a file
+
+	test_save_1
+		-- Test if saving the top_five in a file worked
+	local
+		top_five: TOP_FIVE
+		worked_well : BOOLEAN
+		rescued : BOOLEAN
+	do
+		if not rescued then
+			create top_five.init
+
+			top_five.add_player_to_top_five ("Player_One", 300)
+			top_five.add_player_to_top_five ("Player_Two", 200)
+			top_five.add_player_to_top_five ("Player_Three", 200)
+			top_five.add_player_to_top_five ("Player_Four", 400)
+			top_five.add_player_to_top_five ("Player_Five", 100)
+
+			top_five.save("dificil")
+			worked_well := true
+		else
+			worked_well := false
+		end
+		assert("save ok",worked_well)
+	rescue
+		rescued := true
+	end
 
 end
