@@ -84,7 +84,7 @@ feature -- Test routines
 		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
 	end
 
-feature --test routines for storing top_five and getting it from a file
+feature --test routines for storing top_five and retrieving it from a file
 
 	test_save_1
 		-- Test if saving the top_five in a file worked
@@ -102,7 +102,7 @@ feature --test routines for storing top_five and getting it from a file
 			top_five.add_player_to_top_five ("Player_Four", 400)
 			top_five.add_player_to_top_five ("Player_Five", 100)
 
-			top_five.save("dificil")
+			top_five.save("test")
 			worked_well := true
 		else
 			worked_well := false
@@ -112,4 +112,46 @@ feature --test routines for storing top_five and getting it from a file
 		rescued := true
 	end
 
+
+	test_retrieve_1
+	local
+		top_five_existing : TOP_FIVE
+		top_five_retrieved : TOP_FIVE
+		worked_well : BOOLEAN
+		rescued : BOOLEAN
+		i : INTEGER
+	do
+		if not rescued then
+			create top_five_existing.init
+			create top_five_retrieved.init
+
+			top_five_existing.add_player_to_top_five ("Player_One", 300)
+			top_five_existing.add_player_to_top_five ("Player_Two", 200)
+			top_five_existing.add_player_to_top_five ("Player_Three", 200)
+			top_five_existing.add_player_to_top_five ("Player_Four", 400)
+			top_five_existing.add_player_to_top_five ("Player_Five", 100)
+
+			top_five_existing.save("test")
+
+			top_five_retrieved.retrieve ("test")
+			worked_well := true
+
+			from
+				i := 1
+			until
+				i > 5
+			loop
+				if not top_five_existing.at (i).name.is_equal (top_five_retrieved.at (i).name) then
+					worked_well := false
+				end
+				i := i + 1
+			end
+
+		else
+			worked_well := false
+		end
+		assert("retrieved ok",worked_well)
+	rescue
+		rescued := true
+	end
 end
