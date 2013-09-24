@@ -485,8 +485,13 @@ feature {NONE} -- Implementation / Constants
 
 feature {NONE}
 	request_about_hint
+	local
+	hint : ABOUT_HINT
 	do
-		print("Should implementate request_about_hint in gui/MAIN_WINDOW")
+		--print("Should implementate request_about_hint in gui/MAIN_WINDOW")
+		create hint
+		hint.add_hint_action (controller)
+		hint.show
 	end
 
 
