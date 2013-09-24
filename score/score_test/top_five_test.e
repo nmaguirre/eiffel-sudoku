@@ -154,4 +154,25 @@ feature --test routines for storing top_five and retrieving it from a file
 	rescue
 		rescued := true
 	end
+
+
+	feature --test routines for function out
+
+test_out
+	-- test if out is working
+	local
+		top_five : TOP_FIVE
+		i : INTEGER
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+    	print(top_five.out)
+
+    	assert("retrieved ok",true)
+	end
+	
 end
