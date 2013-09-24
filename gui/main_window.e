@@ -193,11 +193,7 @@ feature {NONE} -- Menu Implementation
 			file_menu.extend (separator_item) 	-- Separator
 
 			create menu_item.make_with_text (Menu_multiplayer_item)
-<<<<<<< HEAD
-			menu_item.select_actions.extend (agent request_multiplayer)
-=======
 			menu_item.select_actions.extend (agent request_about_multiplayer) --controller for click in Multiplayer
->>>>>>> nando
 			file_menu.extend (menu_item)    	-- Multiplayer
 
 			create separator_item.default_create
@@ -508,9 +504,9 @@ feature {NONE}
 		hint.show
 	end
 
-<<<<<<< HEAD
+
 feature {NONE}
-	request_multiplayer
+	request_about_multiplayer
 		local
 			multiplayer_window:MULTIPLAYER_WINDOW
 
@@ -518,7 +514,6 @@ feature {NONE}
 			create multiplayer_window
 			multiplayer_window.show
 		end
-=======
 	request_about_save
 	do
 		print("Should implementate request_about_save in gui/MAIN_WINDOW")
@@ -528,12 +523,8 @@ feature {NONE}
 	do
 		print("Should implementate request_about_save_as in gui/MAIN_WINDOW")
 	end
->>>>>>> nando
 
-	request_about_multiplayer
-	do
-		print("Should implementate request_about_multiplayer in gui/MAIN_WINDOW")
-	end
+
 
 
 feature{ANY}
