@@ -72,7 +72,7 @@ feature {NONE} -- Implementation
 			font : EV_FONT
 
 		do
-			main_container.enable_sensitive -- the container is unlocked
+			main_container.disable_sensitive -- the container is unlocked
 			create font.default_create
 			font.set_weight( (create {EV_FONT_CONSTANTS}).weight_bold)
 
