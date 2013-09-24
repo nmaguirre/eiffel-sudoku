@@ -88,7 +88,7 @@ feature {NONE} -- Initialization
 			end
 		end
 
-feature --is_unicity
+feature -- is_unicity
 
 	is_unicity (random1: INTEGER; random2:INTEGER ): BOOLEAN
 		local
