@@ -21,7 +21,7 @@ feature -- Access
 	Menu_file_new_item: STRING = "&New"
 			-- String for menu "File/New"
 
-	Menu_file_open_item: STRING = "&Open"
+	Menu_file_open_item: STRING = "&Load"
 			-- String for menu "File/Open"
 
 	Menu_file_save_item: STRING = "&Save"

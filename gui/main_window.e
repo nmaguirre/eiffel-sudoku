@@ -193,7 +193,6 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
 			file_menu.extend (menu_item)         --hint
 
-
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
@@ -203,9 +202,8 @@ feature {NONE} -- Menu Implementation
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
-
-												 -- Create the File/Exit menu item and make it call
-												 -- `request_about_quit' when it is selected.
+			-- Create the File/Exit menu item and make it call
+			-- `request_about_quit' when it is selected.
 			create menu_item.make_with_text (Menu_file_exit_item)
 			menu_item.select_actions.extend (agent request_about_quit)
 			file_menu.extend (menu_item)
@@ -306,12 +304,33 @@ feature -- Implementation, Open About
 feature -- Implementation, Open About Win
 
 	request_about_winning_congrats
-		local
-			about_window: ABOUT_WIN
-		do
-			create about_window
-			about_window.show
+	require
+		col >= 1 and col <= 9
+		row >= 1 and row <= 9
+	local
+		about_window: ABOUT_WIN
+		row,col:INTEGER
+	do
+		from
+			row:=1
+		until
+			row=10
+		loop
+			from
+				col:=1
+			until
+				col=10
+			loop
+				set_cell_background_color_default(row,col)
+				col:=col+1
+			end
+			row:=row+1
 		end
+		create about_window
+		about_window.show
+	end
+
+
 
 feature {NONE} -- Implementation
 
