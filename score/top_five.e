@@ -9,10 +9,13 @@ class
 
 inherit
 	STORABLE
+	undefine
+		out
+	end
 
 	ARRAY[PLAYER_TOP_FIVE]
 	undefine
-		is_equal,copy
+		is_equal,copy,out
 	end
 
 create
@@ -38,12 +41,6 @@ feature {ANY}
 		score_fift_player: integer
 	do
 		score_fift_player:= current.at (5).score
-		print("score_fift_player is : ")
-		print(score_fift_player)
-		print("%N")
-		print("score_player is : ")
-		print(player_score)
-		print("%N")
 		-- if the score of the new player is higher than the score of the last player of the list
 		-- we replace the last player by him
 		if  score_fift_player > player_score then
@@ -132,6 +129,26 @@ feature {ANY} --storing and getting from file
 			end
 		end
 	end
+
+	out: STRING
+    	-- Returns a string representing the current object
+    local
+    	list: STRING
+    	i: INTEGER
+   	do
+   		create list.make_empty
+    	from
+    		i:= 1
+    	until
+    		i = 6
+    	loop
+    		list.append (Current.at (i).out)
+    		list.append ("%N")
+    		i:= i + 1
+    	end
+    result := list
+   	end
+
 
 end
 
