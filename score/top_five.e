@@ -41,7 +41,7 @@ feature {ANY} -- control
 		score_fift_player:= current.at (5).score
 		-- if the score of the new player is higher than the score of the last player of the list
 		-- the the new player is in the top five
-		if  score_fift_player > score then
+		if  score_fift_player >= score then
 			player_in_top_five := true
 		else
 			player_in_top_five := false

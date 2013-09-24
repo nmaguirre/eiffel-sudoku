@@ -10,7 +10,56 @@ class
 inherit
 	EQA_TEST_SET
 
-feature -- Test routines
+
+feature {ANY} -- Test routing control
+
+	test_is_player_making_top_five_1
+		-- Test if the new player is in the top five or not
+		-- In this test he is
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		assert ("player_is_in_top_five ok",top_five.is_player_making_top_five(10) )
+	end
+
+
+	test_is_player_making_top_five_2
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		assert ("player_is_in_top_five ok",not top_five.is_player_making_top_five(900) )
+	end
+
+
+	test_is_player_making_top_five_3
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		assert ("player_is_in_top_five ok",top_five.is_player_making_top_five(400) )
+	end
+
+
+
+
+
+feature -- Test routines adding
 	test_add_player_to_top_five_1
 		-- Simpy test if we can add two players to top_five
 	local
@@ -174,5 +223,5 @@ test_out
 
     	assert("retrieved ok",true)
 	end
-	
+
 end
