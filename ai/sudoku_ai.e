@@ -114,7 +114,7 @@ feature -- is_unicity
 			then
 				Result := False
 			else
-				Result := True
+				Result := True  -- Yes, it is the only value that I can bring.
 			end
 		end
 
