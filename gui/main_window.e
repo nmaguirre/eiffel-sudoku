@@ -313,10 +313,11 @@ feature -- Implementation, Open About
 feature -- Implementation, Open About Win
 
 	request_about_winning_congrats
-	
+
 	local
 		about_window: ABOUT_WIN
 		row,col:INTEGER
+		current_cell:CELL_TEXT_FIELD
 	do
 		from
 			row:=1
@@ -328,11 +329,14 @@ feature -- Implementation, Open About Win
 			until
 				col=10
 			loop
-				set_cell_background_color_default(row,col)
+				current_cell ?= l_table.item_at_position (col, row)
+				current_cell.paint_default
+				current_cell.disable_edit
 				col:=col+1
 			end
 			row:=row+1
 		end
+
 		create about_window
 		about_window.show
 	end
