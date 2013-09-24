@@ -52,4 +52,6 @@ feature -- Access
 			-- when the user try to close the first window.
 	Menu_hint: String= "&Get Hint"
 
+	Menu_top_scores:String = "&Top Scores"
+
 end -- class INTERFACE_NAMES

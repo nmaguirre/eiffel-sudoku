@@ -193,6 +193,12 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
 			file_menu.extend (menu_item)         --hint
 
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
+			create menu_item.make_with_text (Menu_top_scores)
+			menu_item.select_actions.extend (agent request_about_top_scores) --controller for click in top scores
+			file_menu.extend (menu_item) 	 -- Top Scores
 
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
@@ -428,7 +434,11 @@ feature {NONE} -- setter private
 		end
 	end
 
-
+feature{NONE}
+	request_about_top_scores
+	do
+		--print("Missing implementation of GUI/request_about_top_scores")
+	end
 
 
 feature {NONE} -- Implementation / Constants
