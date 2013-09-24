@@ -474,7 +474,10 @@ feature {ANY}
 		Result:= cells.item (row, col).settable
 	end
 
--- invariant
---	sudoku_valid: is_valid
+	cell_set(row,col:INTEGER):BOOLEAN
+	do
+		Result := cells.item (row, col).is_set
+	end
+	
 
 end

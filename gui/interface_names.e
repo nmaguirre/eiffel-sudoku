@@ -18,13 +18,13 @@ feature -- Access
 	Menu_file_item: STRING = "&File"
 			-- String for menu "File"
 
-	Menu_file_new_item: STRING = "&New%TCtrl+N"
+	Menu_file_new_item: STRING = "&New"
 			-- String for menu "File/New"
 
-	Menu_file_open_item: STRING = "&Open...%TCtrl+O"
+	Menu_file_open_item: STRING = "&Load"
 			-- String for menu "File/Open"
 
-	Menu_file_save_item: STRING = "&Save%TCtrl+S"
+	Menu_file_save_item: STRING = "&Save"
 			-- String for menu "File/Save"
 
 	Menu_file_saveas_item: STRING = "Save &As..."
@@ -41,6 +41,9 @@ feature -- Access
 	Menu_help_item: STRING = "&Help"
 			-- String for menu "Help"
 
+	Menu_multiplayer_item: STRING = "&Multiplayer"
+			-- String for menu "Help"
+
 	Menu_help_contents_item: STRING = "&Contents and Index"
 			-- String for menu "Help/Contents and Index"
 
@@ -50,5 +53,8 @@ feature -- Access
 	Label_confirm_close_window: STRING = "You are about to close this window.%NClick OK to proceed."
 			-- String for the confirmation dialog box that appears
 			-- when the user try to close the first window.
+	Menu_hint: String= "&Get Hint"
+
+	Menu_top_scores:String = "&Top Scores"
 
 end -- class INTERFACE_NAMES

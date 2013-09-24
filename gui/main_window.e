@@ -186,14 +186,34 @@ feature {NONE} -- Menu Implementation
 			create menu_item.make_with_text (Menu_file_open_item)
 			file_menu.extend (menu_item)    	-- Open
 
+			create menu_item.make_with_text (Menu_multiplayer_item)
+			file_menu.extend (menu_item)    	-- Multiplayer
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
+			create menu_item.make_with_text (Menu_hint)
+			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
+			file_menu.extend (menu_item)         --hint
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
+			create menu_item.make_with_text (Menu_top_scores)
+			menu_item.select_actions.extend (agent request_about_top_scores) --controller for click in top scores
+			file_menu.extend (menu_item) 	 -- Top Scores
+
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
 			create menu_solve_item.make_with_text (Menu_file_solve_item)
 			file_menu.extend (menu_solve_item) 	 -- Solve
 
-												 -- Create the File/Exit menu item and make it call
-												 -- `request_about_quit' when it is selected.
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
+			-- Create the File/Exit menu item and make it call
+			-- `request_about_quit' when it is selected.
 			create menu_item.make_with_text (Menu_file_exit_item)
 			menu_item.select_actions.extend (agent request_about_quit)
 			file_menu.extend (menu_item)
@@ -294,12 +314,35 @@ feature -- Implementation, Open About
 feature -- Implementation, Open About Win
 
 	request_about_winning_congrats
-		local
-			about_window: ABOUT_WIN
-		do
-			create about_window
-			about_window.show
+
+	local
+		about_window: ABOUT_WIN
+		row,col:INTEGER
+		current_cell:CELL_TEXT_FIELD
+	do
+		from
+			row:=1
+		until
+			row=10
+		loop
+			from
+				col:=1
+			until
+				col=10
+			loop
+				current_cell ?= l_table.item_at_position (col, row)
+				current_cell.paint_default
+				current_cell.disable_edit
+				col:=col+1
+			end
+			row:=row+1
 		end
+
+		create about_window
+		about_window.show
+	end
+
+
 
 feature {NONE} -- Implementation
 
@@ -416,7 +459,11 @@ feature {NONE} -- setter private
 		end
 	end
 
-
+feature{NONE}
+	request_about_top_scores
+	do
+		--print("Missing implementation of GUI/request_about_top_scores")
+	end
 
 
 feature {NONE} -- Implementation / Constants
@@ -435,7 +482,17 @@ feature {NONE} -- Implementation / Constants
 	controller: SUDOKU_CONTROLLER
 
 	current_menu_bar : EV_MENU_BAR
-feature {ANY}
+
+feature {NONE}
+	request_about_hint
+	local
+	hint : ABOUT_HINT
+	do
+		--print("Should implementate request_about_hint in gui/MAIN_WINDOW")
+		create hint
+		hint.add_hint_action (controller)
+		hint.show
+	end
 
 
 
