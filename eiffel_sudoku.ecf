@@ -42,6 +42,9 @@
 			</file_rule>
 			<tests name="network_tests" location=".\network\network_tests\"/>
 		</cluster>
+		<cluster name="score" location=".\score\">
+			<cluster name="score_test" location=".\score\score_test\"/>
+		</cluster>
 		<cluster name="solver" location=".\solver\">
 			<file_rule>
 				<exclude>/.git$</exclude>

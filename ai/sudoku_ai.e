@@ -22,7 +22,7 @@ feature {NONE} -- Initialization
 			create sol_board.make
 			create unsol_board.make --unsolved board
 			unsol_board := sol_board.get_board
-			delete_cells(level) --level 37, 32 30
+			delete_cells(level) --level 37, 32 30 	
 			print ("%N Unsolved sudoku: %N")
 			unsol_board.print_sudoku
 		end
@@ -35,6 +35,7 @@ feature {NONE} -- Initialization
 			random1, random2:INTEGER
 			l_time: TIME
       		l_seed: INTEGER
+      		loop_internal: BOOLEAN
 		do
 			from
 				if level = 37 then
@@ -49,34 +50,77 @@ feature {NONE} -- Initialization
 			until
 				n_borrados < 1
 			loop
-				create l_time.make_now
-   				l_seed := l_time.hour
-   				l_seed := l_seed * 60 + l_time.minute
-   				l_seed := l_seed * 60 + l_time.second
-   				l_seed := l_seed * 1000 + l_time.milli_second
-   				create random_sequence.set_seed (l_seed)
-   				create l_time.make_now
-   				l_seed := l_time.hour
-   				l_seed := l_seed * 60 + l_time.minute
-   				l_seed := l_seed * 60 + l_time.second
-   				l_seed := l_seed * 1000 + l_time.milli_second
-   				create random_sequence.set_seed (l_seed)
-   				random_sequence.forth
-				random1 := random_sequence.item \\ 9 + 1
-				random_sequence.forth
-				random2 := random_sequence.item \\ 9 + 1
-				--print( random1.out +" "+ random2.out )
-				if unsol_board.cell_set (random1,random2) then
-					unsol_board.unset_cell (random1,random2)
-					n_borrados := n_borrados - 1
-					--check unicity
+
+			  	from
+			     	loop_internal := True
+			 	until
+			     	loop_internal = False
+			  	loop
+
+					create l_time.make_now
+   					l_seed := l_time.hour
+   					l_seed := l_seed * 60 + l_time.minute
+   					l_seed := l_seed * 60 + l_time.second
+   					l_seed := l_seed * 1000 + l_time.milli_second
+   					create random_sequence.set_seed (l_seed)
+   					create l_time.make_now
+   					l_seed := l_time.hour
+   					l_seed := l_seed * 60 + l_time.minute
+   					l_seed := l_seed * 60 + l_time.second
+   					l_seed := l_seed * 1000 + l_time.milli_second
+   					create random_sequence.set_seed (l_seed)
+   					random_sequence.forth
+					random1 := random_sequence.item \\ 9 + 1
+					random_sequence.forth
+					random2 := random_sequence.item \\ 9 + 1
+					--print( random1.out +" "+ random2.out )
+					if unsol_board.cell_set (random1,random2) then
+						if is_unicity(random1,random2) = true
+						then
+							unsol_board.unset_cell (random1,random2)
+							loop_internal := False
+						else
+							loop_internal := True
+						end -- end if
+			   	    end -- end if
+				end -- end loop
+			n_borrados := n_borrados - 1
+			end
+		end
+
+feature -- is_unicity
+
+	is_unicity (random1: INTEGER; random2:INTEGER ): BOOLEAN
+		local
+			i,cont: INTEGER
+		do
+           	cont:= 0
+			from
+				i := 1
+			until
+				i = 9
+			loop
+
+				if unsol_board.set_cell (random1, random2, i)
+				then
+				    unsol_board.unset_cell (random1,random2)
+					cont := cont + 1
+				else
+					cont := cont + 0
 				end
+				i := i + 1
+			end
+			if 	cont >= 2
+			then
+				Result := False
+			else
+				Result := True  -- Yes, it is the only value that I can bring.
 			end
 		end
 
 feature -- Access
 
-	get_unsolved_board:SUDOKU_BOARD
+	get_unsolved_board:SUDOKU_BOARD    --Devuelve un tablero resuelto
 		do
 			Result := unsol_board
 		end
