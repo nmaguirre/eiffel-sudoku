@@ -187,6 +187,7 @@ feature {NONE} -- Menu Implementation
 			file_menu.extend (menu_item)    	-- Open
 
 			create menu_item.make_with_text (Menu_multiplayer_item)
+			menu_item.select_actions.extend (agent request_multiplayer)
 			file_menu.extend (menu_item)    	-- Multiplayer
 
 			create separator_item.default_create
@@ -489,6 +490,15 @@ feature {NONE}
 		print("Should implementate request_about_hint in gui/MAIN_WINDOW")
 	end
 
+feature {NONE}
+	request_multiplayer
+		local
+			multiplayer_window:MULTIPLAYER_WINDOW
+
+		do
+			create multiplayer_window
+			multiplayer_window.show
+		end
 
 
 end
