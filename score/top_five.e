@@ -130,6 +130,7 @@ feature {ANY} --storing and getting from file
 		end
 	end
 
+
 	out: STRING
     	-- Returns a string representing the current object
     local
@@ -148,7 +149,6 @@ feature {ANY} --storing and getting from file
     	end
     result := list
    	end
-
 
 end
 
