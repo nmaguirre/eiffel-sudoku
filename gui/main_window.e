@@ -193,8 +193,7 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
 			file_menu.extend (menu_item)         --hint
 
-<<<<<<< HEAD
-=======
+
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
@@ -202,7 +201,7 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_top_scores) --controller for click in top scores
 			file_menu.extend (menu_item) 	 -- Top Scores
 
->>>>>>> ff335c57b71175e0cfdf9319726aaed4d9815dcd
+
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
@@ -314,9 +313,7 @@ feature -- Implementation, Open About
 feature -- Implementation, Open About Win
 
 	request_about_winning_congrats
-	require
-		col >= 1 and col <= 9
-		row >= 1 and row <= 9
+	
 	local
 		about_window: ABOUT_WIN
 		row,col:INTEGER
