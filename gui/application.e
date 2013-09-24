@@ -15,10 +15,12 @@ create
 
 feature {NONE} -- Initialization
 
+	sudokuai:SUDOKU_AI
+
 	make_and_launch
 			-- Initialize and launch application
 		do
-			-- test_solver;
+			 --test_solver;
 			 default_create
 			 prepare
 			 launch

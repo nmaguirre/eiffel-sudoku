@@ -6,9 +6,16 @@
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
+		<library name="net" location="$ISE_LIBRARY\library\net\net.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing.ecf"/>
 		<library name="time" location="$ISE_LIBRARY\library\time\time-safe.ecf"/>
 		<library name="vision2" location="$ISE_LIBRARY\library\vision2\vision2.ecf"/>
+		<cluster name="ai" location=".\ai\">
+			<file_rule>
+				<exclude>/.git$</exclude>
+				<exclude>/EIFGENs$</exclude>
+			</file_rule>
+		</cluster>
 		<cluster name="controller" location=".\controller\">
 			<file_rule>
 				<exclude>/.git$</exclude>
@@ -27,6 +34,16 @@
 				<exclude>/EIFGENs$</exclude>
 			</file_rule>
 			<tests name="model_tests" location=".\model\model_tests\"/>
+		</cluster>
+		<cluster name="network" location=".\network\">
+			<file_rule>
+				<exclude>/.git$</exclude>
+				<exclude>/EIFGENs$</exclude>
+			</file_rule>
+			<tests name="network_tests" location=".\network\network_tests\"/>
+		</cluster>
+		<cluster name="score" location=".\score\">
+			<cluster name="score_test" location=".\score\score_test\"/>
 		</cluster>
 		<cluster name="solver" location=".\solver\">
 			<file_rule>
