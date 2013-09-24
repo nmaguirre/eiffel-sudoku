@@ -186,6 +186,9 @@ feature {NONE} -- Menu Implementation
 			create menu_item.make_with_text (Menu_file_open_item)
 			file_menu.extend (menu_item)    	-- Open
 
+			create menu_item.make_with_text (Menu_multiplayer_item)
+			file_menu.extend (menu_item)    	-- Multiplayer
+
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
@@ -193,14 +196,12 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_hint) --controller for click in Get Hint
 			file_menu.extend (menu_item)         --hint
 
-
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
 			create menu_item.make_with_text (Menu_top_scores)
 			menu_item.select_actions.extend (agent request_about_top_scores) --controller for click in top scores
 			file_menu.extend (menu_item) 	 -- Top Scores
-
 
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator

@@ -41,6 +41,9 @@ feature -- Access
 	Menu_help_item: STRING = "&Help"
 			-- String for menu "Help"
 
+	Menu_multiplayer_item: STRING = "&Multiplayer"
+			-- String for menu "Help"
+
 	Menu_help_contents_item: STRING = "&Contents and Index"
 			-- String for menu "Help/Contents and Index"
 
