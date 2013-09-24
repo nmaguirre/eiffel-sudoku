@@ -18,13 +18,13 @@ feature -- Access
 	Menu_file_item: STRING = "&File"
 			-- String for menu "File"
 
-	Menu_file_new_item: STRING = "&New%TCtrl+N"
+	Menu_file_new_item: STRING = "&New"
 			-- String for menu "File/New"
 
-	Menu_file_open_item: STRING = "&Open...%TCtrl+O"
+	Menu_file_open_item: STRING = "&Open"
 			-- String for menu "File/Open"
 
-	Menu_file_save_item: STRING = "&Save%TCtrl+S"
+	Menu_file_save_item: STRING = "&Save"
 			-- String for menu "File/Save"
 
 	Menu_file_saveas_item: STRING = "Save &As..."
