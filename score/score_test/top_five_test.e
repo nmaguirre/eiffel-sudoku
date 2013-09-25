@@ -166,6 +166,29 @@ feature -- Test routines adding
 		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
 	end
 
+	test_sort_by_score_2
+		-- Test if after adding five players to TOP_FIVE the array is sorted
+	local
+		top_five: TOP_FIVE
+		worked_well : BOOLEAN
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 201)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 400)
+		worked_well := top_five.at (1).score = 200
+		worked_well := worked_well and top_five.at (2).score = 201
+		worked_well := worked_well and top_five.at (3).score = 300
+		worked_well := worked_well and top_five.at (4).score = 400
+		worked_well := worked_well and top_five.at (5).score = 400
+		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
+	end
+
+
+
+
 feature --test routines for storing top_five and retrieving it from a file
 
 	test_save_1
