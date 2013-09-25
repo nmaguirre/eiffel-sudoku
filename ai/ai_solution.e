@@ -112,6 +112,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 
 	swap(n,m:INTEGER)
 		--Swap values 'n' and 'm'
+		require
+			sol_board/=Void
 		local
 			i,j:INTEGER
 		do
