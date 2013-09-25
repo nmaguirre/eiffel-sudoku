@@ -36,7 +36,7 @@ feature {ANY} -- Test routing control
 		top_five.add_player_to_top_five ("Player_Three", 200)
 		top_five.add_player_to_top_five ("Player_Four", 400)
 		top_five.add_player_to_top_five ("Player_Five", 100)
-		assert ("player_is_in_top_five ok",not top_five.is_player_making_top_five(900) )
+		assert ("player_is_not_in_top_five ok",not top_five.is_player_making_top_five(900) )
 	end
 
 
@@ -52,7 +52,7 @@ feature {ANY} -- Test routing control
 		top_five.add_player_to_top_five ("Player_Three", 200)
 		top_five.add_player_to_top_five ("Player_Four", 400)
 		top_five.add_player_to_top_five ("Player_Five", 100)
-		assert ("player_is_in_top_five ok",top_five.is_player_making_top_five(400) )
+		assert ("player_is_not_in_top_five ok",not top_five.is_player_making_top_five(400) )
 	end
 
 
@@ -112,6 +112,39 @@ feature -- Test routines adding
 
 		assert ("add_player_to_top_five player should not be added ok",worked_well)
 	end
+
+
+	test_add_player_to_top_five_3
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+		i:INTEGER
+		worked_well:BOOLEAN
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		top_five.add_player_to_top_five("Looser",400)
+		--We assume it worked fine
+		worked_well := True
+		from
+			i := 1
+		until
+			i > 5
+		loop
+			if top_five.at (i).name.is_equal ("Looser") then
+				worked_well := False
+			end
+			i := i + 1
+		end
+		assert ("add_player_to_top_five player should not be added ok",worked_well)
+	end
+
+
 
 	test_sort_by_score_1
 		-- Test if after adding five players to TOP_FIVE the array is sorted
