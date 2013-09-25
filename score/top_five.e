@@ -30,28 +30,48 @@ feature {ANY} --Initialize
 	end
 
 
-feature {ANY}
+feature {ANY} -- control
+
+	is_player_making_top_five(score: INTEGER): BOOLEAN
+		-- Tell if the player_top_five is in the top five or not
+	local
+		score_fift_player: INTEGER
+		player_in_top_five: BOOLEAN
+	do
+		score_fift_player:= current.at (5).score
+		-- if the score of the new player is higher than the score of the last player of the list
+		-- the the new player is in the top five
+		if  score_fift_player >= score then
+			player_in_top_five := true
+		else
+			player_in_top_five := false
+		end
+		result := player_in_top_five
+	end
+
+
+feature {ANY} -- adding
 
 	add_player_to_top_five (player_name: STRING; player_score: INTEGER)
 		-- Create a new player thanks to his name and his score then add it to top five if he deserves it
 	require
 		score_is_valid : player_score > 0
+		is_player_making_top_five(player_score)
+
 	local
 		new_player_top_five:PLAYER_TOP_FIVE
 		score_fift_player: integer
 	do
 		score_fift_player:= current.at (5).score
-		-- if the score of the new player is higher than the score of the last player of the list
-		-- we replace the last player by him
-		if  score_fift_player > player_score then
-			-- we create the new player
-			create  new_player_top_five.make_with_param (player_name, player_score)
-			-- we give the last spot to our new player
-			put (new_player_top_five, 5);
-			-- and now we sort the array
-			sort_by_score()
-		end
+		-- we create the new player
+		create  new_player_top_five.make_with_param (player_name, player_score)
+		-- we give the last spot to our new player
+		put (new_player_top_five, 5);
+		-- and now we sort the array
+		sort_by_score()
 	end
+
+
 
 feature {NONE} --Sorting array
 
