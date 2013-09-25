@@ -10,7 +10,7 @@ class
 create
 	make
 
-feature {NONE} -- Initialization
+feature {SUDOKU_AI_TEST} -- Initialization
 
 	sol_board: SUDOKU_BOARD
 
