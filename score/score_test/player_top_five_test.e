@@ -42,4 +42,45 @@ test_make_default
 	end
 
 
+feature {ANY} -- Test routing setter
+
+test_set_name_and_score_1
+	local
+		player: PLAYER_TOP_FIVE
+		worked_well: BOOLEAN
+	do
+		-- we suppose that the test work
+		worked_well:= true;
+		create player.make
+		player.set_name ("François")
+		player.set_score (800)
+		print(player.out)
+		if (not player.name.is_equal ("François")) or (player.score /= 800) then
+			worked_well:= false;
+		end
+		assert ("set_name_and_score_player_top_five ok", worked_well )
+	end
+
+-- check if require score > is working
+test_set_name_and_score_2
+	local
+		player: PLAYER_TOP_FIVE
+		worked_well: BOOLEAN
+	do
+		-- we suppose that the test work
+		worked_well:= true;
+		create player.make
+		player.set_name ("François")
+		player.set_score (-5)
+		print(player.out)
+		if (not player.name.is_equal ("François")) or (player.score /= -5) then
+			worked_well:= false;
+		end
+		assert ("set_name_and_score_player_top_five ok", worked_well )
+	end
+
+
+
+
+
 end
