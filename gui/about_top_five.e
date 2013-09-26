@@ -45,6 +45,7 @@ feature {NONE} -- Initialization
 			array_visible.set_minimum_size (arrayv_width, arrayv_height)
 			array_visible.set_column_title ("player",1)
 			array_visible.set_column_title ("score",2)
+			array_visible.set_column_width (rightcol_width, 1)
 			--adding score array to score_container
 			score_container.extend (array_visible)
 
@@ -91,7 +92,7 @@ feature -- Update window
 
 feature {NONE} -- Implementation
 
-	dialogb_height : INTEGER = 380
+	dialogb_height : INTEGER = 230
 			--Current window's height
 	dialogb_width : INTEGER = 370
 			--Current window's width
@@ -107,11 +108,13 @@ feature {NONE} -- Implementation
 	array_visible: EV_MULTI_COLUMN_LIST
 			-- Array visible containing the top five players
 
-	arrayv_height : INTEGER = 340
+	arrayv_height : INTEGER = 190
 			--Array_visible's height	
 	arrayv_width : INTEGER = 380
 			--Array_visible's width	
 
+	rightcol_width : INTEGER = 250
+			--Left column of the array visible's width
 
 
 feature {NONE} -- Implementation / Constants

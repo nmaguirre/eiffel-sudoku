@@ -5,6 +5,7 @@ note
 	revision: "$Revision$"
 
 class
+    --sudoku multiplayer
 	SUDOKU_MULTIPLAYER
 
 end
