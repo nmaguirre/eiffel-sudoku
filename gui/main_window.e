@@ -515,8 +515,12 @@ feature {NONE}
 			multiplayer_window.show
 		end
 	request_about_save
+	local
+		load_window: ABOUT_SAVE
 	do
-		print("Should implementate request_about_save in gui/MAIN_WINDOW")
+		create load_window.default_create
+		load_window.show
+		--print("Should implementate request_about_save in gui/MAIN_WINDOW")
 	end
 
 	request_about_save_as
