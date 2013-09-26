@@ -35,6 +35,7 @@
 				<exclude>/EIFGENs$</exclude>
 			</file_rule>
 			<tests name="model_tests" location=".\model\model_tests\"/>
+			<cluster name="multiplayer" location="\home\jonathan\eiffel-sudoku\model\multiplayer\"/>
 		</cluster>
 		<cluster name="network" location=".\network\">
 			<file_rule>
