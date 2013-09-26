@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {ABOUT_TOP_FIVE_TEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "{ABOUT_TOP_FIVE_TEST} is used to test class {ABOUT_TOP_FIVE}."
+	author: "Gabriel Mabille"
+	date: "25/09/2013"
+	revision: "NONE"
 
 class
 	ABOUT_TOP_FIVE_TEST
