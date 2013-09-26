@@ -78,18 +78,33 @@ test_set_name_and_score_2
 		assert ("set_name_and_score_player_top_five ok", worked_well )
 	end
 
+
+
+feature -- test out
+
 test_out
 	local
 		player: PLAYER_TOP_FIVE
 		worked_well: BOOLEAN
 	do
-	create player.make
+		create player.make
 		player.set_name ("François")
 		player.set_score (800)
 		print(player.out)
 		assert ("out_player_top_five ok", player.out.is_equal ("François : 800") )
 	end
 
+
+feature -- test score
+
+test_score
+	local
+		player: PLAYER_TOP_FIVE
+		worked_well: BOOLEAN
+	do
+		create player.make
+		assert ("calculate_score_player_top_five ok", player.calculate_score (800) = 800)
+	end
 
 
 end
