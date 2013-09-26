@@ -43,27 +43,27 @@ feature {SUDOKU_AI_TEST} -- Initialization
 				loop
 					if i = 2 and j = 1 then
 						n := 4
-					else if i = 3 and j = 1  then
-						n := 7
-					else if i = 4 and j = 1  then
-						n := 2
-					else if i = 5 and j = 1  then
-						n := 5
-					else if i = 6 and j = 1  then
-						n := 8
-					else if i = 7 and j = 1  then
-						n := 3
-					else if i = 8 and j = 1  then
-						n := 6
-					else if i = 9 and j = 1  then
-						n := 9
-					end
-					end
-					end
-					end
-					end
-					end
-					end
+						else if i = 3 and j = 1  then
+							n := 7
+							else if i = 4 and j = 1  then
+								n := 2
+								else if i = 5 and j = 1  then
+									n := 5
+									else if i = 6 and j = 1  then
+										n := 8
+										else if i = 7 and j = 1  then
+											n := 3
+											else if i = 8 and j = 1  then
+												n := 6
+												else if i = 9 and j = 1  then
+													n := 9
+												end
+											end
+										end
+									end
+								end
+							end
+						end
 					end
 					if not sol_board.set_cell (i,j,n)  then
 						print ("%N error set_cell %N")
@@ -108,6 +108,9 @@ feature {SUDOKU_AI_TEST} -- Initialization
 			print ("%N Sudoku solution: %N")
 			sol_board.print_sudoku
 			print ("%N valid? " + sol_board.is_solved.out)
+
+		ensure
+			sol_board.is_solved
 		end
 
 	swap(n,m:INTEGER)
@@ -182,6 +185,6 @@ feature -- Inapplicable
 feature {NONE} -- Implementation
 
 invariant
-	invariant_clause: True -- Your invariant here
+	board_is_solve: sol_board.is_solved
 
 end

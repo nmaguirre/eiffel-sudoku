@@ -1,5 +1,5 @@
 note
-	description	: ""
+	description	: "creates a sudoku board with solution"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez"
 	date		: "22/09/2013"
 	revision	: "v0.1"
@@ -25,11 +25,14 @@ feature {NONE} -- Initialization
 			delete_cells(level) --level 37, 32 30 	
 			print ("%N Unsolved sudoku: %N")
 			unsol_board.print_sudoku
+
 		end
 
 	delete_cells(level: INTEGER)
+		require
+			correct_level: level=37 or level=32 or level=30
+			unsol_board/=Void
 		local
-			i,j:INTEGER
 			n_borrados:INTEGER
 			random_sequence:RANDOM
 			random1, random2:INTEGER
@@ -42,9 +45,9 @@ feature {NONE} -- Initialization
 					n_borrados := 1 --Numbers of delete cells in easy level
 				else if level = 32 then
 					n_borrados := 2 --Numbers of delete cells in medium level
-				else if level = 30 then
-					n_borrados := 3 --Numbers of deletes cells in hard level
-				end
+					else if level = 30 then
+						n_borrados := 3 --Numbers of deletes cells in hard level
+					end
 				end
 				end
 			until
@@ -86,11 +89,16 @@ feature {NONE} -- Initialization
 				end -- end loop
 			n_borrados := n_borrados - 1
 			end
+
+		ensure
+			valid_board: unsol_board.is_valid
 		end
 
 feature -- is_unicity
 
 	is_unicity (random1: INTEGER; random2:INTEGER ): BOOLEAN
+		require
+			(random1 > 0 and random1 < 10) and (random2 > 0 and random2 < 10)
 		local
 			i,cont: INTEGER
 		do
