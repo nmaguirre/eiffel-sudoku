@@ -26,7 +26,7 @@ feature {NONE} -- Initialization
 	initialize
 		do
 			--create the window (dimension & button )
-
+			Precursor
 		end
 
 
