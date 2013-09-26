@@ -10,7 +10,7 @@ class
 create
 	make
 
-feature {SUDOKU_AI_TEST} -- Initialization
+feature {AI_SOLUTION_TEST} -- Initialization
 
 	sol_board: SUDOKU_BOARD
 
@@ -183,8 +183,5 @@ feature -- Obsolete
 feature -- Inapplicable
 
 feature {NONE} -- Implementation
-
-invariant
-	board_is_solve: sol_board.is_solved
 
 end
