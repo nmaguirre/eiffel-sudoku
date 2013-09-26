@@ -40,9 +40,11 @@ feature {NONE} -- Initialization
 
 			--create score container
 			create score_container.make_with_text ("Top scores")
-			--create score array and setting it's minimum size
+			--create score array and setting it's minimum size as well as it's column's title
 			create array_visible
 			array_visible.set_minimum_size (arrayv_width, arrayv_height)
+			array_visible.set_column_title ("player",1)
+			array_visible.set_column_title ("score",2)
 			--adding score array to score_container
 			score_container.extend (array_visible)
 
@@ -68,8 +70,22 @@ feature -- Update window
 
 	update_array_visible (top_five: TOP_FIVE)
 	-- add player from top five to array visible
+		local
+			current_row : EV_MULTI_COLUMN_LIST_ROW
+			i : INTEGER
 		do
 			--add one player and his score in each line
+			from
+				i := top_five.lower
+			until
+				i > top_five.upper
+			loop
+				create current_row.default_create
+				current_row.extend (top_five.at (i).name)
+				current_row.extend (top_five.at (i).score.out)
+				array_visible.extend (current_row)
+				i := i + 1
+			end
 		end
 
 
