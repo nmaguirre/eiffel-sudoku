@@ -22,23 +22,21 @@ feature {ANY} --Initialize
 feature {ANY} -- save on file
 	save(name_game:String)
 	require
-		name_game.length>0
+		name_game.count>0
 	do
 		store_by_name ("./save_load/games/"+name_game)
 	end
 
 feature {ANY} -- open from file
-	load(name_game:STRING): SAVE_AND_LOAD
+	load(name_game:STRING)
 	require
-		name_game.length>0
+		name_game.count>0
 	local
 		obj_retrieved : ANY
 	do
 		obj_retrieved := retrieve_by_name ("./save_load/games/"+name_game)
 		if attached {SAVE_AND_LOAD} obj_retrieved as file then
-			--current.game := file.game
 			set_sudoku_board(file.get_sudoku_board())
-			return
 		end
 	end
 
@@ -46,7 +44,7 @@ feature {ANY} -- Access
 
 	get_sudoku_board:SUDOKU_BOARD
 	do
-		return game
+		result:= game
 	end
 
 	set_sudoku_board(new_game : SUDOKU_BOARD)

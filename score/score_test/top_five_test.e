@@ -10,7 +10,56 @@ class
 inherit
 	EQA_TEST_SET
 
-feature -- Test routines
+
+feature {ANY} -- Test routing control
+
+	test_is_player_making_top_five_1
+		-- Test if the new player is in the top five or not
+		-- In this test he is
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		assert ("player_is_in_top_five ok",top_five.is_player_making_top_five(10) )
+	end
+
+
+	test_is_player_making_top_five_2
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		assert ("player_is_not_in_top_five ok",not top_five.is_player_making_top_five(900) )
+	end
+
+
+	test_is_player_making_top_five_3
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		assert ("player_is_not_in_top_five ok",not top_five.is_player_making_top_five(400) )
+	end
+
+
+
+
+
+feature -- Test routines adding
 	test_add_player_to_top_five_1
 		-- Simpy test if we can add two players to top_five
 	local
@@ -64,6 +113,39 @@ feature -- Test routines
 		assert ("add_player_to_top_five player should not be added ok",worked_well)
 	end
 
+
+	test_add_player_to_top_five_3
+		-- Test if the new player is in the top five or not
+		-- In this test he is not
+	local
+		top_five:TOP_FIVE
+		i:INTEGER
+		worked_well:BOOLEAN
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 200)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 100)
+		top_five.add_player_to_top_five("Looser",400)
+		--We assume it worked fine
+		worked_well := True
+		from
+			i := 1
+		until
+			i > 5
+		loop
+			if top_five.at (i).name.is_equal ("Looser") then
+				worked_well := False
+			end
+			i := i + 1
+		end
+		assert ("add_player_to_top_five player should not be added ok",worked_well)
+	end
+
+
+
 	test_sort_by_score_1
 		-- Test if after adding five players to TOP_FIVE the array is sorted
 	local
@@ -83,6 +165,29 @@ feature -- Test routines
 		worked_well := worked_well and top_five.at (5).score = 400
 		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
 	end
+
+	test_sort_by_score_2
+		-- Test if after adding five players to TOP_FIVE the array is sorted
+	local
+		top_five: TOP_FIVE
+		worked_well : BOOLEAN
+	do
+		create top_five.init
+		top_five.add_player_to_top_five ("Player_One", 300)
+		top_five.add_player_to_top_five ("Player_Two", 201)
+		top_five.add_player_to_top_five ("Player_Three", 200)
+		top_five.add_player_to_top_five ("Player_Four", 400)
+		top_five.add_player_to_top_five ("Player_Five", 400)
+		worked_well := top_five.at (1).score = 200
+		worked_well := worked_well and top_five.at (2).score = 201
+		worked_well := worked_well and top_five.at (3).score = 300
+		worked_well := worked_well and top_five.at (4).score = 400
+		worked_well := worked_well and top_five.at (5).score = 400
+		assert("sort_by_score TOP_FIVE sorted after five insertion ok",worked_well)
+	end
+
+
+
 
 feature --test routines for storing top_five and retrieving it from a file
 
@@ -174,5 +279,5 @@ test_out
 
     	assert("retrieved ok",true)
 	end
-	
+
 end

@@ -27,6 +27,7 @@
 				<exclude>/.git$</exclude>
 				<exclude>/EIFGENs$</exclude>
 			</file_rule>
+			<cluster name="gui_test" location=".\gui\gui_test\"/>
 		</cluster>
 		<cluster name="model" location=".\model\">
 			<file_rule>
