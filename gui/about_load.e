@@ -35,7 +35,7 @@ feature {NONE}
 			set_size (dialogb_width,dialogb_height)
 
 			--create button_ok
-			create ok_button.make_with_text_and_action ("Close",agent destroy)
+			create ok_button.make_with_text_and_action ("Open",agent destroy)
 			ok_button.set_minimum_size (okb_width, okb_height)
 
 
