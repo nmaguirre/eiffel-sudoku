@@ -8,18 +8,13 @@ class
 	MAIN_WINDOW
 
 inherit
-	EV_TITLED_WINDOW
+	ABSTRACT_MAIN_WINDOW
 		redefine
 			initialize,
 			is_in_default_state
 		end
 
-	INTERFACE_NAMES
-		export
-			{NONE} all
-		undefine
-			default_create, copy
-		end
+
 
 create
 	default_create
@@ -30,7 +25,7 @@ feature {NONE} -- Initialization
 	initialize
 			-- Build the interface for this window.
 		do
-			Precursor {EV_TITLED_WINDOW}
+			Precursor {ABSTRACT_MAIN_WINDOW}
 
 				-- Create and add the menu bar.
 			build_standard_menu_bar
@@ -66,10 +61,6 @@ feature --access
 
 	--Description : allows user to set one cell value
 	set_value_of_cell(row,col,value : INTEGER)
-		require
-			col >= 1 and col <= 9
-			row >= 1 and row <= 9
-			value >= 0 and value <= 9
 		local
 			current_cell : CELL_TEXT_FIELD
 		do
@@ -88,9 +79,6 @@ feature --access
 
 	--Description : allows user to paint one cell of the GUI in red
 	set_cell_background_color_red(row,col : INTEGER)
-	require
-		col >= 1 and col <= 9
-		row >= 1 and row <= 9
 	local
 		current_cell : CELL_TEXT_FIELD
 	do
@@ -99,9 +87,6 @@ feature --access
 	end
 
 	set_cell_background_initial_colour(row,col : INTEGER)
-	require
-		col >= 1 and col <= 9
-		row >= 1 and row <= 9
 	local
 		current_cell : CELL_TEXT_FIELD
 	do
@@ -111,9 +96,6 @@ feature --access
 
 	--Description : allows user to paint one cell of the GUI in red
 	set_cell_background_color_default(row,col : INTEGER)
-	require
-		col >= 1 and col <= 9
-		row >= 1 and row <= 9
 	local
 		current_cell : CELL_TEXT_FIELD
 	do
@@ -134,8 +116,6 @@ feature {NONE} -- Menu Implementation
 
 	build_standard_menu_bar
 			-- Create and populate `standard_menu_bar'.
-		require
-		  menu_bar_not_yet_created: standard_menu_bar = Void
 		do
 				-- Create the menu bar.
 			create standard_menu_bar
@@ -148,10 +128,6 @@ feature {NONE} -- Menu Implementation
 				-- Add the "Help" menu
 			build_help_menu
 			standard_menu_bar.extend (help_menu)
-		ensure
-			menu_bar_created:
-				standard_menu_bar /= Void and then
-				not standard_menu_bar.is_empty
 		end
 
 	menu_solve_item : EV_MENU_ITEM
@@ -159,8 +135,6 @@ feature {NONE} -- Menu Implementation
 
 	build_file_menu
 			-- Create and populate `file_menu'.
-		require
-			file_menu_not_yet_created: file_menu = Void
 		local
 			menu_item : EV_MENU_ITEM
 			separator_item : EV_MENU_SEPARATOR
@@ -175,10 +149,12 @@ feature {NONE} -- Menu Implementation
 			file_menu.extend (separator_item) 	-- Separator
 
             create menu_item.make_with_text (Menu_file_save_item)
+            menu_item.select_actions.extend (agent request_about_save) --controller for click in Multiplayer
 			file_menu.extend (menu_item)     	-- Save
 
 			create menu_item.make_with_text (Menu_file_saveas_item)
-			file_menu.extend (menu_item)       	-- Save All
+			menu_item.select_actions.extend (agent request_about_save_as) --controller for click in Multiplayer
+			file_menu.extend (menu_item)       	-- Save As
 
 			create separator_item.default_create
 			file_menu.extend (separator_item) 	-- Separator
@@ -186,8 +162,12 @@ feature {NONE} -- Menu Implementation
 			create menu_item.make_with_text (Menu_file_open_item)
 			file_menu.extend (menu_item)    	-- Open
 
+
+			create separator_item.default_create
+			file_menu.extend (separator_item) 	-- Separator
+
 			create menu_item.make_with_text (Menu_multiplayer_item)
-			menu_item.select_actions.extend (agent request_multiplayer)
+			menu_item.select_actions.extend (agent request_about_multiplayer) --controller for click in Multiplayer
 			file_menu.extend (menu_item)    	-- Multiplayer
 
 			create separator_item.default_create
@@ -219,14 +199,11 @@ feature {NONE} -- Menu Implementation
 			menu_item.select_actions.extend (agent request_about_quit)
 			file_menu.extend (menu_item)
 
-		ensure
-			file_menu_created: file_menu /= Void and then not file_menu.is_empty
+			disable_menu_item_game_not_initializated -- disable some invalid options in the game start
 		end
 
 	build_help_menu
 			-- Create and populate `help_menu'.
-		require
-			help_menu_not_yet_created: help_menu = Void
 		local
 			menu_item: EV_MENU_ITEM
 			about: ABOUT_DIALOG
@@ -243,8 +220,6 @@ feature {NONE} -- Menu Implementation
 			create menu_item.make_with_text (Menu_help_about_item)
 			menu_item.select_actions.extend (agent request_about_dialog)
 			help_menu.extend (menu_item)
-		ensure
-			help_menu_created: help_menu /= Void and then not help_menu.is_empty
 		end
 
 
@@ -341,6 +316,7 @@ feature -- Implementation, Open About Win
 
 		create about_window
 		about_window.show
+		disable_menu_item_game_not_initializated
 	end
 
 
@@ -396,8 +372,6 @@ feature {NONE} -- Implementation
 
 	build_main_container_default
 			-- Create and populate `default_main_container'.
-		require
-			main_container_not_yet_created: main_container = Void
 		do
 			create l_table
 			l_table.resize (9,9)
@@ -405,8 +379,6 @@ feature {NONE} -- Implementation
 			create main_container
 			build_sudoku_table
 			main_container.extend (l_table)
-		ensure
-			main_container_created: main_container /= Void
 		end
 
 feature {ANY}
@@ -418,13 +390,12 @@ feature {ANY}
 			create select_level
 			select_level.set_controller (controller)
 			select_level.show
+			enable_menu_item_game_initializated
 		end
 
 
 feature {ANY} -- setters
 		set_controller(ctller:SUDOKU_CONTROLLER)
-	require
-		ctller /= Void
 	do
 		controller:=ctller
 		set_controller_for_each_cell
@@ -436,8 +407,6 @@ feature {NONE} -- setter private
 
 	-- Set the controller in each cell
 	set_controller_for_each_cell
-	require
-		controller /= Void
 	local
 		current_cell : CELL_TEXT_FIELD
 		row, col : INTEGER
@@ -467,22 +436,7 @@ feature{NONE}
 	end
 
 
-feature {NONE} -- Implementation / Constants
 
-	Window_title: STRING = "Eiffel Sudoku"
-			-- Title of the window.
-
-	Window_width: INTEGER = 280
-			-- Initial width for this window.
-
-	Window_height: INTEGER = 280
-			-- Initial height for this window.
-
-	mine_icon: EV_PIXMAP
-
-	controller: SUDOKU_CONTROLLER
-
-	current_menu_bar : EV_MENU_BAR
 
 feature {NONE}
 	request_about_hint
@@ -495,8 +449,9 @@ feature {NONE}
 		hint.show
 	end
 
+
 feature {NONE}
-	request_multiplayer
+	request_about_multiplayer
 		local
 			multiplayer_window:MULTIPLAYER_WINDOW
 
@@ -504,6 +459,41 @@ feature {NONE}
 			create multiplayer_window
 			multiplayer_window.show
 		end
+	request_about_save
+	local
+		load_window: ABOUT_SAVE
+	do
+		create load_window.default_create
+		load_window.show
+		--print("Should implementate request_about_save in gui/MAIN_WINDOW")
+	end
 
+	request_about_save_as
+	do
+		print("Should implementate request_about_save_as in gui/MAIN_WINDOW")
+	end
+
+
+
+
+feature{ANY}
+--Disable the follow options: save, save all, get hint and solve in file menu.
+	disable_menu_item_game_not_initializated
+	do
+		file_menu.i_th(3).disable_sensitive -- Save
+		file_menu.i_th(4).disable_sensitive -- Save All
+		file_menu.i_th(10).disable_sensitive -- Hint
+		file_menu.i_th(14).disable_sensitive -- Solve
+
+	end
+
+--Enable the follow options: save, save all, get hint and solve in file menu.
+	enable_menu_item_game_initializated
+	do
+		file_menu.i_th(3).enable_sensitive -- Save
+		file_menu.i_th(4).enable_sensitive -- Save All
+		file_menu.i_th(10).enable_sensitive -- Hint
+		file_menu.i_th(14).enable_sensitive -- Solve
+	end
 
 end
