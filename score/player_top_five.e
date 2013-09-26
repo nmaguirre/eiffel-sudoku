@@ -51,6 +51,15 @@ feature -- Set
 		score := new_score
 	end
 
+feature --Calculate score
+
+	calculate_score (clock : INTEGER) : INTEGER
+	-- take the time of the clock and transform it into an integer
+		do
+			result := clock
+		end
+
+
 feature -- Intern variables
 
 	name : STRING
