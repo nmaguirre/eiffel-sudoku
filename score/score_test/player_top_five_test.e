@@ -54,7 +54,6 @@ test_set_name_and_score_1
 		create player.make
 		player.set_name ("François")
 		player.set_score (800)
-		print(player.out)
 		if (not player.name.is_equal ("François")) or (player.score /= 800) then
 			worked_well:= false;
 		end
@@ -79,7 +78,17 @@ test_set_name_and_score_2
 		assert ("set_name_and_score_player_top_five ok", worked_well )
 	end
 
-
+test_out
+	local
+		player: PLAYER_TOP_FIVE
+		worked_well: BOOLEAN
+	do
+	create player.make
+		player.set_name ("François")
+		player.set_score (800)
+		print(player.out)
+		assert ("out_player_top_five ok", player.out.is_equal ("François : 800") )
+	end
 
 
 
