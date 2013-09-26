@@ -7,6 +7,9 @@ note
 class
 	SUDOKU_BOARD
 
+inherit
+	ANY
+
 create
 	make, make_with_random_values
 
@@ -478,6 +481,6 @@ feature {ANY}
 	do
 		Result := cells.item (row, col).is_set
 	end
-	
+
 
 end
