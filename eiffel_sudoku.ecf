@@ -43,7 +43,9 @@
 			</file_rule>
 			<tests name="network_tests" location=".\network\network_tests\"/>
 		</cluster>
-		<cluster name="save_load" location=".\save_load\"/>
+		<cluster name="save_load" location=".\save_load\">
+			<tests name="save_load_test" location=".\save_load\save_load_test\"/>
+		</cluster>
 		<cluster name="score" location=".\score\">
 			<cluster name="score_test" location=".\score\score_test\"/>
 		</cluster>
