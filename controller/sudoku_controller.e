@@ -1,6 +1,6 @@
 note
 	description	: "{SUDOKU_CONTROLLER}.Receive a number from the GUI then sends it to Model. Checks if sudoku is completed. Update the GUI when creating a board"
-	author		: "E. Marchisio"
+	author		: "E. Marchisio, Marconi-Alvarez-Farias-Astorga"
 	date		: "04/09/2013"
 	revision	: "0.1"
 
@@ -70,6 +70,8 @@ feature {NONE} -- Implementation
 	the_instance: SUDOKU_CONTROLLER
 
 	model: SUDOKU_BOARD
+
+	ai: SUDOKU_AI
 
 	gui: MAIN_WINDOW
 
@@ -213,8 +215,9 @@ feature{ANY}
 		local
 			new_model:SUDOKU_BOARD
 		do
-			create new_model.make_with_random_values (level)
-			set_model(new_model)
+			--create new_model.make_with_random_values (level)
+			create ai.make_with_level (level)
+			set_model(ai.get_unsolved_board)
 			update_gui
 			-- need to reinitialisate list of red cells
 			nbr_red_cells := 0
