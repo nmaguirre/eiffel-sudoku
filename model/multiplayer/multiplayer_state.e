@@ -6,11 +6,13 @@ note
 
 class
 	MULTIPLAYER_STATE
+inherit
+	STORABLE
 create
 	make
 
 feature {ANY}
-	make
+	makes
 	do
 
 	end
