@@ -35,8 +35,9 @@ feature {NONE}
 			set_size (dialogb_width,dialogb_height)
 
 			--create button_ok
-			create ok_button.make_with_text_and_action ("Close",agent destroy)
+			create ok_button.make_with_text_and_action ("Open",agent destroy)
 			ok_button.set_minimum_size (okb_width, okb_height)
+
 
 			--create button_container
 			create button_container
@@ -46,12 +47,17 @@ feature {NONE}
 			button_container.disable_item_expand (ok_button)
 
 
+
 			--create combo container
 			create combo_container.make_with_text ("File to load")
 			--create the combo box with names of saved games
 			create combo_game.make_with_text ("Empty")
 			combo_game.disable_edit
 			combo_container.extend (combo_game)
+			--updating combobox
+			update_combo()
+
+
 
 			--create a main container with on top combo_container at the bottom button_container
 			create main_container
@@ -64,9 +70,9 @@ feature {NONE}
 			--adding this main container to our window
 			extend (main_container)
 
+
 			--setting the window's title
 			set_title (Default_title)
-
 		end
 
 feature {NONE}
@@ -104,8 +110,41 @@ feature --access
 feature{NONE} -- update combo
 	update_combo ()
 	-- update combo from directory with files save game..
+		local
+			save_dir : DIRECTORY
+			save_path : STRING
+			all_file_added : BOOLEAN
+			file_found_is_system_shortcut : BOOLEAN
+			current_list_item : EV_LIST_ITEM
 		do
-			--add files
+			-- Create directory
+			save_path := "./save_load/games/"
+			create save_dir.make (save_path)
+			save_dir.open_read
+			-- Now let's go through directory :
+			from
+				save_dir.start
+			until
+				all_file_added
+			loop
+				save_dir.readentry
+				--if last_entry = void we read everything
+				if save_dir.last_entry_32 = Void then
+					all_file_added := true
+					print("In update combo : no more files to be found %N")
+				else
+					file_found_is_system_shortcut := (save_dir.last_entry_32.is_equal (".") or save_dir.last_entry_32.is_equal (".."))
+					if (not file_found_is_system_shortcut) then
+						-- we created a new item to be added to the combo_game
+						-- in this item we have to put the file_path
+						print("In update combo : found file : " + save_dir.last_entry_32 + "%N")
+						create current_list_item.make_with_text (save_dir.last_entry_32)
+						combo_game.extend (current_list_item)
+					end
+				end
+			end
+
+
 		end
 
 end

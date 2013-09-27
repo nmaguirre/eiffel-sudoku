@@ -35,4 +35,6 @@ feature -- Access
 feature --Implementation
 	random_sequence : RANDOM
 
+invariant
+	random_obtained: random_sequence /= Void
 end
