@@ -15,6 +15,7 @@
 				<exclude>/.git$</exclude>
 				<exclude>/EIFGENs$</exclude>
 			</file_rule>
+			<tests name="ai_test" location=".\ai\ai_test\"/>
 		</cluster>
 		<cluster name="controller" location=".\controller\">
 			<file_rule>
