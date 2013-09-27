@@ -18,19 +18,28 @@ feature {NONE} -- Initialization
 	hint: SUDOKU_HINT
 
 	make_with_level(level:INTEGER)
+		local
+			unity:BOOLEAN
 		do
 			create sol_board.make --solution board
 			generate_solution
-			create unsol_board.make --unsolved board
-			sol_board.print_sudoku
-			unsol_board.deep_copy(sol_board)
-			delete_cells(level) --level 37, 32 30
+			unity := False
+			from
+				unity := False
+			until
+				unity = True
+			loop
+				create unsol_board.make --unsolved board
+				unsol_board.deep_copy(sol_board)
+				delete_cells(level)
+				unity := (nr_of_solutions = 1)
+				print ("%N new solution created %N")
+			end
 			print ("%N Sudoku solution: %N")
 			sol_board.print_sudoku
 			print ("%N valid? " + sol_board.is_solved.out + "%N")
 			print ("%N Unsolved sudoku: %N")
 			unsol_board.print_sudoku
-
 		end
 
 	generate_solution
@@ -141,17 +150,7 @@ feature {NONE} -- Initialization
 			random1, random2:INTEGER
 		do
 			from
-				if level = 37 then
-					n_borrados := 1 --Numbers of delete cells in easy level
-				else if level = 32 then
-					n_borrados := 2 --Numbers of delete cells in medium level
-				else if level = 30 then
-					n_borrados := 3 --Numbers of deletes cells in hard level
-				else
-					n_borrados := 4
-				end
-				end
-				end
+				n_borrados := level
 			until
 				n_borrados < 1
 			loop
@@ -169,12 +168,12 @@ feature -- hint
 
 feature -- Access
 
-	get_unsolved_board:SUDOKU_BOARD    --Devuelve un tablero resuelto
+	get_unsolved_board:SUDOKU_BOARD
 		do
 			Result := unsol_board
 		end
 
-	get_sol_board:SUDOKU_BOARD   --Devuelve un tablero resuelto
+	get_sol_board:SUDOKU_BOARD
 		do
 			Result := sol_board
 		end
@@ -185,7 +184,55 @@ feature -- Access
 		end
 
 
-feature {NONE} -- Implementation
+feature
+
+	nr_of_solutions: INTEGER
+	 	local
+	 		i,j,k,res:INTEGER
+			in_conflict,found:BOOLEAN
+	 	do
+	 		in_conflict := not unsol_board.is_valid
+	 		if in_conflict or unsol_board.is_complete then
+	 			if not in_conflict then
+	 				res := 1
+	 			else
+	 				res := 0
+	 			end
+	 		else
+				from
+					i := 1
+				until
+					i > 9 or found
+				loop
+					from
+						j := 1
+					until
+						j > 9 or found
+					loop
+						if unsol_board.cell_value(i,j) = 0 then
+							found := True
+							from
+								k := 1
+							until
+								k > 9
+							loop
+								if unsol_board.set_cell(i,j,k) then
+									res := res + nr_of_solutions
+									unsol_board.unset_cell(i,j)
+								else
+									unsol_board.unset_cell(i,j)
+								end
+								k := k + 1
+							end
+						end
+						j := j + 1
+					end
+					i := i + 1
+				end
+	 		end
+	 		Result := res
+	 	end
+
 
 invariant
 	invariant_clause: True -- Your invariant here
