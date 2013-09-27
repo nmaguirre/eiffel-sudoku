@@ -25,7 +25,11 @@ feature --Init
 				isConnected = FALSE
 				a_IP_ADDR /= VOID
 		do
-
+			create socket.make_client_by_port (a_port, a_IP_ADDR)
+			socket.connect
+			isConnected := TRUE
+			gameStarted := TRUE
+			print("CONNECTED")
 		ensure
 				isConnected = TRUE
 		end
@@ -84,10 +88,17 @@ feature
 		require
 			isConnected = TRUE
 		do
+			socket.cleanup
+			isConnected := FALSE
+			gameStarted := FALSE
 
 		ensure
 				isConnected = FALSE
-		end
+		rescue
+				if socket /= Void then
+					socket.cleanup
+				end
+	end
 
 		invariant
 			socket /= Void

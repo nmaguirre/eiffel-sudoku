@@ -431,9 +431,12 @@ feature {NONE} -- setter private
 
 feature{NONE}
 	request_about_top_scores
-	do
-		--print("Missing implementation of GUI/request_about_top_scores")
-	end
+		local
+			top: ABOUT_TOP_FIVE
+		do
+			create top
+			top.show
+		end
 
 
 
