@@ -22,6 +22,13 @@ feature -- Init
 		require
 				serverStarted = FALSE
 		do
+			create server_socket.make_server_by_port (a_port)
+			server_socket.listen (1)
+			server_socket.accept
+			socket := server_socket.accepted
+			print("Server created")
+			serverStarted := TRUE
+			gameStarted := TRUE
 
 		ensure
 				serverStarted = TRUE
@@ -77,10 +84,16 @@ feature
 		require
 			serverStarted = TRUE
 		do
-
+			socket.cleanup
+			gameStarted := FALSE
+			serverStarted :=FALSE
 		ensure
 				gameStarted = FALSE
 				serverStarted = FALSE
+		rescue
+				if socket /= Void then
+					socket.cleanup
+				end
 		end
 
 	invariant
