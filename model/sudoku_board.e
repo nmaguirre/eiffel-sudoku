@@ -93,10 +93,6 @@ feature -- Initialization
 
 		end
 
-feature -- Access
-
-feature -- Measurement
-
 feature -- Status report
 
 	cell_value (row: INTEGER; col: INTEGER): INTEGER
