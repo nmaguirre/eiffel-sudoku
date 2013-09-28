@@ -10,11 +10,13 @@ class
 create
 	make,make_with_level
 
-feature {NONE} -- Initialization
+feature -- attributes
 
 	sol_board: SUDOKU_BOARD
 	unsol_board: SUDOKU_BOARD
 	hint_counter: INTEGER
+
+feature {SUDOKU_AI_TEST} -- Initialization
 
 	make
 		do
