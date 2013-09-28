@@ -15,7 +15,6 @@ feature -- Test nr_of_solutions
 	test_board_1
 		local
 			ai:SUDOKU_AI
-			b:BOOLEAN
 		do
 			create ai.make_with_level (1)
 			assert ("test number of solution", ai.nr_of_solutions=1)
@@ -37,4 +36,41 @@ feature -- Test nr_of_solutions
 			assert ("test number of solution", ai.nr_of_solutions>=1)
 		end
 
+	test_delete_cells_0
+		local
+			ai:SUDOKU_AI
+		do
+			create ai.make_with_level (0) -- unsol_board make full
+
+			assert ("test number of solution", ai.nr_of_solutions=1)
+			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=81)
+		end
+
+	test_delete_cells_1
+		local
+			ai:SUDOKU_AI
+		do
+			create ai.make_with_level (1) -- unsol_board make full
+
+			assert ("test number of solution", ai.nr_of_solutions=1)
+			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=80)
+		end
+
+	test_delete_cells_2
+		local
+			ai:SUDOKU_AI
+		do
+			create ai.make_with_level (2) -- unsol_board make full
+			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=79)
+		end
+
+	test_delete_cells_3
+		local
+			ai:SUDOKU_AI
+		do
+			create ai.make_with_level (31) -- unsol_board make full
+
+
+			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=50)
+		end
 end

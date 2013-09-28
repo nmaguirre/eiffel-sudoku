@@ -130,7 +130,7 @@ feature -- Status report
         Result:= is_complete and then is_valid
     end
 
-feature{EQA_TEST_SET} --feature only for testing
+feature{EQA_TEST_SET, SUDOKU_AI_TEST} --feature only for testing
 
 	count_seted_cells:INTEGER --count the cells that have been seted
 	local

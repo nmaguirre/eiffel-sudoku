@@ -18,7 +18,7 @@ feature {NONE} -- Initialization
 
 	make
 		do
-			
+
 		end
 
 	make_with_level(level:INTEGER)
