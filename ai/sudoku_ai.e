@@ -8,14 +8,18 @@ class
 	SUDOKU_AI
 
 create
-	make_with_level
+	make,make_with_level
 
 feature {NONE} -- Initialization
 
 	sol_board: SUDOKU_BOARD
 	unsol_board: SUDOKU_BOARD
 	hint_counter: INTEGER
---	hint: SUDOKU_HINT
+
+	make
+		do
+			
+		end
 
 	make_with_level(level:INTEGER)
 		local
