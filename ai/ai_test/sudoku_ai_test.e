@@ -35,13 +35,24 @@ feature -- Test nr_of_solutions
 				y:=ai.get_hint (ai.get_unsolved_board).get_y
 				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 			end
-			
+
 	test_get_hint_3
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
 			do
-				create ai.make_with_level (15)
+				create ai.make_with_level (10)
+				v:=ai.get_hint (ai.get_unsolved_board).get_v
+				x:=ai.get_hint (ai.get_unsolved_board).get_x
+				y:=ai.get_hint (ai.get_unsolved_board).get_y
+				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+			end
+	test_get_hint_4
+		local
+			ai: SUDOKU_AI
+			x,y,v: INTEGER
+			do
+				create ai.make_with_level (5)
 				v:=ai.get_hint (ai.get_unsolved_board).get_v
 				x:=ai.get_hint (ai.get_unsolved_board).get_x
 				y:=ai.get_hint (ai.get_unsolved_board).get_y
@@ -190,8 +201,8 @@ feature -- Test nr_of_solutions
 
 			assert ("test swap method", change and not collateral_changes)
 		end
-		
-		
+
+
 feature -- Test generate_solution
 
 	test_generate_solution_1
@@ -202,7 +213,7 @@ feature -- Test generate_solution
 			ai:SUDOKU_AI
 			valid: BOOLEAN
 		do
-			create ai.make_with_level (1) 
+			create ai.make_with_level (1)
 			ai.get_sol_board.make
 
 			create l.make_filled (0,9,9)
