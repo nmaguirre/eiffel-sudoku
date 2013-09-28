@@ -170,8 +170,8 @@ feature {NONE} -- Menu Implementation
 			file_menu.extend (separator_item) 	-- Separator
 
 			create menu_item.make_with_text (Menu_file_open_item)
-			file_menu.extend (menu_item)    	-- Open
-
+			menu_item.select_actions.extend (agent request_about_load) --controller for click in Multiplayer
+			file_menu.extend (menu_item)       	-- Save As
 
 			create separator_item.default_create
 			file_menu.extend (separator_item) 	-- Separator
@@ -263,6 +263,14 @@ feature -- Implementation, Open About Quit to ask if a user really want to quit 
 			create about_window
 			about_window.add_close_action(Current)
 			about_window.show
+		end
+request_about_load
+		local
+			load: ABOUT_LOAD
+		do
+			create load
+
+			load.show
 		end
 
 
