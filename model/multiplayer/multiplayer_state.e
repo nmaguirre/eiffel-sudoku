@@ -12,7 +12,7 @@ create
 	make
 
 feature {ANY}
-	makes
+	make
 	do
 
 	end
@@ -30,24 +30,46 @@ feature {ANY}
 feature
 	--initialize a new game, if the option number is zero, then the feature starts a server, else, it waits for the servers ip.
 	init_game(option: INTEGER)
+	do
+
+	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
-	report_play()
+	report_play
+	do
+
+	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
 	recieve_adversary_play(cell: COORDS)
+	do
+
+	end
 
 	--reports game victory to server in order to inform the adversary
 	report_victory
+	do
+
+	end
 
 	--reports the current uster decision to leave the game (implying a victory for the opponent)
 	report_surrender
+	do
+
+	end
 
 feature {NONE}
 	--creates a server in orden to start a sudoku game
 	create_server
+	do
+
+	end
+
 	--creates a client from wich connect to a server in order to communicate with other player.
 	create_client
+	do
+
+	end
 
 
 
