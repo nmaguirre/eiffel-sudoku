@@ -29,17 +29,40 @@ initialize
 		local
 			main_container : EV_VERTICAL_BOX
 			button_container : EV_HORIZONTAL_BOX
+			text_field_container : EV_FRAME
 		do
-			--create the window and set it's dimension
+			-- Create the window and set it's dimension
 			Precursor
 			set_size (dialogb_width,dialogb_height)
 
-			--create button_close
-			create ok_button.make_with_text_and_action ("Close",agent destroy)
-			ok_button.set_minimum_size (okb_width, okb_height)
+			-- Create button_close
+			create button_ok.make_with_text_and_action ("Save",agent destroy)
+			button_ok.set_minimum_size (okb_width, okb_height)
 
+			-- Create button_cancel
+			create button_cancel.make_with_text_and_action ("Cancel",agent destroy)
+			button_cancel.set_minimum_size (okb_width, okb_height)
+
+
+			-- Create text_field
+			create text_field_container.make_with_text ("Save as")
+			create name_file_to_save.make_with_text ("Put name...")
+			text_field_container.extend (name_file_to_save)
+
+			-- Create button_container
+			create button_container
+			button_container.extend (button_cancel)
+			button_container.extend (create {EV_CELL})
+			button_container.extend (button_ok)
+			button_container.disable_item_expand (button_cancel)
+			button_container.disable_item_expand (button_ok)
+
+			-- Create a main container with on top combo_container at the bottom button_container
 			create main_container.default_create
-			main_container.extend (ok_button)
+			main_container.extend (text_field_container)
+			main_container.extend (button_container)
+			main_container.disable_item_expand (button_container)
+
 			--adding this main container to our window
 			extend (main_container)
 
@@ -49,7 +72,13 @@ initialize
 		end
 
 
-feature {ANY}
+feature {NONE}
+
+
+	dialogb_height : INTEGER = 70
+			--Current window's height
+	dialogb_width : INTEGER = 370
+			--Current window's width
 
 	name_file_to_save : EV_TEXT_FIELD
 	-- Allow user to choose name of saved board
@@ -60,8 +89,16 @@ feature {ANY}
 	button_ok : EV_BUTTON
 	-- Button ok
 
+	okb_height : INTEGER = 24
+			--Ok_button's height	
+
+	okb_width : INTEGER = 75
+			--Ok_button's width
+
 	default_title : STRING = "ABOUT_SAVE"
 	-- Window's title
+
+
 
 feature{ANY} -- Action
 
@@ -75,27 +112,5 @@ feature{ANY} -- Action
 feature{ANY}
 	default_name:STRING="Save"
 
-feature {NONE} -- Implementation
-
-	dialogb_height : INTEGER = 380
-			--Current window's height
-	dialogb_width : INTEGER = 370
-			--Current window's width
-
-	ok_button: EV_BUTTON
-			-- "OK" button.
-
-	okb_height : INTEGER = 24
-			--Ok_button's height	
-	okb_width : INTEGER = 75
-			--Ok_button's width
-
-	array_visible: EV_MULTI_COLUMN_LIST
-			-- Array visible containing the top five players
-
-	arrayv_height : INTEGER = 340
-			--Array_visible's height	
-	arrayv_width : INTEGER = 380
-			--Array_visible's width	
 
 end

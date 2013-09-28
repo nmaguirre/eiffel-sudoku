@@ -1,4 +1,3 @@
-
 note
 	description	: "Belonging to the class test sudoku_ai"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
@@ -191,4 +190,82 @@ feature -- Test nr_of_solutions
 
 			assert ("test swap method", change and not collateral_changes)
 		end
+		
+		
+feature -- Test generate_solution
+
+	test_generate_solution_1
+		local
+			i,j,n: INTEGER_32
+			l: ARRAY2[INTEGER]
+			random1, random2:INTEGER
+			ai:SUDOKU_AI
+			valid: BOOLEAN
+		do
+			create ai.make_with_level (1) 
+			ai.get_sol_board.make
+
+			create l.make_filled (0,9,9)
+			n := 1
+			from
+				i := 1
+			until
+				i > 9
+			loop
+				from
+					j := 1
+				until
+					j > 9
+				loop
+					if i = 2 and j = 1 then
+						n := 4
+					else if i = 3 and j = 1  then
+						n := 7
+					else if i = 4 and j = 1  then
+						n := 2
+					else if i = 5 and j = 1  then
+						n := 5
+					else if i = 6 and j = 1  then
+						n := 8
+					else if i = 7 and j = 1  then
+						n := 3
+					else if i = 8 and j = 1  then
+						n := 6
+					else if i = 9 and j = 1  then
+						n := 9
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					end
+					if not ai.sol_board.set_cell (i,j,n)  then
+						print ("%N error set_cell %N")
+					end
+					j := j + 1
+					n :=  ((n+1) \\ 10)
+					if n = 0 then
+						n:= 1
+					end
+				end
+				i := i + 1
+			end
+
+			from
+				n := 1
+			until
+				n > 100 -- numbers of swaps
+			loop
+				--create random_number.make
+				random1 := 2 --random_number.random_integer
+				random2 := 4 --random_number.random_integer
+				ai.swap(random1,random2)
+				n := n + 1
+			end
+			valid := ai.get_sol_board.is_solved
+			assert("test generate_solution",valid)
+		end
+
 end

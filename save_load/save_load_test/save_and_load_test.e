@@ -18,13 +18,14 @@ feature {NONE}
 	save_game:SAVE_AND_LOAD
 	board:SUDOKU_BOARD
 	ai: SUDOKU_AI
+	time: TIME_DURATION
 
 	on_prepare
 	do
 		create board.make
 		create ai.make_with_level (32)
 		board:= ai.get_unsolved_board
-		create save_game.init(board)
+		create save_game.init(board,time)
 	end
 
 feature --test to obtain sudoku_board
