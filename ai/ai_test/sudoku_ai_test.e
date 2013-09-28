@@ -1,5 +1,6 @@
-﻿note
-	description	: ""
+
+note
+	description	: "Belonging to the class test sudoku_ai"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "27/09/2013"
 	revision	: "v0.1"
@@ -69,8 +70,6 @@ feature -- Test nr_of_solutions
 			ai:SUDOKU_AI
 		do
 			create ai.make_with_level (31) -- unsol_board make full
-
-
 			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=50)
 		end
 
