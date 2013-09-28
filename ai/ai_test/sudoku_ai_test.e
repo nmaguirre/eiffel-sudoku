@@ -15,16 +15,39 @@ feature -- Test nr_of_solutions
 
 	test_get_hint_1
 		local
-			board: SUDOKU_AI
+			ai: SUDOKU_AI
 			x,y,v: INTEGER
 			do
-				create board.make_with_level (30)
-				v:=board.get_hint (board.unsol_board).get_v
-				x:=board.get_hint (board.unsol_board).get_x
-				y:=board.get_hint (board.unsol_board).get_y
-				assert("check value's in the board solutions and board unsolution",board.sol_board.cell_value (x,y)= v)
+				create ai.make_with_level (30)
+				v:=ai.get_hint (ai.get_unsolved_board).get_v
+				x:=ai.get_hint (ai.get_unsolved_board).get_x
+				y:=ai.get_hint (ai.get_unsolved_board).get_y
+				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 			end
 
+	test_get_hint_2
+		local
+			ai: SUDOKU_AI
+			x,y,v: INTEGER
+			do
+				create ai.make_with_level (15)
+				v:=ai.get_hint (ai.get_unsolved_board).get_v
+				x:=ai.get_hint (ai.get_unsolved_board).get_x
+				y:=ai.get_hint (ai.get_unsolved_board).get_y
+				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+			end
+			
+	test_get_hint_3
+		local
+			ai: SUDOKU_AI
+			x,y,v: INTEGER
+			do
+				create ai.make_with_level (15)
+				v:=ai.get_hint (ai.get_unsolved_board).get_v
+				x:=ai.get_hint (ai.get_unsolved_board).get_x
+				y:=ai.get_hint (ai.get_unsolved_board).get_y
+				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+			end
 
 	test_board_1
 		local
