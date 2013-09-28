@@ -12,7 +12,7 @@ inherit
 
 feature -- Test routines
 
-	test_random_values_count_32
+	test_random_values_count_49
 
 		note
 			testing:  "covers/{SUDOKU_BOARD}.make_whit_random_values"
