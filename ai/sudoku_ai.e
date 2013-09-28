@@ -15,12 +15,13 @@ feature {NONE} -- Initialization
 	sol_board: SUDOKU_BOARD
 	unsol_board: SUDOKU_BOARD
 	hint_counter: INTEGER
-	hint: SUDOKU_HINT
+--	hint: SUDOKU_HINT
 
 	make_with_level(level:INTEGER)
 		local
 			unity:BOOLEAN
 		do
+			hint_counter:=0
 			create sol_board.make --solution board
 			generate_solution
 			unity := False
@@ -165,6 +166,31 @@ feature {NONE} -- Initialization
 	 end
 
 feature -- hint
+	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
+		local
+			random: RANDOM_NUMBER
+			pos_x: INTEGER
+			pos_y: INTEGER
+			set: BOOLEAN
+			hint: SUDOKU_HINT
+			do
+				from
+					set:=False
+				until
+					set=True
+				loop
+					create random.make
+					pos_x:= random.random_integer
+					pos_y:= random.random_integer
+					if not (board.cell_set (pos_x,pos_y))
+					 then
+						create hint.make_hint (pos_x, pos_y, sol_board.cell_value (pos_x,pos_y))
+					--	print("positions" + pos_x.out + pos_y.out + "%N") 	
+						set:= True
+					end -- end if
+				end  -- end loop
+				Result:= hint
+			end -- end do
 
 feature -- Access
 
