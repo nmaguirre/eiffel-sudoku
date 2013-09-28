@@ -14,46 +14,75 @@ create
 	init
 
 feature {ANY} --Initialize
-	init(board:SUDOKU_BOARD)
-	do
-		game:= board
+	init(board:SUDOKU_BOARD;init_time:TIME_DURATION)
+	once
+		the_instance:=current
+		time:=init_time
+		game := board
+		name_game := ""
 	end
 
 feature {ANY} -- save on file
-	save(name_game:String)
+	save(new_name_game:String)
+		--Save game with name new_name_game
 	require
-		name_game.count>0
+		new_name_game.count>0
 	do
-		store_by_name ("./save_load/games/"+name_game)
+		store_by_name ("./save_load/games/"+new_name_game)
+		name_game := new_name_game
 	end
 
 feature {ANY} -- open from file
-	load(name_game:STRING)
+	load(new_name_game:STRING)
+		--Open game with name new_name_game
 	require
-		name_game.count>0
+		new_name_game.count>0
 	local
 		obj_retrieved : ANY
 	do
-		obj_retrieved := retrieve_by_name ("./save_load/games/"+name_game)
+		obj_retrieved := retrieve_by_name ("./save_load/games/"+new_name_game)
 		if attached {SAVE_AND_LOAD} obj_retrieved as file then
 			set_sudoku_board(file.get_sudoku_board())
+			name_game := new_name_game
 		end
 	end
 
 feature {ANY} -- Access
 
 	get_sudoku_board:SUDOKU_BOARD
+		-- Obtain board saved
 	do
 		result:= game
 	end
 
 	set_sudoku_board(new_game : SUDOKU_BOARD)
+		-- Changed board
 	do
 		game:= new_game
 	end
 
+	get_time:TIME_DURATION
+		-- Obtain time saved
+	do
+		result:= time
+	end
+
+	set_time(new_time : TIME_DURATION)
+		-- Changed time
+	do
+		time:= new_time
+	end
+
+	already_saved:BOOLEAN
+		-- Verify if the game already saved
+	do
+		result := not name_game.is_equal ("")
+	end
 
 feature {NONE}
+	the_instance: SAVE_AND_LOAD
+	time: TIME_DURATION
 	game: SUDOKU_BOARD
-	--time:clock
+	name_game:STRING
+		--Name of game current
 end
