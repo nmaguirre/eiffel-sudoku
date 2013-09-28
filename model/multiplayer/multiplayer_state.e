@@ -12,7 +12,7 @@ create
 	make
 
 feature {ANY}
-	makes
+	make
 	do
 
 	end
@@ -25,10 +25,8 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
-
-
 feature
-	--initialize a new game, if the option number is zero, then the feature starts a server, else, it waits for the servers ip.
+	initialize a new game, if the option number is zero, then the feature starts a server, else, it waits for the servers ip.
 	init_game(option: INTEGER)
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -48,7 +46,6 @@ feature {NONE}
 	create_server
 	--creates a client from wich connect to a server in order to communicate with other player.
 	create_client
-
-
+end
 
 end

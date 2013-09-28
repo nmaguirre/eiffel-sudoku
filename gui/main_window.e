@@ -24,6 +24,8 @@ feature {NONE} -- Initialization
 
 	initialize
 			-- Build the interface for this window.
+		local
+			text:EV_TEXT
 		do
 			Precursor {ABSTRACT_MAIN_WINDOW}
 
@@ -33,6 +35,14 @@ feature {NONE} -- Initialization
 
 			build_main_container_default
 			extend (main_container)
+
+			--creo contenedor reloj
+			create text.make_with_text ("Time")
+			text.set_minimum_size (2,4)
+			text.disable_edit
+			main_container.extend (text)
+			build_clock
+			main_container.extend (clock_container)
 
 				-- Execute `request_close_window' when the user clicks
 				-- on the cross in the title bar.
@@ -324,9 +334,11 @@ feature -- Implementation, Open About Win
 feature {NONE} -- Implementation
 
 	main_container : EV_VERTICAL_BOX
+	clock_container : EV_VERTICAL_BOX
 			-- Main container (contains all widgets displayed in this window)
 
 	l_table : EV_TABLE
+	clock_table: EV_TABLE
 
 	build_sudoku_table
 		local
@@ -369,6 +381,37 @@ feature {NONE} -- Implementation
 			end
 		end
 
+	build_clock_container
+		local
+			current_text_field : CELL_TEXT_FIELD
+			clock: INTEGER
+			font : EV_FONT
+			text: EV_TEXT
+
+		do
+			clock_container.enable_sensitive -- the container is unlocked
+			create font.default_create
+			font.set_weight( (create {EV_FONT_CONSTANTS}).weight_bold)
+			from
+				clock:= 1
+			until
+				clock > 3
+			loop
+				create current_text_field.default_create
+				current_text_field.add_control_caracter
+				current_text_field.set_capacity (2)
+				current_text_field.align_text_center
+				current_text_field.set_minimum_width_in_characters (2)
+					--At begin, the cell isn't setable
+				current_text_field.disable_edit
+				-- gives the current cell its position in the board
+				current_text_field.set_position (clock,1)
+				clock_table.put_at_position (current_text_field, clock, 1,1,1)
+				current_text_field.paint_default
+				clock := clock +1
+			end
+		end
+
 
 	build_main_container_default
 			-- Create and populate `default_main_container'.
@@ -380,6 +423,21 @@ feature {NONE} -- Implementation
 			build_sudoku_table
 			main_container.extend (l_table)
 		end
+
+		build_clock
+						-- Create and populate `clock'.
+			require
+				clock_not_created: clock_container = Void
+			do
+				create clock_table.default_create
+				clock_table.resize (3,3)
+				clock_table.set_border_width (0)
+				create clock_container
+				build_clock_container
+				clock_container.extend (clock_table)
+			ensure
+				clock_container_created: clock_container /= Void
+			end
 
 feature {ANY}
 	request_about_new
