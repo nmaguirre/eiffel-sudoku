@@ -14,8 +14,6 @@ create
 	make
 
 
-feature {EQA_TEST_SET} -- Initialization
-
 feature -- Initialization
 
 

@@ -21,10 +21,10 @@ feature -- Test routines
 			ai: SUDOKU_AI
 		do
 			create board.make
-			create ai.make_with_level (1)
+			create ai.make_with_level (32)
 			board:= ai.get_unsolved_board
 			print(board.count_seted_cells)
-			assert ("count cells seted ok",board.count_seted_cells=32)
+			assert ("count cells seted ok",board.count_seted_cells=49)
 		end
 
 		test_make_whit_random_values
