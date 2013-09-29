@@ -1,7 +1,7 @@
 note
 	description	: "Belonging to the class test sudoku_ai"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
-	date		: "27/09/2013"
+	date		: "28/09/2013"
 	revision	: "v0.1"
 
 class
