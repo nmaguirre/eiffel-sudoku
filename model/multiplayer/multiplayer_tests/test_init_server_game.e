@@ -23,8 +23,8 @@ feature -- Test routines
 			mult: MULTIPLAYER_STATE
 			server: SUDOKU_SERVER
 		do
-			create mult.make
-			server := mult.init_server_game
+			create mult.make("test")
+			server := mult.create_server
 			assert ("sever started", server.serverStarted)
 		end
 

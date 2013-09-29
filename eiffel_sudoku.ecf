@@ -37,7 +37,7 @@
 			</file_rule>
 			<tests name="model_tests" location=".\model\model_tests\"/>
 			<cluster name="multiplayer" location=".\model\multiplayer\">
-				<cluster name="multiplayer_tests" location="C:\Users\Facu\Documents\Eiffel User Files\7.3\projects\eiffel-sudoku\model\multiplayer\multiplayer_tests\"/>
+				<cluster name="multiplayer_tests" location=".\model\multiplayer\multiplayer_tests\"/>
 			</cluster>
 		</cluster>
 		<cluster name="network" location=".\network\">

@@ -12,12 +12,9 @@ create
 	make
 
 feature {ANY}
-	make
-	do
+	name_of_player: STRING
 
-	end
-
-	my_board:SUDOKU_BOARD -- board of mine
+	my_board:SUDOKU_BOARD -- my sudoku board
 
 	adversary_board:SUDOKU_BOARD -- board of the other player
 
@@ -25,11 +22,20 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
-feature
-	--initialize a new game, starts a server and returns it
-	init_server_game: SUDOKU_SERVER
+	make(player_name: STRING_8)
+	require
+		player_name /= VOID
 	do
+		name_of_player:= player_name
+	end
 
+feature
+	--initialize a new game, and starts a server.
+	init_server_game
+	local
+		server: SUDOKU_SERVER
+	do
+		server:= create_server
 	end
 
 	--initialize a new game and it waits for the server IP
@@ -62,17 +68,20 @@ feature
 
 	end
 
-feature {NONE}
+feature {TEST_INIT_SERVER_GAME}
 	--creates a server in orden to start a sudoku game
-	create_server
+	create_server: SUDOKU_SERVER
+	local
+		server: SUDOKU_SERVER
 	do
-
+		create server.server_create (11111) -- By default hardcode the ip server with 11111.
+		result:= server
 	end
 
 	--creates a client from wich connect to a server in order to communicate with other player.
 	create_client
 	do
-
+		--create my_client.connect (a_ip_addr, a_player_name: STRING_8, a_port: INTEGER_32)
 	end
 
 end

@@ -23,7 +23,7 @@ feature -- Test routines
 			client : SUDOKU_CLIENT
 			mult: MULTIPLAYER_STATE
 		do
-			create mult.make
+			create mult.make("tests")
 			mult.init_client_game
 			create client.connect ("192.168.9.0","test",11111)
 			assert ("the client is connected", client.isconnected)
