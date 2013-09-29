@@ -10,54 +10,54 @@ class
 inherit
 	EQA_TEST_SET
 
-feature -- Test nr_of_solutions
+feature -- Test get_hint
 
 	test_get_hint_1
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
-			do
-				create ai.make_with_level (30)
-				v:=ai.get_hint (ai.get_unsolved_board).get_v
-				x:=ai.get_hint (ai.get_unsolved_board).get_x
-				y:=ai.get_hint (ai.get_unsolved_board).get_y
-				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
-			end
+		do
+			create ai.make_with_level (30)
+			v:=ai.get_hint (ai.get_unsolved_board).get_v
+			x:=ai.get_hint (ai.get_unsolved_board).get_x
+			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+		end
 
 	test_get_hint_2
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
-			do
-				create ai.make_with_level (15)
-				v:=ai.get_hint (ai.get_unsolved_board).get_v
-				x:=ai.get_hint (ai.get_unsolved_board).get_x
-				y:=ai.get_hint (ai.get_unsolved_board).get_y
-				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
-			end
+		do
+			create ai.make_with_level (15)
+			v:=ai.get_hint (ai.get_unsolved_board).get_v
+			x:=ai.get_hint (ai.get_unsolved_board).get_x
+			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+		end
 
 	test_get_hint_3
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
-			do
-				create ai.make_with_level (10)
-				v:=ai.get_hint (ai.get_unsolved_board).get_v
-				x:=ai.get_hint (ai.get_unsolved_board).get_x
-				y:=ai.get_hint (ai.get_unsolved_board).get_y
-				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
-			end
+		do
+			create ai.make_with_level (10)
+			v:=ai.get_hint (ai.get_unsolved_board).get_v
+			x:=ai.get_hint (ai.get_unsolved_board).get_x
+			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+		end
 	test_get_hint_4
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
-			do
-				create ai.make_with_level (5)
-				v:=ai.get_hint (ai.get_unsolved_board).get_v
-				x:=ai.get_hint (ai.get_unsolved_board).get_x
-				y:=ai.get_hint (ai.get_unsolved_board).get_y
-				assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
-			end
+		do
+			create ai.make_with_level (5)
+			v:=ai.get_hint (ai.get_unsolved_board).get_v
+			x:=ai.get_hint (ai.get_unsolved_board).get_x
+			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
+		end
 
 	test_board_1
 		local
@@ -82,6 +82,7 @@ feature -- Test nr_of_solutions
 			create ai.make_with_level (40)
 			assert ("test number of solution", ai.nr_of_solutions>=1)
 		end
+feature -- Test delete_cells
 
 	test_delete_cells_0
 		local
@@ -118,6 +119,8 @@ feature -- Test nr_of_solutions
 			create ai.make_with_level (31) -- unsol_board make full
 			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=50)
 		end
+
+feature -- Test swap
 
 	test_swap_1
 		local
@@ -175,7 +178,7 @@ feature -- Test nr_of_solutions
 			ai.get_sol_board.make
 			valid:=ai.get_sol_board.set_cell (1, 1, 1)
 			valid:=ai.get_sol_board.set_cell (1, 2, 2)
-			-- values ​​change
+			-- values ââchange
 			ai.swap (1, 2)
 
 			change := ( ai.get_sol_board.cell_value (1, 1) = 2 ) and ( ai.get_sol_board.cell_value (1, 2) = 1 )
