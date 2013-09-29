@@ -20,7 +20,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 
 	make
 		do
-
+			create sol_board.make
 		end
 
 	make_with_level(level:INTEGER)
