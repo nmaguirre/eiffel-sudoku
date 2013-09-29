@@ -511,8 +511,8 @@ feature {NONE}
 	hint : ABOUT_HINT
 	do
 		--print("Should implementate request_about_hint in gui/MAIN_WINDOW")
-		create hint
-		hint.add_hint_action (controller)
+		create hint.make(controller)
+		--hint.add_hint_action (controller)
 		hint.show
 	end
 
