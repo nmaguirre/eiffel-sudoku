@@ -341,13 +341,6 @@ feature -- Implementation, Open About Win
 
 feature {NONE} -- Implementation
 
---	main_container : EV_VERTICAL_BOX
---	clock_container : EV_VERTICAL_BOX
-			-- Main container (contains all widgets displayed in this window)
-
---	l_table : EV_TABLE
---	clock_table: EV_TABLE
-
 	build_sudoku_table
 		local
 			current_text_field : CELL_TEXT_FIELD
