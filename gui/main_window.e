@@ -341,12 +341,12 @@ feature -- Implementation, Open About Win
 
 feature {NONE} -- Implementation
 
-	main_container : EV_VERTICAL_BOX
-	clock_container : EV_VERTICAL_BOX
+--	main_container : EV_VERTICAL_BOX
+--	clock_container : EV_VERTICAL_BOX
 			-- Main container (contains all widgets displayed in this window)
 
-	l_table : EV_TABLE
-	clock_table: EV_TABLE
+--	l_table : EV_TABLE
+--	clock_table: EV_TABLE
 
 	build_sudoku_table
 		local
@@ -432,20 +432,16 @@ feature {NONE} -- Implementation
 			main_container.extend (l_table)
 		end
 
-		build_clock
-						-- Create and populate `clock'.
-			require
-				clock_not_created: clock_container = Void
-			do
-				create clock_table.default_create
-				clock_table.resize (3,3)
-				clock_table.set_border_width (0)
-				create clock_container
-				build_clock_container
-				clock_container.extend (clock_table)
-			ensure
-				clock_container_created: clock_container /= Void
-			end
+	build_clock
+		-- Create and populate `clock'.
+		do
+			create clock_table.default_create
+			clock_table.resize (3,3)
+			clock_table.set_border_width (0)
+			create clock_container
+			build_clock_container
+			clock_container.extend (clock_table)
+		end
 
 feature {ANY}
 	request_about_new

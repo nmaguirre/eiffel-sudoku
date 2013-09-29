@@ -156,12 +156,10 @@ feature {NONE} -- Implementation
 
 	main_container : EV_VERTICAL_BOX
 			-- Main container (contains all widgets displayed in this window)
-	deferred
-	end
+	clock_container : EV_VERTICAL_BOX
 
 	l_table : EV_TABLE
-	deferred
-	end
+	clock_table :EV_TABLE
 
 	build_sudoku_table
 	deferred
@@ -173,6 +171,19 @@ feature {NONE} -- Implementation
 		ensure
 			main_container_created: main_container /= Void
 		end
+
+	build_clock_container
+	deferred
+	ensure
+		clock_container_created: clock_container /= Void
+	end
+
+
+	build_clock
+	deferred
+	end
+
+
 
 feature {ANY}
 	request_about_new
