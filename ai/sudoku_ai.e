@@ -27,7 +27,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		local
 			unity:BOOLEAN
 		do
-			hint_counter:=0
+         	hint_counter:=0
 			create sol_board.make --solution board
 			generate_solution
 			unity := False
@@ -215,6 +215,15 @@ feature -- Access
 			Result := sol_board.cell_value (x,y)
 		end
 
+	get_hint_counter: INTEGER
+		do
+			Result := hint_counter
+		end
+
+	set_hitn_counter(counter :INTEGER)
+		do
+			hint_counter := counter
+		end
 
 feature
 
