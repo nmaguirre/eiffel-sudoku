@@ -200,6 +200,15 @@ feature {NONE} -- Menu Implementation
 			create menu_solve_item.make_with_text (Menu_file_solve_item)
 			file_menu.extend (menu_solve_item) 	 -- Solve
 
+
+			create separator_item.default_create
+			file_menu.extend (separator_item)  	 -- Separator
+
+			create menu_item.make_with_text (Menu_skins)
+			menu_item.select_actions.extend (agent request_skin) --controller for click in top scores
+			file_menu.extend (menu_item) 	 -- Top Scores
+
+
 			create separator_item.default_create
 			file_menu.extend (separator_item)  	 -- Separator
 
@@ -531,6 +540,16 @@ feature {NONE}
 		print("Should implementate request_about_save_as in gui/MAIN_WINDOW")
 	end
 
+feature {ANY} --skin selection
+	request_skin
+		local
+			select_skin:ABOUT_SKIN
+
+		do
+			create select_skin
+			--select_level.set_controller (controller)
+			select_skin.show
+   end
 
 
 

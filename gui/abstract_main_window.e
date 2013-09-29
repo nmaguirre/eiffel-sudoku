@@ -219,7 +219,7 @@ feature {NONE} -- Implementation / Constants
 	Window_width: INTEGER = 280
 			-- Initial width for this window.
 
-	Window_height: INTEGER = 300
+	Window_height: INTEGER = 320
 			-- Initial height for this window.
 
 	mine_icon: EV_PIXMAP
