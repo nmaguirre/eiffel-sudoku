@@ -26,8 +26,14 @@ feature {ANY}
 	my_client: SUDOKU_CLIENT
 
 feature
-	--initialize a new game, if the option number is zero, then the feature starts a server, else, it waits for the servers ip.
-	init_game(option: INTEGER)
+	--initialize a new game and starts a server
+	init_server_game
+	do
+
+	end
+
+	--initialize a new game and it waits for the server IP
+	init_client_game
 	do
 
 	end
