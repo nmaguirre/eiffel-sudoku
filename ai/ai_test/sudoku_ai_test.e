@@ -47,6 +47,7 @@ feature -- Test get_hint
 			y:=ai.get_hint (ai.get_unsolved_board).get_y
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
+
 	test_get_hint_4
 		local
 			ai: SUDOKU_AI
@@ -89,7 +90,6 @@ feature -- Test delete_cells
 			ai:SUDOKU_AI
 		do
 			create ai.make_with_level (0) -- unsol_board make full
-
 			assert ("test number of solution", ai.nr_of_solutions=1)
 			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=81)
 		end
@@ -99,7 +99,6 @@ feature -- Test delete_cells
 			ai:SUDOKU_AI
 		do
 			create ai.make_with_level (1) -- unsol_board make full
-
 			assert ("test number of solution", ai.nr_of_solutions=1)
 			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=80)
 		end
@@ -178,7 +177,7 @@ feature -- Test swap
 			ai.get_sol_board.make
 			valid:=ai.get_sol_board.set_cell (1, 1, 1)
 			valid:=ai.get_sol_board.set_cell (1, 2, 2)
-			-- values ââchange
+			-- values
 			ai.swap (1, 2)
 
 			change := ( ai.get_sol_board.cell_value (1, 1) = 2 ) and ( ai.get_sol_board.cell_value (1, 2) = 1 )
@@ -200,7 +199,6 @@ feature -- Test swap
 				end
 				i := i + 1
 			end
-
 
 			assert ("test swap method", change and not collateral_changes)
 		end
