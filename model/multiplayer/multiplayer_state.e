@@ -1,4 +1,4 @@
-note
+	note
 	description: "Summary description for {MULTIPLAYER_STATE}."
 	author: ""
 	date: "$Date$"
@@ -26,8 +26,8 @@ feature {ANY}
 	my_client: SUDOKU_CLIENT
 
 feature
-	--initialize a new game and starts a server
-	init_server_game
+	--initialize a new game, starts a server and returns it
+	init_server_game: SUDOKU_SERVER
 	do
 
 	end
