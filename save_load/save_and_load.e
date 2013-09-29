@@ -2,7 +2,7 @@ note
 	description: " Class to save (or load) a game {SAVE_AND_LOAD}."
 	author: "Matias Donatti"
 	date: "24/09/13"
-	revision: "$Revision$"
+	revision: "0.2"
 
 class
 	SAVE_AND_LOAD
@@ -42,7 +42,8 @@ feature {ANY} -- open from file
 	do
 		obj_retrieved := retrieve_by_name ("./save_load/games/"+new_name_game)
 		if attached {SAVE_AND_LOAD} obj_retrieved as file then
-			set_sudoku_board(file.get_sudoku_board())
+			set_sudoku_board(file.get_sudoku_board)
+			set_time(file.get_time)
 			name_game := new_name_game
 		end
 	end
