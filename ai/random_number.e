@@ -1,9 +1,8 @@
 note
-	description: "Summary description for {RANDOM_NUMBER}."
-	author: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez"
-	date: "$Date$"
-	revision: "$Revision$"
-
+	description	: ""
+	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
+	date		: "27/09/2013"
+	revision	: "v0.1"
 class
 	RANDOM_NUMBER
 

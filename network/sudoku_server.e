@@ -8,6 +8,8 @@ class
 	SUDOKU_SERVER
 inherit
 	SOCKET_RESOURCES
+
+	STORABLE
 create
 	server_create
 
@@ -36,11 +38,26 @@ feature -- Init
 
 
 feature -- server action
+	start_game(multip_state: MULTIPLAYER_STATE)
+		require
+				socket /= Void
+		local
+			--ai: SUDOKU_AI
+			--board:SUDOKU_BOARD -- board of mine
+			--adversary_board:SUDOKU_BOARD -- board of the other player
+			--solved_board:SUDOKU_BOARD -- solved game
+			--multip_state: MULTIPLAYER_STATE --multiplayer state
+		do
+			--create ai.make_with_level (level)
+			socket.independent_store (multip_state)
+
+		end
+
 	send_board(a_serialized_board: STRING)
 		require
 			socket /= Void
 		do
-
+			socket.independent_store (a_serialized_board)
 		end
 
 	send_state_update(a_state: STRING)
@@ -48,33 +65,37 @@ feature -- server action
 		require
 			non_void: a_state /= Void
 		do
-
+			socket.independent_store (a_state)
 		end
 
 	receive_state_update(): STRING
 	--receive game updates
 	do
-
+			if attached{STRING} socket.retrieved as l_msg then
+				Result := l_msg
+			end
 	ensure
 			non_void: Result /= Void
 	end
 
-	send_winner_id(a_winner_id: INTEGER; a_time: TIME)
+	send_winner_id(a_winner_id: INTEGER)
 	--sends the id of the winning player and time of game
 		require
 				a_winner_id >=1
 		do
-
+				socket.independent_store (a_winner_id)
 		ensure
 				socket /= Void
 		end
 
-	receive_winner_id(): TUPLE[winner_id: INTEGER; a_time: TIME]
+	receive_winner_id(): INTEGER
 		--receive the winner id
 		do
-
+				if attached{INTEGER} socket.retrieved as l_msg then
+					Result := l_msg
+				end
 		ensure
-			Result.winner_id >=1
+			Result >=1
 		end
 
 

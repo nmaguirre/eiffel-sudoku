@@ -11,10 +11,8 @@ inherit
 	ANY
 
 create
-	make, make_with_random_values
+	make
 
-
-feature {EQA_TEST_SET} -- Initialization
 
 feature -- Initialization
 
@@ -49,53 +47,6 @@ feature -- Initialization
 			is_valid
 			board_size: cells.count=81
 		end
-
-	make_with_random_values(level:INTEGER)
-			-- Initializes the board as with some cells set with random numbers
-			-- Level is a parameter indicating how many number will be at the start in the bord
-		local
-			count, random_row, random_col, random_num: INTEGER
-			random_sequence: RANDOM
-			l_time: TIME
-      		l_seed: INTEGER
-      		valid: BOOLEAN
-		do
-			current.make
-			create random_sequence.make
-			create l_time.make_now
-      		l_seed := l_time.hour
-      		l_seed := l_seed * 60 + l_time.minute
-      		l_seed := l_seed * 60 + l_time.second
-      		l_seed := l_seed * 1000 + l_time.milli_second
-			create random_sequence.set_seed (l_seed)
-			-- change seed
-			from
-				count := 1
-			until
-				count > level
-			loop
-				random_sequence.forth
-				random_num := random_sequence.item \\ 9 + 1
-				random_sequence.forth
-				random_row := random_sequence.item \\ 9 + 1
-				random_sequence.forth
-				random_col := random_sequence.item \\ 9 + 1
-				if(cell_value(random_row,random_col)=0)then
-					valid:=set_cell (random_row, random_col, random_num)
-					if valid then
-						count := count + 1
-						cells.item (random_row,random_col).is_settable (False) --cell set default can't be set
-					else
-						unset_cell(random_row,random_col)
-					end
-				end
-			end
-
-		end
-
-feature -- Access
-
-feature -- Measurement
 
 feature -- Status report
 
@@ -177,7 +128,7 @@ feature -- Status report
         Result:= is_complete and then is_valid
     end
 
-feature{EQA_TEST_SET} --feature only for testing
+feature{EQA_TEST_SET, SUDOKU_AI_TEST} --feature only for testing
 
 	count_seted_cells:INTEGER --count the cells that have been seted
 	local

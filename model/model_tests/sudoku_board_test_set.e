@@ -12,17 +12,19 @@ inherit
 
 feature -- Test routines
 
-	test_random_values_count_32
+	test_random_values_count_49
 
 		note
 			testing:  "covers/{SUDOKU_BOARD}.make_whit_random_values"
 		local
 			board:SUDOKU_BOARD
+			ai: SUDOKU_AI
 		do
-			--create board.make
-			create board.make_with_random_values(32)
+			create board.make
+			create ai.make_with_level (32)
+			board:= ai.get_unsolved_board
 			print(board.count_seted_cells)
-			assert ("count cells seted ok",board.count_seted_cells=32)
+			assert ("count cells seted ok",board.count_seted_cells=49)
 		end
 
 		test_make_whit_random_values
@@ -31,9 +33,11 @@ feature -- Test routines
 				testing:  "covers/{SUDOKU_BOARD}.make_whit_random_values"
 			local
 				board:SUDOKU_BOARD
+				ai: SUDOKU_AI
 			do
-				--create board.make
-				create board.make_with_random_values(32)
+				create board.make
+				create ai.make_with_level (1)
+				board:= ai.get_unsolved_board
 				assert ("count cells seted ok",board.is_valid)
 			end
 
@@ -44,7 +48,6 @@ feature -- Test routines
 			local
 				board:SUDOKU_BOARD
 			do
-				--create board.make
 				create board.make
 				assert ("board not complete",not board.is_complete)
 			end

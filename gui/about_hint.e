@@ -22,10 +22,16 @@ inherit
 
 
 create
-	default_create
+	make
 
 feature {NONE} -- Initialization
 
+	make(c:SUDOKU_CONTROLLER)
+	do
+		default_create
+		controller:=c
+	end
+	
 	initialize
 			-- Populate the dialog box.
 		local
@@ -48,7 +54,7 @@ feature {NONE} -- Initialization
 
 			create ok_button.make_with_text (Button_ok_item)
 			ok_button.set_minimum_size (75, 24)
-			ok_button.select_actions.extend (agent destroy)
+			ok_button.select_actions.extend (agent request_ok_get_hint)
 
 			create cancel_button.make_with_text (Button_cancel_item)
 			cancel_button.set_minimum_size (75, 24)
@@ -100,12 +106,18 @@ feature {NONE} -- Initialization
 			set_size (400, 150)
 		end
 
-feature -- Add actions
-	-- /!\ new to be added straight after init! If not added, it won't call the hint function from controller
-	add_hint_action(controller : SUDOKU_CONTROLLER)
+		request_ok_get_hint
 		do
-			--ok_button.select_actions.extend (agent controller.get_hint)
+			controller.get_hint()
+			destroy
 		end
+
+--feature -- Add actions
+	-- /!\ new to be added straight after init! If not added, it won't call the hint function from controller
+--	add_hint_action(c: SUDOKU_CONTROLLER)
+--		do
+--			ok_button.select_actions.extend (agent controller.get_hint)
+--		end
 
 feature -- Access
 
@@ -144,6 +156,6 @@ feature {NONE} -- Implementation / Constants
 
 	Default_message:STRING = "Are you sure that you want a hint?"
 
-	gui: MAIN_WINDOW
+	controller: SUDOKU_CONTROLLER
 
 end

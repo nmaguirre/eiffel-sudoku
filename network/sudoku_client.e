@@ -9,6 +9,8 @@ class
 inherit
 	SOCKET_RESOURCES
 
+	STORABLE
+
 create
 	connect
 
@@ -45,32 +47,36 @@ feature --Client actions
 				isConnected = TRUE
 				gameStarted = TRUE
 		do
-
+			socket.independent_store (a_state)
 		end
 
-	receive_board(): STRING
+	receive_board(): MULTIPLAYER_STATE
 	--receives a board
 		do
-
+			if attached{MULTIPLAYER_STATE} socket.retrieved as l_msg then
+				Result := l_msg
+			end
 		end
 
 
-	send_winner_id(a_winner_id: INTEGER; a_time: TIME)
+	send_winner_id(a_winner_id: INTEGER)
 	--sends the id of the winning player and time of game
 		require
 				a_winner_id >=1
 		do
-
+			socket.independent_store (a_winner_id)
 		ensure
 				socket /= Void
 		end
 
-	receive_winner_id(): TUPLE[winner_id: INTEGER; time: TIME]
+	receive_winner_id(): INTEGER
 		--receive the winner id
 		do
-
+				if attached{INTEGER} socket.retrieved as l_msg then
+					Result := l_msg
+				end
 		ensure
-			Result.winner_id >=1
+			Result >=1
 		end
 
 	receive_state_update():STRING
@@ -78,7 +84,9 @@ feature --Client actions
 	require
 		socket /= Void
 		do
-
+				if attached{STRING} socket.retrieved as l_msg then
+					Result := l_msg
+				end
 		ensure
 			non_void: Result /= Void
 		end
