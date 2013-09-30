@@ -126,7 +126,7 @@ feature {NONE} -- Implementation
 feature {NONE}
 	request_about_easy_level
 	do
-		controller.reset_game(37)
+		controller.reset_game(30)
 		current.destroy
 	end
 
@@ -140,7 +140,7 @@ feature {NONE}
 feature {NONE}
 	request_about_hard_level
 	do
-		controller.reset_game(30)
+		controller.reset_game(37)
 		current.destroy
 	end
 
