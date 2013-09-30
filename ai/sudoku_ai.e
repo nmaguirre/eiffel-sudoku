@@ -27,7 +27,12 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		local
 			unity:BOOLEAN
 		do
-         	hint_counter:=0
+         	if level = 37 then hint_counter :=  5 else
+         		if level = 32  then hint_counter :=  7 else
+         			if level = 30 then hint_counter := 10
+         			end
+         		end
+         	end
 			create sol_board.make --solution board
 			generate_solution
 			unity := False
@@ -50,6 +55,9 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	generate_solution
+		-- Generates a valid and complete solution board
+		require
+			board: sol_board/= Void
 		local
 			i,j,n: INTEGER_32
 			l: ARRAY2[INTEGER]
@@ -120,7 +128,9 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	swap(n,m:INTEGER)
-		--Swap values 'n' and 'm'
+		--Swap  every value 'n' with 'm'
+		require
+			(n>0 and n<10) and (m>0 and m<10)
 		local
 			i,j:INTEGER
 		do
@@ -151,6 +161,10 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	delete_cells(level: INTEGER)
+	-- deleted "level" cells to the unsol_board method
+		require
+			correct_level: level>=0
+			correct_unsol_board: unsol_board /= Void and unsol_board.is_valid
 		local
 			n_borrados:INTEGER
 			random: RANDOM_NUMBER
@@ -169,7 +183,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 					n_borrados := n_borrados - 1
 			   	end
 			end
-	 end
+	 	end
 
 feature -- hint
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
@@ -195,6 +209,7 @@ feature -- hint
 						set:= True
 					end -- end if
 				end  -- end loop
+				hint_counter := hint_counter - 1
 				Result:= hint
 			end -- end do
 
@@ -223,6 +238,8 @@ feature -- Access
 	set_hitn_counter(counter :INTEGER)
 		do
 			hint_counter := counter
+		ensure
+			counter_hitn_set: hint_counter = counter
 		end
 
 feature
