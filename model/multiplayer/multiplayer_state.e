@@ -22,6 +22,10 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
+	server_port: INTEGER = 1111
+
+	ip_address: STRING
+
 	make(player_name: STRING_8)
 	require
 		player_name /= VOID
@@ -35,13 +39,13 @@ feature
 	local
 		server: SUDOKU_SERVER
 	do
-		server:= create_server
+		server:= create_server(1)
 	end
 
 	--initialize a new game and it waits for the server IP
 	init_client_game
 	do
-
+		my_client := create_client
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -70,18 +74,21 @@ feature
 
 feature {TEST_INIT_SERVER_GAME}
 	--creates a server in orden to start a sudoku game
-	create_server: SUDOKU_SERVER
+	create_server(difficult_level: INTEGER): SUDOKU_SERVER
 	local
 		server: SUDOKU_SERVER
 	do
-		create server.server_create (11111) -- By default hardcode the ip server with 11111.
+		create server.server_create (11111, difficult_level) -- By default hardcode the ip server with 11111.
 		result:= server
 	end
 
 	--creates a client from wich connect to a server in order to communicate with other player.
-	create_client
+	create_client: SUDOKU_CLIENT
+	local
+		client: SUDOKU_CLIENT
 	do
-		--create my_client.connect (a_ip_addr, a_player_name: STRING_8, a_port: INTEGER_32)
+		create client.connect(ip_address, name_of_player, server_port)
+		result:= client
 	end
 
 end

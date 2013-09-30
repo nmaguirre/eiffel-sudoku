@@ -1,5 +1,5 @@
 note
-	description	: "{SUDOKU_CONTROLLER}.Receive a number from the GUI then sends it to Model. Checks if sudoku is completed. Update the GUI when creating a board"
+	description	: "{SUDOKU_CONTROLLER}.Receive a number from the GUI then sends it to model.board. Checks if sudoku is completed. Update the GUI when creating a board"
 	author		: "E. Marchisio, Marconi-Alvarez-Farias-Astorga"
 	date		: "04/09/2013"
 	revision	: "0.1"
@@ -44,7 +44,7 @@ feature  -- Initialization
 		end
 
 
-	set_model (first_model: SUDOKU_BOARD)
+	set_model (first_model: SINGLE_PLAYER_STATE)
 		require
 			model_void: first_model /= void
 		do
@@ -69,9 +69,7 @@ feature {NONE} -- Implementation
 
 	the_instance: SUDOKU_CONTROLLER
 
-	model: SUDOKU_BOARD
-
-	ai: SUDOKU_AI
+	model: SINGLE_PLAYER_STATE
 
 	gui: MAIN_WINDOW
 
@@ -90,16 +88,16 @@ feature {ANY}
         set_cell_col: col>=0 and col<=9
         set_cell_value: value>=1 and value<=9
 	do
-        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
- 			Result:=model.set_cell(row, col, value)
+        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
+ 			Result:=model.board.set_cell(row, col, value)
         else
-        	if value/= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
-        		update_gui_cell(row, col, model.cell_value(row, col))
+        	if value/= model.board.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+        		update_gui_cell(row, col, model.board.cell_value(row, col))
         	end
         	Result:=True
 		end
 		-- After setting a cell ask if board is solved if so... tell user he WON
-		if model.is_solved then
+		if model.board.is_solved then
 			gui.request_about_winning_congrats
 		end
 	end
@@ -119,11 +117,11 @@ feature {ANY}
 		-- if not it means we have to set the cells from the model
 		if not  updating_gui  then
 
-	        if model.cell_is_settable(row,col) then --if cell is settable, so change model value.
-	 			insertion_correct := model.set_cell(row, col, value)
+	        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
+	 			insertion_correct := model.board.set_cell(row, col, value)
 	        else
-	        	if value /= model.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
-	        		update_gui_cell(row, col, model.cell_value(row, col))
+	        	if value /= model.board.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+	        		update_gui_cell(row, col, model.board.cell_value(row, col))
 	        		gui.set_cell_background_initial_colour (row, col)
 	        	end
 	        	insertion_correct := True
@@ -140,7 +138,7 @@ feature {ANY}
 			check_red_cells
 
 			-- After setting a cell ask if board is solved if so... tell user he WON
-			if model.is_solved then
+			if model.board.is_solved then
 				gui.request_about_winning_congrats
 			end
 		end
@@ -157,12 +155,12 @@ feature {ANY}
 		-- if not it means we have to unset the cells from the model
 		if not  updating_gui  then
 			--if cell is not set then we can't do anything
-			if model.cell_value (row, col) /= 0 and model.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
-				model.unset_cell (row, col)
+			if model.board.cell_value (row, col) /= 0 and model.board.cell_is_settable (row, col)  then -- if cell is settable, I can erase its value.
+				model.board.unset_cell (row, col)
 				check_red_cells
 			else
-				if model.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
-					update_gui_cell(row, col, model.cell_value(row, col))
+				if model.board.cell_value(row,col)/=0 then -- if cell isn't settable and default value /=0 should't modifique cell and you should update GUI
+					update_gui_cell(row, col, model.board.cell_value(row, col))
 				end
 			end
 		end
@@ -185,8 +183,8 @@ feature {ANY}
 				until
 					col > 9
 				loop
-					-- model.cell_value returns the element in the board at the specified position
-					update_gui_cell(row, col, model.cell_value(row, col))
+					-- model.board.cell_value returns the element in the board at the specified position
+					update_gui_cell(row, col, model.board.cell_value(row, col))
 					col := col + 1
 				end
 				row := row + 1
@@ -194,7 +192,7 @@ feature {ANY}
 			updating_gui := false
 
 			--now that the gui is update we can check if the model is solved
-			if model.is_solved then
+			if model.board.is_solved then
 				gui.request_about_winning_congrats
 			end
 		end
@@ -212,12 +210,11 @@ feature {ANY}
 feature{ANY}
 
 	reset_game(level:INTEGER)
-		local
-			new_model:SUDOKU_BOARD
+		--local
+			--new_model:SINGLE_PLAYER_STATE
 		do
-			--create new_model.make_with_random_values (level)
-			create ai.make_with_level (level)
-			set_model(ai.get_unsolved_board)
+			create model.make_level(level)
+			--set_model(ai.get_unsolved_board)
 			update_gui
 			-- need to reinitialisate list of red cells
 			nbr_red_cells := 0
@@ -279,7 +276,7 @@ feature {NONE} -- control of red cells
 
 			-- if at this position the cell is no longer in conflict with another we change its color
 			-- and delete it from the list
-			if model.is_insertion_correct (coords.x,coords.y) then
+			if model.board.is_insertion_correct (coords.x,coords.y) then
 				gui.set_cell_background_color_default (coords.x, coords.y)
 
 				-- to delete it from the list we put the last coords at the place of the current coords
@@ -300,7 +297,7 @@ feature {NONE} -- control of red cells
 	local
 		solver:SUDOKU_SOLVER
 	do
-		create solver.init_with_board (model)
+		create solver.init_with_board (model.board)
 		print("Start solve %N")
 		solver.solve_board
 		print("Stop solve %N")
@@ -311,7 +308,7 @@ feature {NONE} -- control of red cells
 	local
 		hint:SUDOKU_HINT
 	do
-		hint:=ai.get_hint (model)
+		hint:=model.ai.get_hint (model.board)
 		print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
 		set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
 		gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
