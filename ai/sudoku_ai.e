@@ -122,7 +122,9 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	swap(n,m:INTEGER)
-		--Swap values 'n' and 'm'
+		--Swap  every value 'n' with 'm'
+		require
+			(n>0 and n<10) and (m>0 and m<10)
 		local
 			i,j:INTEGER
 		do
@@ -153,6 +155,10 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	delete_cells(level: INTEGER)
+	-- deleted "level" cells to the unsol_board method
+		require
+			correct_level: level>=0
+			correct_unsol_board: unsol_board /= Void and unsol_board.is_valid
 		local
 			n_borrados:INTEGER
 			random: RANDOM_NUMBER
