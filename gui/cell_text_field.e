@@ -89,6 +89,15 @@ feature -- Status Setting
 		current.set_background_color (color)
 	end
 
+
+	paint_initial_sky
+	local
+		color: EV_COLOR
+	do
+		create color.make_with_rgb (0.300, 0.300, 0.800)
+		current.set_background_color (color)
+	end
+
 	paint_default
 		local
 	a_color,b_color: EV_COLOR
@@ -103,6 +112,22 @@ feature -- Status Setting
 			end
 
 		end
+
+
+	paint_sky
+		local
+	a_color,b_color: EV_COLOR
+
+		do
+			create a_color.make_with_rgb(0.5,0.5,0.9)
+			create b_color.make_with_rgb (0.7,0.7,0.9)
+			if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
+				current.set_background_color (b_color)
+			else
+				current.set_background_color (a_color)
+			end
+end
+
 
     set (value: INTEGER):BOOLEAN
     obsolete
