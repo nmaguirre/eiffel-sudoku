@@ -16,12 +16,14 @@ feature -- Test routine get_hint
 			-- New test routine
 		local
 			ai: SUDOKU_AI
+			hint: SUDOKU_HINT
 			x,y,v: INTEGER
 		do
 			create ai.make_with_level (30)
-			v:=ai.get_hint (ai.get_unsolved_board).get_v
-			x:=ai.get_hint (ai.get_unsolved_board).get_x
-			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			hint:=ai.get_hint (ai.unsol_board)
+			x:=hint.get_x
+			y:=hint.get_y
+			v:=hint.get_v
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
 
@@ -29,40 +31,46 @@ feature -- Test routine get_hint
 			-- New test routine
 		local
 			ai: SUDOKU_AI
+			hint: SUDOKU_HINT
 			x,y,v: INTEGER
 		do
 			create ai.make_with_level (15)
-			v:=ai.get_hint (ai.get_unsolved_board).get_v
-			x:=ai.get_hint (ai.get_unsolved_board).get_x
-			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			hint:=ai.get_hint (ai.unsol_board)
+			x:=hint.get_x
+			y:=hint.get_y
+			v:=hint.get_v
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
-
 	test_get_hint_3
 			-- New test routine
 		local
 			ai: SUDOKU_AI
+			hint: SUDOKU_HINT
 			x,y,v: INTEGER
 		do
 			create ai.make_with_level (10)
-			v:=ai.get_hint (ai.get_unsolved_board).get_v
-			x:=ai.get_hint (ai.get_unsolved_board).get_x
-			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			hint:=ai.get_hint (ai.unsol_board)
+			x:=hint.get_x
+			y:=hint.get_y
+			v:=hint.get_v
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
-
 	test_get_hint_4
 			-- New test routine
 		local
 			ai: SUDOKU_AI
+			hint: SUDOKU_HINT
 			x,y,v: INTEGER
 		do
 			create ai.make_with_level (5)
-			v:=ai.get_hint (ai.get_unsolved_board).get_v
-			x:=ai.get_hint (ai.get_unsolved_board).get_x
-			y:=ai.get_hint (ai.get_unsolved_board).get_y
+			hint:=ai.get_hint (ai.unsol_board)
+			x:=hint.get_x
+			y:=hint.get_y
+			v:=hint.get_v
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
+
+
 
 	test_board_1
 			-- New test routine

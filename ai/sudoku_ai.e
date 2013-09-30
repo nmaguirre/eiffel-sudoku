@@ -173,6 +173,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 
 feature -- hint
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
+		require
+				get_hint_pre: not(board.is_complete)
 		local
 			random: RANDOM_NUMBER
 			pos_x: INTEGER
@@ -196,6 +198,8 @@ feature -- hint
 					end -- end if
 				end  -- end loop
 				Result:= hint
+				ensure
+					hint_value: board.is_valid
 			end -- end do
 
 feature -- Access
