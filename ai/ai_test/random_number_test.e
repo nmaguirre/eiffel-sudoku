@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {RANDOM_NUMBER_TEST}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description	: "Belonging to the class tests RANDOM_NUMBER."
+	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
+	date		: "28/09/2013"
+	revision	: "v0.1"
 
 class
 	RANDOM_NUMBER_TEST
