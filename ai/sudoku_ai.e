@@ -209,6 +209,7 @@ feature -- hint
 						set:= True
 					end -- end if
 				end  -- end loop
+				hint_counter := hint_counter - 1
 				Result:= hint
 			end -- end do
 
