@@ -14,11 +14,10 @@ create
 	init
 
 feature {ANY} --Initialize
-	init(board:SUDOKU_BOARD;init_time:TIME_DURATION)
+	init(single_player:SINGLE_PLAYER_STATE)
 	once
 		the_instance:=current
-		time:=init_time
-		game := board
+		game := single_player
 		name_game := ""
 	end
 
@@ -42,36 +41,23 @@ feature {ANY} -- open from file
 	do
 		obj_retrieved := retrieve_by_name ("./save_load/games/"+new_name_game)
 		if attached {SAVE_AND_LOAD} obj_retrieved as file then
-			set_sudoku_board(file.get_sudoku_board)
-			set_time(file.get_time)
+			set_single_player_state(file.get_single_player_state)
 			name_game := new_name_game
 		end
 	end
 
 feature {ANY} -- Access
 
-	get_sudoku_board:SUDOKU_BOARD
-		-- Obtain board saved
+	get_single_player_state:SINGLE_PLAYER_STATE
+		-- Obtain the SINGLE PLAYER STATE
 	do
 		result:= game
 	end
 
-	set_sudoku_board(new_game : SUDOKU_BOARD)
-		-- Changed board
+	set_single_player_state(single_player:SINGLE_PLAYER_STATE)
+		-- Changed the SINGLE PLAYER STATE
 	do
-		game:= new_game
-	end
-
-	get_time:TIME_DURATION
-		-- Obtain time saved
-	do
-		result:= time
-	end
-
-	set_time(new_time : TIME_DURATION)
-		-- Changed time
-	do
-		time:= new_time
+		game:= single_player
 	end
 
 	already_saved:BOOLEAN
@@ -82,8 +68,7 @@ feature {ANY} -- Access
 
 feature {NONE}
 	the_instance: SAVE_AND_LOAD
-	time: TIME_DURATION
-	game: SUDOKU_BOARD
+	game:SINGLE_PLAYER_STATE
 	name_game:STRING
 		--Name of game current
 end

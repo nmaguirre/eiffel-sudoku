@@ -16,42 +16,27 @@ inherit
 feature {NONE}
 
 	save_game:SAVE_AND_LOAD
-	board:SUDOKU_BOARD
-	ai: SUDOKU_AI
-	time: TIME_DURATION
+	game:SINGLE_PLAYER_STATE
 
 	on_prepare
 	do
-		create time.make_by_fine_seconds (60)
-		create board.make
-		create ai.make_with_level (32)
-		board:= ai.get_unsolved_board
-		create save_game.init(board,time)
+		create game.make_level (32)
+		create save_game.init(game)
+		save_game.set_single_player_state (game)
 	end
 
-feature --test to obtain sudoku_board and time
+feature --test to obtain player state
 
-	test_get_sudoku_board_1
-		--Test get the board
+	test_get_single_player_state_1
+		--Test get the player state
 	local
-		board2:SUDOKU_BOARD
+		game2:SINGLE_PLAYER_STATE
 		work :BOOLEAN
 	do
-		save_game.set_sudoku_board (board)
-
-		board2 := save_game.get_sudoku_board
-		work := board_equals(board,board2)
-		assert ("get_sudoku_board fail", work)
-	end
-
-	test_get_time_1
-		--Test get the time
-	local
-		time2: TIME_DURATION
-	do
-		save_game.set_time (time)
-		time2 := save_game.get_time
-		assert ("get_time fail", time.is_equal (time2))
+		--save_game.set_single_player_state (game)
+		game2 := save_game.get_single_player_state
+		work:= game = game2
+		assert ("get_single_player_state worked", work)
 	end
 
 feature --test routines for save and load a game (board).
@@ -84,7 +69,7 @@ feature --test routines for save and load a game (board).
 			save_game.save ("testSave")
 			passed:=True
 		end
-		assert ("save broke",  passed)
+		assert ("save work",  passed)
 	rescue
 		if (not rescued) then
 			rescued := True
@@ -104,7 +89,7 @@ feature --test routines for save and load a game (board).
 			save_game.load ("testLoad")
 			passed:=True
 		end
-		assert ("load broke",  passed)
+		assert ("load worked",  passed)
 	rescue
 		if (not rescued) then
 			rescued := True
@@ -122,7 +107,7 @@ feature --test routines for save and load a game (board).
 			save_game.load ("")
 			passed:=True
 		end
-		assert ("save broke", not passed)
+		assert ("load broke", not passed)
 	rescue
 		if (not rescued) then
 			rescued := True
@@ -133,28 +118,19 @@ feature --test routines for save and load a game (board).
 	test_load_3
 		-- Test if load the game from a file worked.
 	local
-		board2,board3:SUDOKU_BOARD
-		ai2:SUDOKU_AI
-		time2,time3: TIME_DURATION
+		game2,game3:SINGLE_PLAYER_STATE
 		work : BOOLEAN
 	do
-		save_game.set_time (time)
-		save_game.set_sudoku_board (board)
+	--	save_game.set_single_player_state(game)
 		save_game.save ("testLoad")
 		-----
-		create board3.make
-		create ai2.make_with_level (32)
-		board3:= ai2.get_unsolved_board
-		save_game.set_sudoku_board (board3)
-		create time3.make_by_fine_seconds (60)
-		save_game.set_time (time3)
+		create game3.make_level (37)
+		create save_game.init(game3)
 		-----
 		save_game.load ("testLoad")
-		board2:=save_game.get_sudoku_board
-		time2:=save_game.get_time
-		work := board_equals(board,board2)
-		work:=  work and time.is_equal (time2)
-		assert ("load fail", work)
+		game2:=save_game.get_single_player_state
+		work := game = game2
+		assert ("load worked", work)
 	end
 
 feature --test for already_saved
@@ -162,7 +138,7 @@ feature --test for already_saved
 		--Test if name is saved
 	do
 		save_game.save ("testAlreadySaved")
-		assert("Already_Saved fail", save_game.already_saved)
+		assert("Already_Saved worked", save_game.already_saved)
 	end
 
 	test_already_saved_2
@@ -170,42 +146,13 @@ feature --test for already_saved
 	do
 		save_game.save ("testAlreadySaved")
 		save_game.load ("testAlreadySaved")
-		assert("Already_Saved fail", save_game.already_saved)
+		assert("Already_Saved worked", save_game.already_saved)
 	end
 
 	test_already_saved_3
 		--Test if name is ""
 	do
-		assert("Already_Saved fail", not save_game.already_saved)
-	end
-
-feature {NONE}
-
-	board_equals(b,b2:SUDOKU_BOARD):BOOLEAN
-		--Compare two boards, true if b and b2 are equals.
-	local
-		i,j:INTEGER
-		equals:BOOLEAN
-	do
-		equals:=true
-		from
-			i:=1
-		until
-			i>9 OR NOT equals
-		loop
-			from
-				j:=1
-			until
-				j>9 OR NOT equals
-			loop
-				if b.cell_value(i,j)/=b2.cell_value(i,j) then
-					equals:= false
-				end
-				j:=j+1
-			end
-			i:=i+1
-		end
-		result := equals
+		assert("Already_Saved worked", not save_game.already_saved)
 	end
 
 end
