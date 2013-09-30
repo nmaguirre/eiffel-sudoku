@@ -24,7 +24,7 @@ feature -- Test routines
 			server: SUDOKU_SERVER
 		do
 			create mult.make("test")
-			server := mult.create_server
+			server := mult.create_server(1)
 			assert ("sever started", server.serverStarted)
 		end
 
