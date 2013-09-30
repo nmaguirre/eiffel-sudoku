@@ -151,6 +151,10 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	delete_cells(level: INTEGER)
+	-- removes "level" cells to the board unsol_board
+		require
+			correct_level: level>=0
+			created_board: unsol_board /= Void
 		local
 			n_borrados:INTEGER
 			random: RANDOM_NUMBER
