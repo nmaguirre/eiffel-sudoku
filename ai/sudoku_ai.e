@@ -50,6 +50,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	generate_solution
+		require
+			board_empty: sol_board/= Void
 		local
 			i,j,n: INTEGER_32
 			l: ARRAY2[INTEGER]
@@ -121,8 +123,6 @@ feature {SUDOKU_AI_TEST} -- Initialization
 
 	swap(n,m:INTEGER)
 		--Swap values 'n' and 'm'
-		require
-			valid_parameters: (n>0 and n<10) and (m>0 and m<10)
 		local
 			i,j:INTEGER
 		do
@@ -153,10 +153,6 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	delete_cells(level: INTEGER)
-	-- removes "level" cells to the board unsol_board
-		require
-			correct_level: level>=0
-			created_board: unsol_board /= Void
 		local
 			n_borrados:INTEGER
 			random: RANDOM_NUMBER
@@ -175,7 +171,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 					n_borrados := n_borrados - 1
 			   	end
 			end
-	 end
+	 	end
 
 feature -- hint
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
