@@ -121,6 +121,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 
 	swap(n,m:INTEGER)
 		--Swap values 'n' and 'm'
+		require
+			valid_parameters: (n>0 and n<10) and (m>0 and m<10)
 		local
 			i,j:INTEGER
 		do
