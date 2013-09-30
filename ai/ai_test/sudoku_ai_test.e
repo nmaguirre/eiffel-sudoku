@@ -94,6 +94,7 @@ feature -- Test routine get_hint
 feature -- Test routine delete_cells
 
 	test_delete_cells_0
+		-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
@@ -103,6 +104,7 @@ feature -- Test routine delete_cells
 		end
 
 	test_delete_cells_1
+		-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
@@ -112,6 +114,7 @@ feature -- Test routine delete_cells
 		end
 
 	test_delete_cells_2
+		-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
@@ -120,6 +123,7 @@ feature -- Test routine delete_cells
 		end
 
 	test_delete_cells_3
+		-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
