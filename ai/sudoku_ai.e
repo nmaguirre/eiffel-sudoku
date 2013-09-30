@@ -27,7 +27,12 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		local
 			unity:BOOLEAN
 		do
-         	hint_counter:=0
+         	if level = 37 then hint_counter :=  5 else
+         		if level = 32  then hint_counter :=  7 else
+         			if level = 30 then hint_counter := 10
+         			end
+         		end
+         	end
 			create sol_board.make --solution board
 			generate_solution
 			unity := False
