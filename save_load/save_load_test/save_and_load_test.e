@@ -25,6 +25,61 @@ feature {NONE}
 		save_game.set_single_player_state (game)
 	end
 
+	sps_equals(sps1,sps2 : SINGLE_PLAYER_STATE) : BOOLEAN
+	local
+		i,j : INTEGER
+		equals : BOOLEAN
+	do
+		if (sps1 = Void or sps2 = Void) then
+			if (sps1 = Void) then
+				print("In sps_equals : sps1 is empty")
+			end
+			if (sps2 = Void) then
+				print("In sps_equals : sps2 is empty")
+			end
+		else
+			-- Let's say they are equals and we verify everything until we are not sure they are 100% equals
+			equals := True
+
+
+			--first check time :
+			print("In sps_equals : First check time")
+			if (sps1.timer = void or sps2.timer = void) then
+				if not(sps1.timer = void and sps2.timer = void) then
+					equals := False
+				end
+			else
+				if (not sps1.timer.is_equal (sps2.timer)) then
+					print("Timers are differents")
+					equals := False
+				end
+			end
+
+			--now check the board
+			print("In sps_equals : Second check board")
+			from
+				i := 1
+			until
+				i > 9 or not equals
+			loop
+				from
+					j := 1
+				until
+					j > 9 or not equals
+				loop
+					if (sps1.board.cell_value (i, j) /= sps2.board.cell_value (i, j)) then
+						print("Boards are differents")
+						equals := False;
+					end
+
+					j := j + 1
+				end
+				i := i + 1
+			end
+		end
+		Result := equals
+	end
+
 feature --test to obtain player state
 
 	test_get_single_player_state_1
@@ -128,9 +183,9 @@ feature --test routines for save and load a game (board).
 		create save_game.init(game3)
 		-----
 		save_game.load ("testLoad")
-		game2:=save_game.get_single_player_state
-		work := game = game2
-		assert ("load worked", work)
+		game2 := save_game.get_single_player_state
+		work := sps_equals(game,game2)
+ 		assert ("load worked", work)
 	end
 
 feature --test for already_saved

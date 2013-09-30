@@ -123,7 +123,7 @@ feature {NONE} -- Menu Implementation
 
 	help_menu: EV_MENU
 			-- "Help" menu for this window (contains About...)
-	
+
 
 	build_standard_menu_bar
 			-- Create and populate `standard_menu_bar'.
@@ -389,13 +389,13 @@ feature {NONE} -- Implementation
 
 	build_clock_container
 		local
-			current_text_field : CELL_TEXT_FIELD
+			current_text_field : EV_TEXT_FIELD
 			clock: INTEGER
 			font : EV_FONT
 			text: EV_TEXT
 
 		do
-			clock_container.enable_sensitive -- the container is unlocked
+			clock_container.disable_sensitive -- the container is unlocked
 			create font.default_create
 			font.set_weight( (create {EV_FONT_CONSTANTS}).weight_bold)
 			from
@@ -404,18 +404,20 @@ feature {NONE} -- Implementation
 				clock > 3
 			loop
 				create current_text_field.default_create
-				current_text_field.add_control_caracter
-				current_text_field.set_capacity (2)
 				current_text_field.align_text_center
-				current_text_field.set_minimum_width_in_characters (2)
 					--At begin, the cell isn't setable
 				current_text_field.disable_edit
 				-- gives the current cell its position in the board
-				current_text_field.set_position (clock,1)
 				clock_table.put_at_position (current_text_field, clock, 1,1,1)
-				current_text_field.paint_default
 				clock := clock +1
 			end
+			current_text_field?= clock_table.at (1)
+			current_text_field.set_text("00 ''")
+			current_text_field?= clock_table.at (2)
+			current_text_field.set_text("00'")
+			current_text_field?= clock_table.at (3)
+			current_text_field.set_text("00h")
+
 		end
 
 
@@ -561,5 +563,32 @@ feature{ANY}
 		file_menu.i_th(09).enable_sensitive -- Hint
 		file_menu.i_th(13).enable_sensitive -- Solve
 	end
+
+	feature{ANY}
+-- Feature for updte the clock
+
+		set_clock_second(timer: TIME_DURATION)
+		local
+			text_field: EV_TEXT_FIELD
+		do
+			text_field?=clock_table.at(1)
+			text_field.set_text(timer.second.out+"''")
+		end
+
+		set_clock_minute(timer:TIME_DURATION)
+		local
+			text_field: EV_TEXT_FIELD
+		do
+			text_field?=clock_table.at(2)
+			text_field.set_text(timer.minute.out+"'")
+		end
+
+		set_clock_hour(timer: TIME_DURATION)
+		local
+			text_field: EV_TEXT_FIELD
+		do
+			text_field?=clock_table.at(3)
+			text_field.set_text(timer.hour.out +"h")
+		end
 
 end
