@@ -27,9 +27,6 @@ feature -- Access
 	Menu_file_save_item: STRING = "&Save"
 			-- String for menu "File/Save"
 
-	Menu_file_saveas_item: STRING = "Save &As..."
-			-- String for menu "File/Save As"
-
 	Menu_file_solve_item: STRING = "&Solve"
 
 	Menu_file_close_item: STRING = "&Close"

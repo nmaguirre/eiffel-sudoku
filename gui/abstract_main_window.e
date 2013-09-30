@@ -245,10 +245,6 @@ feature {NONE}
 	deferred
 	end
 
-	request_about_save_as
-	deferred
-	end
-
 
 feature{ANY}
 --Disable the follow options: save, save all, get hint and solve in file menu.

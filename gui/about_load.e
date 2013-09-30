@@ -38,15 +38,17 @@ feature {NONE}
 			create ok_button.make_with_text_and_action ("Open",agent destroy)
 			ok_button.set_minimum_size (okb_width, okb_height)
 
-
+			-- Create button_cancel
+			create button_cancel.make_with_text_and_action ("Cancel",agent destroy)
+			button_cancel.set_minimum_size (okb_width, okb_height)
+			
 			--create button_container
 			create button_container
 			button_container.extend (create {EV_CELL})
-			button_container.extend (create {EV_CELL})
+			button_container.extend (button_cancel)
 			button_container.extend (ok_button)
+			button_container.disable_item_expand (button_cancel)
 			button_container.disable_item_expand (ok_button)
-
-
 
 			--create combo container
 			create combo_container.make_with_text ("File to load")
@@ -57,8 +59,6 @@ feature {NONE}
 			--updating combobox
 			update_combo()
 
-
-
 			--create a main container with on top combo_container at the bottom button_container
 			create main_container
 			main_container.extend (combo_container)
@@ -66,10 +66,8 @@ feature {NONE}
 			main_container.disable_item_expand (combo_container)
 			main_container.disable_item_expand (button_container)
 
-
 			--adding this main container to our window
 			extend (main_container)
-
 
 			--setting the window's title
 			set_title (Default_title)
@@ -82,7 +80,7 @@ feature {NONE}
 	ok_button: EV_BUTTON
 		-- "OK" button.
 
-	cancel_button: EV_BUTTON
+	button_cancel: EV_BUTTON
 		-- "cancel" button.
 
 	Default_title: STRING = "Load Game"

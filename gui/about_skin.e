@@ -55,6 +55,9 @@ feature {NONE} -- Initialization
 			skin_3_button.set_minimum_size (75, 75)
 			--skin_3_button.select_actions.extend (agent skin)
 
+			create cancel_button.make_with_text (Button_cancel_item)
+			cancel_button.set_minimum_size (60, 20)
+			cancel_button.select_actions.extend (agent destroy)
 
 
 			create buttons_box
@@ -65,6 +68,8 @@ feature {NONE} -- Initialization
 			buttons_box.disable_item_expand (skin_2_button)
 			buttons_box.extend (skin_3_button)
 			buttons_box.disable_item_expand (skin_3_button)
+			buttons_box.extend (cancel_button)
+			buttons_box.disable_item_expand (cancel_button)
 
 			create right_vertical_box
 			right_vertical_box.set_padding (7)
@@ -83,6 +88,9 @@ feature {NONE} -- Initialization
 			set_default_push_button (skin_1_button)
 			set_default_push_button (skin_2_button)
 			set_default_push_button	(skin_3_button)
+
+			set_default_push_button (cancel_button)
+			set_default_cancel_button (cancel_button)
 
 			set_title (Default_title)
 			set_size (100, 100)
@@ -121,6 +129,8 @@ feature {NONE} -- Implementation
 
 	skin_3_button: EV_BUTTON
 			--"skin_3" button
+	cancel_button: EV_BUTTON
+			-- "Cancel" button.
 
 feature {NONE}
 	request_about_easy_level

@@ -162,10 +162,6 @@ feature {NONE} -- Menu Implementation
             menu_item.select_actions.extend (agent request_about_save) --controller for click in Multiplayer
 			file_menu.extend (menu_item)     	-- Save
 
-			create menu_item.make_with_text (Menu_file_saveas_item)
-			menu_item.select_actions.extend (agent request_about_save_as) --controller for click in Multiplayer
-			file_menu.extend (menu_item)       	-- Save As
-
 			create separator_item.default_create
 			file_menu.extend (separator_item) 	-- Separator
 
@@ -532,13 +528,8 @@ feature {NONE}
 	do
 		create load_window.default_create
 		load_window.show
-		--print("Should implementate request_about_save in gui/MAIN_WINDOW")
 	end
 
-	request_about_save_as
-	do
-		print("Should implementate request_about_save_as in gui/MAIN_WINDOW")
-	end
 
 feature {ANY} --skin selection
 	request_skin
@@ -558,9 +549,8 @@ feature{ANY}
 	disable_menu_item_game_not_initializated
 	do
 		file_menu.i_th(3).disable_sensitive -- Save
-		file_menu.i_th(4).disable_sensitive -- Save All
-		file_menu.i_th(10).disable_sensitive -- Hint
-		file_menu.i_th(14).disable_sensitive -- Solve
+		file_menu.i_th(09).disable_sensitive -- Hint
+		file_menu.i_th(13).disable_sensitive -- Solve
 
 	end
 
@@ -568,9 +558,8 @@ feature{ANY}
 	enable_menu_item_game_initializated
 	do
 		file_menu.i_th(3).enable_sensitive -- Save
-		file_menu.i_th(4).enable_sensitive -- Save All
-		file_menu.i_th(10).enable_sensitive -- Hint
-		file_menu.i_th(14).enable_sensitive -- Solve
+		file_menu.i_th(09).enable_sensitive -- Hint
+		file_menu.i_th(13).enable_sensitive -- Solve
 	end
 
 end
