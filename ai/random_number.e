@@ -6,10 +6,10 @@ note
 class
 	RANDOM_NUMBER
 
-	create
-		make
+create
+	make
 
-	feature -- Initialization
+feature -- Initialization
 		make
 			local
 				l_time : TIME
