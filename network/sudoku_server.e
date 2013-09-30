@@ -102,7 +102,30 @@ feature -- server action
 			Result >=1
 		end
 
+	send_cell_position(x: INTEGER; y: INTEGER)
 
+		require
+			(x > 0 and x < 10) and (y > 0 and y < 10)
+
+		local
+			server_tuple : TUPLE[INTEGER, INTEGER]
+		do
+			server_tuple := [x,y]
+			socket.independent_store (server_tuple)
+
+		ensure
+			socket /= Void
+		end
+
+	receive_cell_position():TUPLE[x: INTEGER;y: INTEGER]
+		do
+			if attached{TUPLE[INTEGER, INTEGER]} socket.retrieved as l_msg then
+				Result := l_msg
+			end
+		ensure
+			Result.x >= 1 and Result.x <= 9
+			Result.y >= 1 and Result.y <= 9
+		end
 
 feature
 	close_server
