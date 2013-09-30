@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {SUDOKU_HINT}."
-	author: "Marconi-Alvarez-Astorga-Farias-Gastaldi"
-	date: "25/09/2013"
-	revision: "v0.1"
+	description	: "Summary description for {SUDOKU_HINT}."
+	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
+	date		: "25/09/2013"
+	revision	: "v0.1"
 
 class
 	SUDOKU_HINT
@@ -11,6 +11,7 @@ create
 	make_hint,make
 
 feature {NONE} -- Initialization
+
 	pos_x: INTEGER
 	pos_y: INTEGER
 	value: INTEGER
@@ -28,6 +29,7 @@ feature {NONE} -- Initialization
 		end
 
 feature -- Access
+
 	get_x():INTEGER
 	do
 		Result := pos_x
