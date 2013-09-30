@@ -18,9 +18,10 @@ feature -- attributes
 	gameStarted:	BOOLEAN
 	server_socket: 	NETWORK_STREAM_SOCKET
 	socket: 		NETWORK_STREAM_SOCKET
+	ai: SUDOKU_AI
 
 feature -- Init
-	server_create(a_port: INTEGER)
+	server_create(a_port: INTEGER;level: INTEGER)
 		require
 				serverStarted = FALSE
 		do
@@ -31,6 +32,7 @@ feature -- Init
 			print("Server created")
 			serverStarted := TRUE
 			gameStarted := TRUE
+			create ai.make_with_level (level)
 
 		ensure
 				serverStarted = TRUE
@@ -38,22 +40,24 @@ feature -- Init
 
 
 feature -- server action
-	start_game(multip_state: MULTIPLAYER_STATE)
+	send_board_solved()
+	--send solved board	
 		require
 				socket /= Void
-		local
-			--ai: SUDOKU_AI
-			--board:SUDOKU_BOARD -- board of mine
-			--adversary_board:SUDOKU_BOARD -- board of the other player
-			--solved_board:SUDOKU_BOARD -- solved game
-			--multip_state: MULTIPLAYER_STATE --multiplayer state
 		do
-			--create ai.make_with_level (level)
-			socket.independent_store (multip_state)
-
+			socket.independent_store (ai.get_sol_board)
 		end
 
+	send_board_unsolved()
+	--send unsolved board	
+		require
+					socket /= Void
+			do
+				socket.independent_store (ai.get_unsolved_board)
+			end
+
 	send_board(a_serialized_board: STRING)
+	--send serialized board	
 		require
 			socket /= Void
 		do

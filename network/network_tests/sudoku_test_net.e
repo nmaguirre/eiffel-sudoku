@@ -24,7 +24,7 @@ feature  -- Events
 		-- This routine is called before executing any test.
 		do
 			-- Creating server
-			create server.server_create(10000)
+			create server.server_create(10000,37)
 
 			-- Creating client with ip address and port number.
 			create client.connect("127.0.0.1", "player1", 10000)
