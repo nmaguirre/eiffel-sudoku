@@ -50,10 +50,18 @@ feature --Client actions
 			socket.independent_store (a_state)
 		end
 
-	receive_board(): MULTIPLAYER_STATE
-	--receives a board
+	receive_solved_board(): SUDOKU_BOARD
+	--receives a solved board
 		do
-			if attached{MULTIPLAYER_STATE} socket.retrieved as l_msg then
+			if attached{SUDOKU_BOARD} socket.retrieved as l_msg then
+				Result := l_msg
+			end
+		end
+
+	receive_unsolved_board(): SUDOKU_BOARD
+	--receives a unsolved board
+		do
+			if attached{SUDOKU_BOARD} socket.retrieved as l_msg then
 				Result := l_msg
 			end
 		end

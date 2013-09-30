@@ -36,7 +36,9 @@
 				<exclude>/EIFGENs$</exclude>
 			</file_rule>
 			<tests name="model_tests" location=".\model\model_tests\"/>
-			<cluster name="multiplayer" location=".\model\multiplayer\"/>
+			<cluster name="multiplayer" location=".\model\multiplayer\">
+				<cluster name="multiplayer_tests" location=".\model\multiplayer\multiplayer_tests\"/>
+			</cluster>
 		</cluster>
 		<cluster name="network" location=".\network\">
 			<file_rule>

@@ -1,4 +1,4 @@
-note
+	note
 	description: "Summary description for {MULTIPLAYER_STATE}."
 	author: ""
 	date: "$Date$"
@@ -12,12 +12,9 @@ create
 	make
 
 feature {ANY}
-	make
-	do
+	name_of_player: STRING
 
-	end
-
-	my_board:SUDOKU_BOARD -- board of mine
+	my_board:SUDOKU_BOARD -- my sudoku board
 
 	adversary_board:SUDOKU_BOARD -- board of the other player
 
@@ -25,11 +22,30 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
-feature
-	--initialize a new game, if the option number is zero, then the feature starts a server, else, it waits for the servers ip.
-	init_game(option: INTEGER)
-	do
+	server_port: INTEGER = 1111
 
+	ip_address: STRING
+
+	make(player_name: STRING_8)
+	require
+		player_name /= VOID
+	do
+		name_of_player:= player_name
+	end
+
+feature
+	--initialize a new game, and starts a server.
+	init_server_game
+	local
+		server: SUDOKU_SERVER
+	do
+		server:= create_server(1)
+	end
+
+	--initialize a new game and it waits for the server IP
+	init_client_game
+	do
+		my_client := create_client
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -56,17 +72,23 @@ feature
 
 	end
 
-feature {NONE}
+feature {TEST_INIT_SERVER_GAME}
 	--creates a server in orden to start a sudoku game
-	create_server
+	create_server(difficult_level: INTEGER): SUDOKU_SERVER
+	local
+		server: SUDOKU_SERVER
 	do
-
+		create server.server_create (11111, difficult_level) -- By default hardcode the ip server with 11111.
+		result:= server
 	end
 
 	--creates a client from wich connect to a server in order to communicate with other player.
-	create_client
+	create_client: SUDOKU_CLIENT
+	local
+		client: SUDOKU_CLIENT
 	do
-
+		create client.connect(ip_address, name_of_player, server_port)
+		result:= client
 	end
 
 end
