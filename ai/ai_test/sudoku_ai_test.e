@@ -1,5 +1,5 @@
 note
-	description	: "Belonging to the class test sudoku_ai"
+	description	: "Belonging to the class tests SUDOKU_AI"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "28/09/2013"
 	revision	: "v0.1"
@@ -10,9 +10,10 @@ class
 inherit
 	EQA_TEST_SET
 
-feature -- Test get_hint
+feature -- Test routine get_hint
 
 	test_get_hint_1
+			-- New test routine
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
@@ -25,6 +26,7 @@ feature -- Test get_hint
 		end
 
 	test_get_hint_2
+			-- New test routine
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
@@ -37,6 +39,7 @@ feature -- Test get_hint
 		end
 
 	test_get_hint_3
+			-- New test routine
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
@@ -49,6 +52,7 @@ feature -- Test get_hint
 		end
 
 	test_get_hint_4
+			-- New test routine
 		local
 			ai: SUDOKU_AI
 			x,y,v: INTEGER
@@ -61,6 +65,7 @@ feature -- Test get_hint
 		end
 
 	test_board_1
+			-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
@@ -69,6 +74,7 @@ feature -- Test get_hint
 		end
 
 	test_board_2
+			-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
@@ -77,13 +83,15 @@ feature -- Test get_hint
 		end
 
 	test_board_3
+			-- New test routine
 		local
 			ai:SUDOKU_AI
 		do
 			create ai.make_with_level (40)
 			assert ("test number of solution", ai.nr_of_solutions>=1)
 		end
-feature -- Test delete_cells
+
+feature -- Test routine delete_cells
 
 	test_delete_cells_0
 		local
@@ -119,7 +127,7 @@ feature -- Test delete_cells
 			assert ("test numbers sets cells", ai.get_unsolved_board.count_seted_cells=50)
 		end
 
-feature -- Test swap
+feature -- Test routine swap
 
 	test_swap_1
 		local
@@ -203,7 +211,7 @@ feature -- Test swap
 			assert ("test swap method", change and not collateral_changes)
 		end
 
-feature -- Test generate_solution
+feature -- Test routine generate_solution
 
 	test_generate_solution_1
 		local
