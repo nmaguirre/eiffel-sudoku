@@ -226,6 +226,8 @@ feature -- Access
 	set_hitn_counter(counter :INTEGER)
 		do
 			hint_counter := counter
+		ensure
+			counter_hitn_set: hint_counter = counter
 		end
 
 feature
