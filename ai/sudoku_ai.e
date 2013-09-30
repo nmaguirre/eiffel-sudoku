@@ -24,16 +24,17 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	make_with_level(level:INTEGER)
+		-- Generates a board with "level" erased cells
 		local
 			unity:BOOLEAN
 		do
-         	if level = 37 then hint_counter :=  5 else
-         		if level = 32  then hint_counter :=  7 else
-         			if level = 30 then hint_counter := 10
-         			end
-         		end
+         	if level = 37 then hint_counter :=  5
+         	else if level = 32  then hint_counter :=  7
+         	else if level = 30 then hint_counter := 10
+            end
          	end
-			create sol_board.make --solution board
+         	end
+			create sol_board.make -- Solution board
 			generate_solution
 			unity := False
 			from
@@ -41,17 +42,17 @@ feature {SUDOKU_AI_TEST} -- Initialization
 			until
 				unity = True
 			loop
-				create unsol_board.make --unsolved board
+				create unsol_board.make -- Unsolved board
 				unsol_board.deep_copy(sol_board)
 				delete_cells(level)
 				unity := (nr_of_solutions = 1)
-				print ("%N new solution created %N")
+				-- print ("%N new solution created %N")
 			end
-			print ("%N Sudoku solution: %N")
-			sol_board.print_sudoku
-			print ("%N valid? " + sol_board.is_solved.out + "%N")
-			print ("%N Unsolved sudoku: %N")
-			unsol_board.print_sudoku
+			-- print ("%N Sudoku solution: %N")
+			-- sol_board.print_sudoku
+			-- print ("%N valid? " + sol_board.is_solved.out + "%N")
+			-- print ("%N Unsolved sudoku: %N")
+			-- unsol_board.print_sudoku
 		end
 
 	generate_solution
@@ -115,7 +116,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 			from
 				n := 1
 			until
-				n > 100 -- numbers of swaps
+				n > 100 -- Numbers of swaps
 			loop
 				create random_number.make
 				random1 := random_number.random_integer
@@ -128,7 +129,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	swap(n,m:INTEGER)
-		--Swap  every value 'n' with 'm'
+		-- Swap  every value 'n' with 'm'
 		require
 			(n>0 and n<10) and (m>0 and m<10)
 		local
@@ -146,11 +147,11 @@ feature {SUDOKU_AI_TEST} -- Initialization
 				loop
 					if sol_board.cell_value (i,j) = n then
 						if sol_board.set_cell (i,j,m) then
-							--print ("swaping...")
+							-- print ("swaping...")
 						end
 					else if sol_board.cell_value (i,j) = m then
 						if sol_board.set_cell (i,j,n) then
-							--print ("swaping...")
+							-- print ("swaping...")
 						end
 					end
 					end
@@ -161,7 +162,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	delete_cells(level: INTEGER)
-	-- deleted "level" cells to the unsol_board method
+		-- Deleted "level" cells to the unsol_board method
 		require
 			correct_level: level>=0
 			correct_unsol_board: unsol_board /= Void and unsol_board.is_valid
