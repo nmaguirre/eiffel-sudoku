@@ -185,7 +185,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 			end
 	 	end
 
-feature -- hint
+feature -- Hint routine
+
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
 		require
 				get_hint_pre: not(board.is_complete)
@@ -195,27 +196,25 @@ feature -- hint
 			pos_y: INTEGER
 			set: BOOLEAN
 			hint: SUDOKU_HINT
-			do
-				from
-					set:=False
-				until
-					set=True
-				loop
-					create random.make
-					pos_x:= random.random_integer
-					pos_y:= random.random_integer
-					if not (board.cell_set (pos_x,pos_y))
-					 then
-						create hint.make_hint (pos_x, pos_y, sol_board.cell_value (pos_x,pos_y))
-					--	print("positions" + pos_x.out + pos_y.out + "%N") 	
-						set:= True
-					end -- end if
-				end  -- end loop
-				hint_counter := hint_counter - 1
-				Result:= hint
-				ensure
-					hint_value: board.is_valid
-			end -- end do
+		do
+			from
+				set:=False
+			until
+				set=True
+			loop
+				create random.make
+				pos_x:= random.random_integer
+				pos_y:= random.random_integer
+				if not (board.cell_set (pos_x,pos_y)) then
+					create hint.make_hint (pos_x, pos_y, sol_board.cell_value (pos_x,pos_y))
+					set:= True
+				end
+			end  -- end loop
+			hint_counter := hint_counter - 1
+			Result:= hint
+			ensure
+				hint_value: board.is_valid
+		end -- end do
 
 feature -- Access
 
