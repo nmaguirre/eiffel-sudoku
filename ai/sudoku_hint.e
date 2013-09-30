@@ -46,6 +46,8 @@ feature -- Access
 	end
 
 invariant
-	invariant_clause: True -- Your invariant here
+	coord_x: pos_x>=0 and pos_x<10
+	coord_y: pos_y>=0 and pos_y<10
+	value: value>=0 and value<10
 
 end
