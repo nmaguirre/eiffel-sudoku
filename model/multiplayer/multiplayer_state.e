@@ -45,7 +45,7 @@ feature
 	--initialize a new game and it waits for the server IP
 	init_client_game
 	do
-
+		my_client := create_client
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -83,9 +83,12 @@ feature {TEST_INIT_SERVER_GAME}
 	end
 
 	--creates a client from wich connect to a server in order to communicate with other player.
-	create_client
+	create_client: SUDOKU_CLIENT
+	local
+		client: SUDOKU_CLIENT
 	do
-		create my_client.connect(ip_address, name_of_player, server_port)
+		create client.connect(ip_address, name_of_player, server_port)
+		result:= client
 	end
 
 end
