@@ -50,8 +50,9 @@ feature {SUDOKU_AI_TEST} -- Initialization
 		end
 
 	generate_solution
+		-- Generates a valid and complete solution board
 		require
-			board_empty: sol_board/= Void
+			board: sol_board/= Void
 		local
 			i,j,n: INTEGER_32
 			l: ARRAY2[INTEGER]
@@ -231,6 +232,8 @@ feature -- Access
 	set_hitn_counter(counter :INTEGER)
 		do
 			hint_counter := counter
+		ensure
+			counter_hitn_set: hint_counter = counter
 		end
 
 feature
