@@ -75,6 +75,8 @@ feature {NONE} -- Implementation
 
 	updating_gui:BOOLEAN
 
+	timer: CLOCK
+
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
@@ -116,7 +118,7 @@ feature {ANY}
 		-- we are informing to set_cell if we are updating or not the gui
 		-- if not it means we have to set the cells from the model
 		if not  updating_gui  then
-
+			update_timer
 	        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
 	 			insertion_correct := model.board.set_cell(row, col, value)
 	        else
@@ -218,6 +220,7 @@ feature{ANY}
 			update_gui
 			-- need to reinitialisate list of red cells
 			nbr_red_cells := 0
+			create timer.make
 		end
 
 feature {NONE} -- control of red cells
@@ -302,6 +305,14 @@ feature {NONE} -- control of red cells
 		solver.solve_board
 		print("Stop solve %N")
 		update_gui
+	end
+
+	update_timer
+	do
+		timer.update_time_duration
+		gui.set_clock_second(timer.time_duration)
+		gui.set_clock_minute(timer.time_duration)
+		gui.set_clock_hour(timer.time_duration)
 	end
 
 	get_hint
