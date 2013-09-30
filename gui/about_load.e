@@ -41,7 +41,7 @@ feature {NONE}
 			-- Create button_cancel
 			create button_cancel.make_with_text_and_action ("Cancel",agent destroy)
 			button_cancel.set_minimum_size (okb_width, okb_height)
-			
+
 			--create button_container
 			create button_container
 			button_container.extend (create {EV_CELL})
@@ -102,7 +102,7 @@ feature --access
 		-- /!\ to be added straight after init! If not added
 	do
 		ok_button.select_actions.extend (agent load.load(combo_game.text))
-		ok_button.select_actions.extend (agent controller.set_model (load.get_sudoku_board))
+		ok_button.select_actions.extend (agent controller.set_model (load.get_single_player_state))
 	end
 
 feature{NONE} -- update combo
