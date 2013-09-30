@@ -221,6 +221,7 @@ feature{ANY}
 			-- need to reinitialisate list of red cells
 			nbr_red_cells := 0
 			create timer.make
+			update_timer
 		end
 
 feature {NONE} -- control of red cells
