@@ -2,8 +2,8 @@ note
 	description	: ""
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "27/09/2013"
-	revision	: "v0.1"
-	
+	revision	: "v0.2"
+
 class
 	RANDOM_NUMBER
 
