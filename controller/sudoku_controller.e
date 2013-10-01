@@ -19,6 +19,7 @@ feature  -- Initialization
 			the_instance := Current
 
 			init_red_cells_list
+			create current_level.make_empty
 
 			create model.make
 		end
@@ -216,7 +217,7 @@ feature {ANY}
 	do
 		current_level.copy (new_level)
 	end
-	
+
 feature{ANY}
 
 	reset_game(level:INTEGER)
