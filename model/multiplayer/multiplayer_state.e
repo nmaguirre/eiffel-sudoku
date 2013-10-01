@@ -22,10 +22,6 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
-	server_port: INTEGER = 1111
-
-	ip_address: STRING
-
 	make(player_name: STRING_8)
 	require
 		player_name /= VOID
@@ -72,13 +68,27 @@ feature
 
 	end
 
-feature {TEST_INIT_SERVER_GAME}
+	set_ip_address(ip: STRING)
+	require
+		ip_distinct_of_void: ip/=VOID
+	do
+		ip_address:= ip
+	ensure
+		ip_correctly: ip=ip_address
+	end
+
+feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
+
+	server_port: INTEGER = 1111
+
+	ip_address: STRING
+
 	--creates a server in orden to start a sudoku game
 	create_server(difficult_level: INTEGER): SUDOKU_SERVER
 	local
 		server: SUDOKU_SERVER
 	do
-		create server.server_create (11111, difficult_level) -- By default hardcode the ip server with 11111.
+		create server.server_create (server_port, difficult_level) -- By default hardcode the ip server with 11111.
 		result:= server
 	end
 
