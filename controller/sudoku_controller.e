@@ -317,11 +317,12 @@ feature {NONE} -- control of red cells
 	local
 		hint:SUDOKU_HINT
 	do
-		hint:=model.get_hint
-		print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
-		set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
-		gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
-
+		if (model.get_hint_number > 0) then
+			hint:=model.get_hint
+			print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
+			set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
+			gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
+		end
 	end
 
 

@@ -45,7 +45,12 @@ feature {ANY}
 	do
 		Result:= ai.get_unsolved_board
 	end
-
+	
+	get_hint_number:INTEGER
+	do
+		Result:= ai.get_hint_counter
+	end
+	
 feature {NONE}
 
 	ai:SUDOKU_AI -- AI that will contains the unsolved board and the solved board
