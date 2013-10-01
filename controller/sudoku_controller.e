@@ -141,7 +141,7 @@ feature {ANY}
 
 			-- After setting a cell ask if board is solved if so... tell user he WON
 			if model.board.is_solved then
-				gui.request_about_winning_congrats
+				winning_procedure
 			end
 		end
 	end
@@ -352,10 +352,14 @@ feature -- winning_procedure
 		model.timer.update_time_duration
 		current_player.set_score (current_player.calculate_score (model.timer.time_duration))
 
-		--we get the top five corresponding to the current_level and we check if the player
-		--is making it into the top_five
+		--if there is a top_five for the current level we load it, else we create it
 		create top_five.init
-		top_five.retrieve (current_level)
+		if (not top_five.retrieve (current_level)) then
+			top_five.save (current_level)
+		end
+
+		-- we check if the player
+		--is making it into the top_five
 		player_is_good := top_five.is_player_making_top_five (current_player.score)
 
 		if player_is_good then
