@@ -1,11 +1,11 @@
 note
-	description: "Summary description for {SKIN_SKY}."
+	description: "Summary description for {SKIN_BLUE_GREEN}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
-	SKIN_SKY
+	SKIN_BLUE_GREEN
 
 inherit
 	ABSTRACT_MAIN_WINDOW
@@ -60,8 +60,8 @@ feature --access
 	local
 		a_color,b_color:EV_COLOR
 	do
-		create a_color.make_with_rgb(0.1, 0.6,0.6)
-		create b_color.make_with_rgb (0.3, 0.9, 0.9)
+		create a_color.make_with_rgb(0.5, 0.9,0.5)
+		create b_color.make_with_rgb (0, 0, 1)
 		cell.set_paint_default(a_color,b_color)
 	end
 
@@ -79,7 +79,7 @@ feature --access
 		current_cell : CELL_TEXT_FIELD
 	do
 		current_cell ?= l_table.item_at_position (col, row)
-	    current_cell.paint_initial_sky
+	    current_cell.paint_initial_blue_green
 	end
 
 	--Description : allows user to paint one cell of the GUI in red

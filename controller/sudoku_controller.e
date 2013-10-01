@@ -33,7 +33,7 @@ feature  -- Initialization
 			nbr_red_cells := 0
 	end
 
-	set_main_window (first_window: MAIN_WINDOW)
+	set_main_window (first_window: ABSTRACT_MAIN_WINDOW)
 			-- Set window reference to this controller
 		require
 			first_window_void: first_window /= Void
@@ -71,12 +71,11 @@ feature {NONE} -- Implementation
 
 	model: SINGLE_PLAYER_STATE
 
-	gui: MAIN_WINDOW
+	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
 
-	timer: CLOCK
-
+	current_level : STRING
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
@@ -216,11 +215,10 @@ feature{ANY}
 			--new_model:SINGLE_PLAYER_STATE
 		do
 			create model.make_level(level)
-			--set_model(ai.get_unsolved_board)
 			update_gui
-			-- need to reinitialisate list of red cells
+			-- need to reset the list of red cells
 			nbr_red_cells := 0
-			create timer.make
+			model.make_timer
 			update_timer
 		end
 
@@ -310,24 +308,57 @@ feature {NONE} -- control of red cells
 
 	update_timer
 	do
-		timer.update_time_duration
-		gui.set_clock_second(timer.time_duration)
-		gui.set_clock_minute(timer.time_duration)
-		gui.set_clock_hour(timer.time_duration)
+		model.timer.update_time_duration
+		gui.set_clock_second(model.timer.time_duration)
+		gui.set_clock_minute(model.timer.time_duration)
+		gui.set_clock_hour(model.timer.time_duration)
 	end
 
 	get_hint
 	local
 		hint:SUDOKU_HINT
 	do
-		hint:=model.ai.get_hint (model.board)
-		print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
-		set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
-		gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
-
+		if (model.get_hint_number > 0) then
+			hint:=model.get_hint
+			print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
+			set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
+			gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
+		end
 	end
 
 
+feature -- winning_procedure
+
+	winning_procedure
+		--Check if the current player is making the top five and add him to the top_five of the current_level
+	local
+		top_five : TOP_FIVE
+		current_player : PLAYER_TOP_FIVE
+		player_is_good : BOOLEAN
+		window_top_five : ABOUT_PLAYER_TOP_FIVE
+	do
+		--we create a player with its score
+		create current_player.make
+		model.timer.update_time_duration
+		current_player.set_score (current_player.calculate_score (model.timer.time_duration))
+
+		--we get the top five corresponding to the current_level and we check if the player
+		--is making it into the top_five
+		create top_five.init
+		top_five.retrieve (current_level)
+		player_is_good := top_five.is_player_making_top_five (current_player.score)
+
+		if player_is_good then
+			--we ask the player its name
+			create window_top_five.default_create
+			window_top_five.add_action_set_player_name (current_player)
+			window_top_five.show
+			--we add the player to the top five
+			top_five.add_player_to_top_five (current_player.name, current_player.score)
+			--we save the new top five
+			top_five.save (current_level)
+		end
+	end
 
 
 end
