@@ -33,7 +33,7 @@ feature  -- Initialization
 			nbr_red_cells := 0
 	end
 
-	set_main_window (first_window: MAIN_WINDOW)
+	set_main_window (first_window: ABSTRACT_MAIN_WINDOW)
 			-- Set window reference to this controller
 		require
 			first_window_void: first_window /= Void
@@ -71,7 +71,7 @@ feature {NONE} -- Implementation
 
 	model: SINGLE_PLAYER_STATE
 
-	gui: MAIN_WINDOW
+	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
 

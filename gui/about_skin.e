@@ -44,12 +44,12 @@ feature {NONE} -- Initialization
 
 			create skin_1_button.make_with_text ("Skin_1")
 			skin_1_button.set_minimum_size (75, 75)
-			--skin_1_button.select_actions.extend (agent skin)
+			skin_1_button.select_actions.extend (agent skin1)
 
 
 			create skin_2_button.make_with_text ("Skin_2")
 			skin_2_button.set_minimum_size (75, 75)
-			--skin_2_button.select_actions.extend (agent skin)
+			skin_2_button.select_actions.extend (agent skin2)
 
 			create skin_3_button.make_with_text ("Skin_3")
 			skin_3_button.set_minimum_size (75, 75)
@@ -133,25 +133,37 @@ feature {NONE} -- Implementation
 			-- "Cancel" button.
 
 feature {NONE}
-	request_about_easy_level
+	skin1
+	local
+		f:WINDOW_FACTORY
+		w: ABSTRACT_MAIN_WINDOW
 	do
-		controller.reset_game(37)
+		create f.default_create
+		w:=f.factory_method(1)
+		w.set_controller (controller)
+		controller.set_main_window (w)
+		controller.update_gui
+		print("SET WINDOW 1")
+		w.show
 		current.destroy
 	end
 
 feature {NONE}
-	request_about_medium_level
+	skin2
+	local
+		f:WINDOW_FACTORY
+		w: ABSTRACT_MAIN_WINDOW
 	do
-		controller.reset_game(32)
+		create f.default_create
+		w:=f.factory_method(2)
+		w.set_controller (controller)
+		controller.set_main_window (w)
+		controller.update_gui
+		w.show
+		print("SET WINDOW 2")
 		current.destroy
 	end
 
-feature {NONE}
-	request_about_hard_level
-	do
-		controller.reset_game(30)
-		current.destroy
-	end
 
 
 
