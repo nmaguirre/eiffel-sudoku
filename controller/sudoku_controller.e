@@ -75,8 +75,6 @@ feature {NONE} -- Implementation
 
 	updating_gui:BOOLEAN
 
-	timer: CLOCK
-
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
@@ -216,11 +214,10 @@ feature{ANY}
 			--new_model:SINGLE_PLAYER_STATE
 		do
 			create model.make_level(level)
-			--set_model(ai.get_unsolved_board)
 			update_gui
-			-- need to reinitialisate list of red cells
+			-- need to reset the list of red cells
 			nbr_red_cells := 0
-			create timer.make
+			model.make_timer
 			update_timer
 		end
 
@@ -310,17 +307,17 @@ feature {NONE} -- control of red cells
 
 	update_timer
 	do
-		timer.update_time_duration
-		gui.set_clock_second(timer.time_duration)
-		gui.set_clock_minute(timer.time_duration)
-		gui.set_clock_hour(timer.time_duration)
+		model.timer.update_time_duration
+		gui.set_clock_second(model.timer.time_duration)
+		gui.set_clock_minute(model.timer.time_duration)
+		gui.set_clock_hour(model.timer.time_duration)
 	end
 
 	get_hint
 	local
 		hint:SUDOKU_HINT
 	do
-		hint:=model.ai.get_hint (model.board)
+		hint:=model.get_hint
 		print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
 		set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
 		gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
