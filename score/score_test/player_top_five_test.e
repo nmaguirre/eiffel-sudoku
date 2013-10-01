@@ -101,9 +101,11 @@ test_score
 	local
 		player: PLAYER_TOP_FIVE
 		worked_well: BOOLEAN
+		time: TIME_DURATION
 	do
+		create time.make_by_seconds (800)
 		create player.make
-		assert ("calculate_score_player_top_five ok", player.calculate_score (800) = 800)
+		assert ("calculate_score_player_top_five ok", player.calculate_score (time) = 800)
 	end
 
 

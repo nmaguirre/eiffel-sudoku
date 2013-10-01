@@ -53,10 +53,13 @@ feature -- Set
 
 feature --Calculate score
 
-	calculate_score (clock : INTEGER) : INTEGER
+	calculate_score (clock : TIME_DURATION) : INTEGER
 	-- take the time of the clock and transform it into an integer
+		local
+			time_in_int:INTEGER;
 		do
-			result := clock
+			time_in_int := clock.seconds_count
+			result := time_in_int
 		end
 
 
