@@ -540,10 +540,10 @@ feature{ANY} -- Buttons controllers implementation
 			about_multiplayer:ABOUT_MULTIPLAYER
 
 		do
-			create about_multiplayer
-			about_multiplayer.show
 			create multiplayer_window
 			multiplayer_window.show
+			create about_multiplayer
+			about_multiplayer.show
 		end
 
 request_about_save
