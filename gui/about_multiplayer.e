@@ -118,15 +118,20 @@ feature {NONE} -- Implementation
 
 feature {NONE}
 	request_about_server
+	local
+		local_server_ip:ABOUT_LOCAL_SERVER
 	do
---		controller.reset_game(30)
---		current.destroy
+		create local_server_ip
+		local_server_ip.show
 	end
 
 feature {NONE}
 	request_about_client
+	local
+		external_server:ABOUT_IP_EXTERNAL
 	do
-
+		create external_server
+		external_server.show
 	end
 
 
