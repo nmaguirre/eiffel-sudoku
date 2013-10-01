@@ -189,8 +189,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 feature -- Hint routine
 
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
-		require
-				get_hint_pre: not(board.is_valid)
+		
+				
 		local
 			random: RANDOM_NUMBER
 			pos_x: INTEGER
