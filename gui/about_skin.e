@@ -53,7 +53,7 @@ feature {NONE} -- Initialization
 
 			create skin_3_button.make_with_text ("Skin_3")
 			skin_3_button.set_minimum_size (75, 75)
-			--skin_3_button.select_actions.extend (agent skin)
+			skin_3_button.select_actions.extend (agent skin3)
 
 			create cancel_button.make_with_text (Button_cancel_item)
 			cancel_button.set_minimum_size (60, 20)
@@ -160,6 +160,23 @@ feature {NONE}
 		w.enable_menu_item_game_initializated
 		w.show
 		print("SET WINDOW 2")
+		current.destroy
+	end
+
+	feature {NONE}
+	skin3
+	local
+		f:WINDOW_FACTORY
+		w: ABSTRACT_MAIN_WINDOW
+	do
+		create f.default_create
+		w:=f.factory_method(3)
+		w.set_controller (controller)
+		controller.set_main_window (w)
+		controller.update_gui
+		w.enable_menu_item_game_initializated
+		w.show
+		print("SET WINDOW 3")
 		current.destroy
 	end
 
