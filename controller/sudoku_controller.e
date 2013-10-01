@@ -208,6 +208,15 @@ feature {ANY}
 			gui.set_value_of_cell(row, column, value)
 		end
 
+
+	set_current_level(new_level : STRING)
+		--sets the current_level
+	require
+		is_a_valid_level_name : new_level.is_equal ("easy") or new_level.is_equal ("medium") or new_level.is_equal ("hard")
+	do
+		current_level.copy (new_level)
+	end
+	
 feature{ANY}
 
 	reset_game(level:INTEGER)
