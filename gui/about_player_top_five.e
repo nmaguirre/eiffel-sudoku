@@ -27,6 +27,7 @@ feature {NONE} -- Initialize
 initialize
 		local
 			main_container : EV_VERTICAL_BOX
+			congrats_text : EV_LABEL
 			button_container : EV_HORIZONTAL_BOX
 			text_field_container : EV_FRAME
 		do
@@ -42,6 +43,9 @@ initialize
 			create button_cancel.make_with_text_and_action ("Cancel",agent destroy)
 			button_cancel.set_minimum_size (okb_width, okb_height)
 
+			-- Create text label
+			create congrats_text.make_with_text ("Congrats you made it in top_five");
+			congrats_text.set_minimum_height (okb_height)
 
 			-- Create text_field
 			create text_field_container.make_with_text ("Welcome to top five :")
@@ -56,11 +60,13 @@ initialize
 			button_container.disable_item_expand (button_cancel)
 			button_container.disable_item_expand (button_ok)
 
-			-- Create a main container with on top combo_container at the bottom button_container
+			-- Create a main container containing everything
 			create main_container.default_create
+			main_container.extend (congrats_text)
 			main_container.extend (text_field_container)
 			main_container.extend (button_container)
 			main_container.disable_item_expand (button_container)
+			main_container.disable_item_expand (congrats_text)
 
 			--adding this main container to our window
 			extend (main_container)
@@ -74,7 +80,7 @@ initialize
 feature {NONE}
 
 
-	dialogb_height : INTEGER = 70
+	dialogb_height : INTEGER = 95
 			--Current window's height
 	dialogb_width : INTEGER = 370
 			--Current window's width
