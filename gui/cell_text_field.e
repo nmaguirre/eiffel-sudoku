@@ -132,6 +132,9 @@ feature -- Status Setting
 	paint_default
 	local
 		do
+		if (color=Void) then
+			create color.make_with_rgb (0.5,0.9,0.5)
+		end
 			current.set_background_color (color)
 		end
 
@@ -142,7 +145,7 @@ feature -- Status Setting
 
 		do
 			create a_color.make_with_rgb(0.5,0.5,0.9)
-			create b_color.make_with_rgb (0.7,0.7,0.9)
+			create b_color.make_with_rgb (0.7,0.8,0.9)
 			if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
 				current.set_background_color (b_color)
 			else
