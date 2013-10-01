@@ -109,7 +109,7 @@ feature {NONE} -- Initialization
 feature -- Add actions
 
 		-- /!\ new to be added straight after init! If not added, it won't close the window
-		add_close_action(window_to_close : MAIN_WINDOW)
+		add_close_action(window_to_close : ABSTRACT_MAIN_WINDOW)
 		do
 			ok_button.select_actions.extend (agent window_to_close.request_close_window)
 		end
