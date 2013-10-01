@@ -238,8 +238,7 @@ feature --test routines for storing top_five and retrieving it from a file
 
 			top_five_existing.save("test")
 
-			top_five_retrieved.retrieve ("test")
-			worked_well := true
+			worked_well := top_five_retrieved.retrieve ("test")
 
 			from
 				i := 1
