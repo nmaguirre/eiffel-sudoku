@@ -2,7 +2,7 @@ note
 	description	: "Belonging to the class tests SUDOKU_AI"
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "28/09/2013"
-	revision	: "v0.1"
+	revision	: "v0.2"
 
 class
 	SUDOKU_AI_TEST

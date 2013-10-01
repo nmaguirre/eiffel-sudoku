@@ -2,7 +2,7 @@ note
 	description	: "Belonging to the class tests RANDOM_NUMBER."
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "28/09/2013"
-	revision	: "v0.1"
+	revision	: "v0.2"
 
 class
 	RANDOM_NUMBER_TEST

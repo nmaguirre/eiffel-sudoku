@@ -2,7 +2,7 @@ note
 	description	: "Summary description for {SUDOKU_HINT}."
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "25/09/2013"
-	revision	: "v0.1"
+	revision	: "v0.2"
 
 class
 	SUDOKU_HINT
