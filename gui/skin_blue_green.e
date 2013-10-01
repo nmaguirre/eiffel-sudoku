@@ -76,7 +76,7 @@ feature --access
 		current_cell : CELL_TEXT_FIELD
 	do
 		current_cell ?= l_table.item_at_position (col, row)
-		current_cell.paint_sky
+		current_cell.paint_red
 	end
 
 	set_cell_background_initial_colour(row,col : INTEGER)
