@@ -367,6 +367,8 @@ feature -- winning_procedure
 			top_five.add_player_to_top_five (current_player.name, current_player.score)
 			--we save the new top five
 			top_five.save (current_level)
+		else
+			gui.request_about_winning_congrats
 		end
 	end
 
