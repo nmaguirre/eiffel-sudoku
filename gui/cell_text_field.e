@@ -21,6 +21,7 @@ feature -- Access
 
     col : INTEGER
     	-- Value of column in a board
+    color:EV_COLOR
 
 feature {NONE}
 
@@ -41,7 +42,7 @@ feature --init
 			if not set(current.text.to_integer) then
 				paint_red
 			else
-				paint_default
+				--paint_default
 			end
 		else
 			if current.text.is_empty then
@@ -75,60 +76,63 @@ feature --init
 feature -- Status Setting
 	paint_red
 	local
-		color: EV_COLOR
+		c: EV_COLOR
 	do
-		create color.make_with_rgb (1, 0, 0)
-		current.set_background_color (color)
+		create c.make_with_rgb (1, 0, 0)
+		current.set_background_color (c)
 	end
 
 	paint_initial
 	local
-		color: EV_COLOR
+		c: EV_COLOR
 	do
-		create color.make_with_rgb (0.700, 0.700, 0.800)
-		current.set_background_color (color)
+		create c.make_with_rgb (0.700, 0.700, 0.800)
+		current.set_background_color (c)
 	end
 
 
 	paint_initial_desert
 	local
-		color: EV_COLOR
+		c: EV_COLOR
 	do
-		create color.make_with_rgb (0.6, 0.40, 0.300)
-		current.set_background_color (color)
+		create c.make_with_rgb (0.6, 0.40, 0.300)
+		current.set_background_color (c)
 	end
 
 	--SKIN Fede
 	paint_initial_blue_green
 	local
-		color: EV_COLOR
+		c: EV_COLOR
 	do
-		create color.make_with_rgb (0.5, 0.9, 0.5)
-		current.set_background_color (color)
+		create c.make_with_rgb (0.5, 0.9, 0.5)
+		current.set_background_color (c)
 	end
 	--End SKIN Fede
 
 	paint_initial_sky
 	local
-		color: EV_COLOR
+		c: EV_COLOR
 	do
-		create color.make_with_rgb (0.300, 0.300, 0.800)
-		current.set_background_color (color)
+		create c.make_with_rgb (0.300, 0.300, 0.800)
+		current.set_background_color (c)
 	end
 
-	paint_default
-		local
-	a_color,b_color: EV_COLOR
-
+	set_paint_default(a_color,b_color:EV_COLOR)
 		do
-			create a_color.make_with_rgb(0.6, 0.6, 0.6)
-			create b_color.make_with_rgb (0.9, 0.9, 0.9)
 			if ((((row+2)//3)+((col+2)//3))\\2)= 0  then
 				current.set_background_color (b_color)
+				color:=b_color
 			else
 				current.set_background_color (a_color)
+				color:=a_color
 			end
 
+		end
+
+	paint_default
+	local
+		do
+			current.set_background_color (color)
 		end
 
 
@@ -194,12 +198,11 @@ feature -- Status Setting
         controller.set_cell_v2(row, col, value)
     end
 
-
-    unset
-    do
-    	controller.unset_cell(row,col)
-    	paint_default
-    end
+	unset
+	do
+		controller.unset_cell (row, col)
+		paint_default
+	end
 
 feature -- Controller setting
 

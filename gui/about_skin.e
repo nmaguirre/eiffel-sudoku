@@ -122,11 +122,8 @@ feature {NONE} -- Implementation
 
 	skin_1_button: EV_BUTTON
 			-- "skin_1" button.
-
 	skin_2_button: EV_BUTTON
 			--"skin_2" button
-
-
 	skin_3_button: EV_BUTTON
 			--"skin_3" button
 	cancel_button: EV_BUTTON
@@ -144,6 +141,7 @@ feature {NONE}
 		controller.set_main_window (w)
 		controller.update_gui
 		print("SET WINDOW 1")
+		w.enable_menu_item_game_initializated
 		w.show
 		current.destroy
 	end
@@ -159,13 +157,11 @@ feature {NONE}
 		w.set_controller (controller)
 		controller.set_main_window (w)
 		controller.update_gui
+		w.enable_menu_item_game_initializated
 		w.show
 		print("SET WINDOW 2")
 		current.destroy
 	end
-
-
-
 
 feature {NONE} -- Implementation / Constants
 

@@ -13,7 +13,7 @@ inherit
 		export
 			{ANY} all
 		redefine
-		--	is_in_default_state
+			is_in_default_state
 		end
 
 	INTERFACE_NAMES
@@ -95,9 +95,15 @@ feature --access
 		end
 	end
 
-
-
 feature {ANY} -- Menu Implementation
+	is_in_default_state: BOOLEAN
+			-- Is the window in its default state
+			-- (as stated in `initialize')
+		do
+			Result := (width = Window_width) and then
+					(height = Window_height) and then
+					(title.is_equal (Window_title))
+		end
 
 	build_standard_menu_bar
 			-- Create and populate `standard_menu_bar'.
@@ -266,7 +272,7 @@ feature {ANY} -- Menu Implementation
 					current_text_field.set_position (row, col)
 
 					l_table.put_at_position (current_text_field, col,row,1,1)
-					current_text_field.paint_default
+					paint_default_background(current_text_field)
 					col := col +1
 				end
 				row := row +1
@@ -378,7 +384,7 @@ feature{ANY}
 		file_menu.i_th(3).disable_sensitive -- Save
 		file_menu.i_th(09).disable_sensitive -- Hint
 		file_menu.i_th(13).disable_sensitive -- Solve
-
+		file_menu.i_th(15).disable_sensitive -- Skin
 	end
 
 --Enable the follow options: save, save all, get hint and solve in file menu.
@@ -387,6 +393,7 @@ feature{ANY}
 		file_menu.i_th(3).enable_sensitive -- Save
 		file_menu.i_th(09).enable_sensitive -- Hint
 		file_menu.i_th(13).enable_sensitive -- Solve
+		file_menu.i_th(15).enable_sensitive -- Skin
 	end
 
 
@@ -431,11 +438,6 @@ feature{ANY} -- Buttons controllers implementation
 			(create {EV_ENVIRONMENT}).application.destroy
 		end
 
-
-	request_about_quit
-		deferred
-	end
-
 	request_about_load
 		local
 			load: ABOUT_LOAD
@@ -454,7 +456,6 @@ feature{ANY} -- Buttons controllers implementation
 			about_window.add_solve_action(controller)
 			about_window.show
 		end
-
 
 -- Implementation, Open About
 	request_about_dialog
@@ -484,7 +485,7 @@ feature{ANY} -- Buttons controllers implementation
 				col=10
 			loop
 				current_cell ?= l_table.item_at_position (col, row)
-				current_cell.paint_default
+				paint_default_background(current_cell)
 				current_cell.disable_edit
 				col:=col+1
 			end
@@ -507,9 +508,6 @@ feature{ANY} -- Buttons controllers implementation
 			enable_menu_item_game_initializated
 		end
 
-
-
-
 	request_about_top_scores
 		local
 			top: ABOUT_TOP_FIVE
@@ -518,21 +516,14 @@ feature{ANY} -- Buttons controllers implementation
 			top.show
 		end
 
-
-
-
-
 	request_about_hint
 	local
 	hint : ABOUT_HINT
 	do
-		--print("Should implementate request_about_hint in gui/MAIN_WINDOW")
 		create hint.make(controller)
 		--hint.add_hint_action (controller)
 		hint.show
 	end
-
-
 
 	request_about_multiplayer
 		local
@@ -551,12 +542,20 @@ request_about_save
 		load_window.show
 	end
 
+	-- Implementation, Open About Quit to ask if a user really want to quit the application
+	request_about_quit
+		local
+			about_window: ABOUT_QUIT
+		do
+			create about_window
+			about_window.add_close_action(Current)
+			about_window.show
+		end
 
 --skin selection
 	request_skin
 		local
 			select_skin:ABOUT_SKIN
-
 		do
 			create select_skin
 			select_skin.set_controller(controller)
@@ -564,9 +563,14 @@ request_about_save
 			current.destroy
    end
 
-
-
 feature{ANY} --SKINS implements following features
+
+	--Allow set cell background color considering 3*3 square
+	paint_default_background(cell:CELL_TEXT_FIELD)
+	require
+		cell_not_void: cell /= void
+		deferred
+	end
 
 		--Description : allows user to paint one cell of the GUI in red
 	set_cell_background_color_red(row,col : INTEGER)
@@ -590,6 +594,4 @@ feature{ANY} --SKINS implements following features
 		row >= 1 and row <= 9
 	deferred
 	end
-
-
 end

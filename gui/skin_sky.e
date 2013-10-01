@@ -10,8 +10,7 @@ class
 inherit
 	ABSTRACT_MAIN_WINDOW
 		redefine
-			initialize,
-			is_in_default_state
+			initialize
 		end
 
 create
@@ -56,26 +55,15 @@ feature {NONE} -- Initialization
 
 		end
 
-	is_in_default_state: BOOLEAN
-			-- Is the window in its default state
-			-- (as stated in `initialize')
-		do
-			Result := (width = Window_width) and then
-					(height = Window_height) and then
-					(title.is_equal (Window_title))
-		end
-
-	request_about_quit
-		local
-			about_window: ABOUT_QUIT
-		do
-			create about_window
-			about_window.add_close_action(Current)
-			about_window.show
-		end
 feature --access
-
-
+	paint_default_background(cell:CELL_TEXT_FIELD)
+	local
+		a_color,b_color:EV_COLOR
+	do
+		create a_color.make_with_rgb(0.1, 0.6,0.6)
+		create b_color.make_with_rgb (0.3, 0.9, 0.9)
+		cell.set_paint_default(a_color,b_color)
+	end
 
 	--Description : allows user to paint one cell of the GUI in red
 	set_cell_background_color_red(row,col : INTEGER)
@@ -100,7 +88,7 @@ feature --access
 		current_cell : CELL_TEXT_FIELD
 	do
 		current_cell ?= l_table.item_at_position (col, row)
-		current_cell.paint_red
+		paint_default_background(current_cell)
 	end
 
 end
