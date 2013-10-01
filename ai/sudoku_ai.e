@@ -2,7 +2,7 @@ note
 	description	: ""
 	author		: "Pablo Marconi, Farias Pablo, Dario Astorga, Matias Alvarez, Diego Gastaldi"
 	date		: "26/09/2013"
-	revision	: "v0.1"
+	revision	: "v0.2"
 
 class
 	SUDOKU_AI
@@ -190,7 +190,7 @@ feature -- Hint routine
 
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
 		require
-				get_hint_pre: not(board.is_complete)
+				get_hint_pre: not(board.is_valid)
 		local
 			random: RANDOM_NUMBER
 			pos_x: INTEGER
@@ -213,8 +213,6 @@ feature -- Hint routine
 			end  -- end loop
 			hint_counter := hint_counter - 1
 			Result:= hint
-			ensure
-				hint_value: board.is_valid
 		end -- end do
 
 feature -- Access
@@ -246,7 +244,7 @@ feature -- Access
 			counter_hitn_set: hint_counter = counter
 		end
 
-feature
+feature --nr_of_solutions
 
 	nr_of_solutions: INTEGER
 	 	local
