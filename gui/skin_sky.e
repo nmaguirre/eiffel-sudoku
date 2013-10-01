@@ -33,11 +33,7 @@ feature {NONE} -- Initialization
 			build_main_container_default
 			extend (main_container)
 
-			--creo contenedor reloj
-			create text.make_with_text ("Time")
-			text.set_minimum_size (2,4)
-			text.disable_edit
-			main_container.extend (text)
+			build_frame
 			build_clock
 			main_container.extend (clock_container)
 
@@ -56,6 +52,15 @@ feature {NONE} -- Initialization
 		end
 
 feature --access
+
+	set_frame_background_color(frame:EV_FRAME)
+	local
+		frame_colour:EV_COLOR
+	do
+		create frame_colour.make_with_rgb (0.3, 0.9, 0.9)
+		frame.set_background_color (frame_colour)
+	end
+
 	paint_default_background(cell:CELL_TEXT_FIELD)
 	local
 		a_color,b_color:EV_COLOR

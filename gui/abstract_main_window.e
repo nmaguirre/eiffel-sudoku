@@ -51,6 +51,7 @@ feature{ANY}
 
 	standard_status_bar: EV_STATUS_BAR
 			-- Standard status bar for this window
+	frame_item:EV_FRAME --add a frame separator for time under de grid
 
 
 feature {ANY} -- Size Constants
@@ -104,6 +105,14 @@ feature {ANY} -- Menu Implementation
 					(height = Window_height) and then
 					(title.is_equal (Window_title))
 		end
+
+	build_frame
+	do
+		create frame_item.make_with_text ("Time")
+		frame_item.align_text_center
+		main_container.extend (frame_item)
+		set_frame_background_color(frame_item)
+	end
 
 	build_standard_menu_bar
 			-- Create and populate `standard_menu_bar'.
@@ -528,8 +537,11 @@ feature{ANY} -- Buttons controllers implementation
 	request_about_multiplayer
 		local
 			multiplayer_window:MULTIPLAYER_WINDOW
+			about_multiplayer:ABOUT_MULTIPLAYER
 
 		do
+			create about_multiplayer
+			about_multiplayer.show
 			create multiplayer_window
 			multiplayer_window.show
 		end
@@ -564,6 +576,12 @@ request_about_save
    end
 
 feature{ANY} --SKINS implements following features
+
+	set_frame_background_color(frame:EV_FRAME)
+	require
+		frame_not_void: frame /= Void
+	deferred
+	end
 
 	--Allow set cell background color considering 3*3 square
 	paint_default_background(cell:CELL_TEXT_FIELD)
