@@ -127,6 +127,7 @@ feature {NONE}
 	request_about_easy_level
 	do
 		controller.reset_game(30)
+		controller.set_current_level ("easy")
 		current.destroy
 	end
 
@@ -134,6 +135,7 @@ feature {NONE}
 	request_about_medium_level
 	do
 		controller.reset_game(32)
+		controller.set_current_level ("medium")
 		current.destroy
 	end
 
@@ -141,6 +143,7 @@ feature {NONE}
 	request_about_hard_level
 	do
 		controller.reset_game(37)
+		controller.set_current_level ("hard")
 		current.destroy
 	end
 
