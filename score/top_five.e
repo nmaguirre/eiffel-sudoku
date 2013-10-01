@@ -131,14 +131,17 @@ feature {ANY} --storing and getting from file
 		store_by_name ("./score/store_top_five/" + level + "_top_five")
 	end
 
-	retrieve (level : STRING)
+	retrieve (level : STRING) : BOOLEAN
 		--retrieve the top_five from the corresponding level file.
 	local
 		obj_retrieved : ANY
 		i : INTEGER
+		retrieved_worked : BOOLEAN
 	do
 		obj_retrieved := retrieve_by_name ("./score/store_top_five/" + level + "_top_five")
 		if attached {TOP_FIVE} obj_retrieved as existing_top_five then
+			retrieved_worked := True
+			print("TOP_FIVE : retrieved_worked")
 			from
 				i := 1
 			until
@@ -147,7 +150,12 @@ feature {ANY} --storing and getting from file
 				put(existing_top_five.at (i),i)
 				i := i + 1
 			end
+		else
+			retrieved_worked := False
+			print("TOP_FIVE : retrieved_failed")
 		end
+
+		Result := retrieved_worked
 	end
 
 
