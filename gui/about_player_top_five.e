@@ -107,11 +107,28 @@ feature {NONE}
 
 feature{ANY} -- Action
 
-	add_action_set_player_name(player : PLAYER_TOP_FIVE)
-		-- Set player's name when button ok is pressed.
-		--/!\ Need to be called after initialization of this class
+	request_about_adding_player_to_top_five(player : PLAYER_TOP_FIVE; top_five : TOP_FIVE; level : STRING)
+		--we assume the player is making it in top_five
+	require
+		player_can_be_in_top_five : top_five.is_player_making_top_five (player.score)
 	do
-		button_ok.select_actions.extend (agent player.set_name (player_name_field.text))
+		--first we set the player name
+		player.set_name (player_name_field.text)
+
+		--then we add this player to the top_five
+		top_five.add_player_to_top_five (player.name,player.score)
+
+		--finally we save the top_five
+		top_five.save (level)
+	end
+
+	add_action_set_add_player_to_top_five(player : PLAYER_TOP_FIVE; top_five : TOP_FIVE; level : STRING)
+		-- Call request_about_adding_player_to_top_five when button ok is pressed.
+		--/!\ Need to be called after initialization of this class
+	require
+		player_can_be_in_top_five : top_five.is_player_making_top_five (player.score)
+	do
+		button_ok.select_actions.extend (agent request_about_adding_player_to_top_five(player,top_five,level))
 	end
 
 feature{ANY}
