@@ -6,8 +6,6 @@ note
 
 class
 	SUDOKU_CONTROLLER
-inherit
-	EXECUTION_ENVIRONMENT
 create
 	make
 
