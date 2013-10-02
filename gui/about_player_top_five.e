@@ -122,7 +122,7 @@ feature{ANY} -- Action
 		top_five.save (level)
 	end
 
-	add_action_set_add_player_to_top_five(player : PLAYER_TOP_FIVE; top_five : TOP_FIVE; level : STRING)
+	add_action_add_player_to_top_five(player : PLAYER_TOP_FIVE; top_five : TOP_FIVE; level : STRING)
 		-- Call request_about_adding_player_to_top_five when button ok is pressed.
 		--/!\ Need to be called after initialization of this class
 	require
