@@ -6,7 +6,8 @@ note
 
 class
 	SUDOKU_CONTROLLER
-
+inherit
+	EXECUTION_ENVIRONMENT
 create
 	make
 
@@ -361,16 +362,13 @@ feature -- winning_procedure
 		-- we check if the player
 		--is making it into the top_five
 		player_is_good := top_five.is_player_making_top_five (current_player.score)
-
 		if player_is_good then
 			--we ask the player its name
 			create window_top_five.default_create
-			window_top_five.add_action_set_player_name (current_player)
+
+			--we add the player to the top five and save the top_file thanks to the window
+			window_top_five.add_action_add_player_to_top_five(current_player,top_five,current_level)
 			window_top_five.show
-			--we add the player to the top five
-			top_five.add_player_to_top_five (current_player.name, current_player.score)
-			--we save the new top five
-			top_five.save (current_level)
 		else
 			gui.request_about_winning_congrats
 		end
