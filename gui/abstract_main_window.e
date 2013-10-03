@@ -551,11 +551,14 @@ feature{ANY} -- Buttons controllers implementation
 			about_multiplayer.show
 		end
 
-request_about_save
+	request_about_save
 	local
 		load_window: ABOUT_SAVE
+		save_load : SAVE_AND_LOAD
 	do
 		create load_window.default_create
+		create save_load.init (controller.model)
+		load_window.add_save_action_to_button_ok (save_load)
 		load_window.show
 	end
 
@@ -578,7 +581,6 @@ request_about_save
 			select_skin.set_controller(controller)
 			current.destroy
 			select_skin.show
-
    end
 
 feature{ANY} --SKINS implements following features

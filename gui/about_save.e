@@ -106,7 +106,13 @@ feature{ANY} -- Action
 		-- Add save action to button ok.
 		--/!\ Need to be called after initialization of this class
 	do
-		button_ok.select_actions.extend (agent save.save(name_file_to_save.text))
+		button_ok.select_actions.extend (agent request_about_save(save))
+	end
+
+	request_about_save(save : SAVE_AND_LOAD)
+		--save a file with the text in the cell_text_field
+	do
+		save.save(name_file_to_save.text)
 	end
 
 feature{ANY}
