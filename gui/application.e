@@ -27,12 +27,15 @@ feature {NONE} -- Initialization
 		end
 
 	prepare
+	local
+		creator: WINDOW_FACTORY
 			-- Prepare the first window to be displayed.
 			-- Perform one call to first window in order to
 			-- avoid to violate the invariant of class EV_APPLICATION.
 		do
 				-- create and initialize the first window.
-			create first_window
+			create creator.default_create
+			first_window:= creator.factory_method (1)
 
 				-- Show the first window.
 				--| TODO: Remove this line if you don't want the first
@@ -87,7 +90,7 @@ feature {NONE} -- tests for sudoku_solver
 
 feature {NONE} -- Implementation
 
-	first_window: MAIN_WINDOW
+	first_window: ABSTRACT_MAIN_WINDOW
 			-- Main window.
 
 	controller: SUDOKU_CONTROLLER
