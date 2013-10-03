@@ -574,13 +574,13 @@ feature{ANY} -- Buttons controllers implementation
 
 --skin selection
 	request_skin
-	local
-		select_skin:ABOUT_SKIN
-	do
-		create select_skin
-		select_skin.set_controller(controller)
-		select_skin.show
-		current.destroy
+		local
+			select_skin:ABOUT_SKIN
+		do
+			create select_skin
+			select_skin.set_controller(controller)
+			current.destroy
+			select_skin.show
    end
 
 feature{ANY} --SKINS implements following features
