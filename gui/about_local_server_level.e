@@ -1,11 +1,11 @@
 note
-	description: "Summary description for {ABOUT_MULTIPLAYER}."
+	description: "Summary description for {ABOUT_LOCAL_SERVER_LEVEL}."
 	author: ""
 	date: "$Date$"
 	revision: "$Revision$"
 
 class
-	ABOUT_MULTIPLAYER
+	ABOUT_LOCAL_SERVER_LEVEL
 inherit
 	EV_DIALOG
 		redefine
@@ -29,36 +29,38 @@ feature {NONE} -- Initialization
 			-- Populate the dialog box.
 		local
 			main_horizontal_box: EV_HORIZONTAL_BOX
+
 			right_vertical_box: EV_VERTICAL_BOX
 			buttons_box: EV_HORIZONTAL_BOX
 			ev_cell: EV_CELL
 		do
 			Precursor
-
 			create message_label
 			message_label.align_text_left
 
-			create server_button.make_with_text ("Server")
-			server_button.set_minimum_size (75, 75)
-			server_button.select_actions.extend (agent request_about_server)
+			create easy_button.make_with_text ("easy")
+			easy_button.set_minimum_size (75, 75)
+			easy_button.select_actions.extend (agent request_about_easy_level)
 
 
-			create client_button.make_with_text ("Client")
-			client_button.set_minimum_size (75, 75)
-			client_button.select_actions.extend (agent request_about_client)
+			create medium_button.make_with_text ("medium")
+			medium_button.set_minimum_size (75, 75)
+			medium_button.select_actions.extend (agent request_about_medium_level)
 
-			create cancel_button.make_with_text (Button_cancel_item)
-			cancel_button.set_minimum_size (75, 75)
-			cancel_button.select_actions.extend (agent destroy) --il we choose cancel then the window disapear and te player can continue to play
+			create hard_button.make_with_text ("hard")
+			hard_button.set_minimum_size (75, 75)
+			hard_button.select_actions.extend (agent request_about_hard_level)
+
+
 
 			create buttons_box
 			buttons_box.extend (create {EV_CELL}) -- Fill in empty space on left
-			buttons_box.extend (client_button)
-			buttons_box.disable_item_expand (client_button)
-			buttons_box.extend (server_button)
-			buttons_box.disable_item_expand (server_button)
-			buttons_box.extend (cancel_button)
-			buttons_box.disable_item_expand (cancel_button)
+			buttons_box.extend (hard_button)
+			buttons_box.disable_item_expand (hard_button)
+			buttons_box.extend (medium_button)
+			buttons_box.disable_item_expand (medium_button)
+			buttons_box.extend (easy_button)
+			buttons_box.disable_item_expand (easy_button)
 
 			create right_vertical_box
 			right_vertical_box.set_padding (7)
@@ -74,12 +76,12 @@ feature {NONE} -- Initialization
 			main_horizontal_box.extend (right_vertical_box)
 			extend (main_horizontal_box)
 
-			set_default_push_button (server_button)
-			set_default_push_button (client_button)
-			set_default_cancel_button (cancel_button)
+			set_default_push_button (easy_button)
+			set_default_push_button (medium_button)
+			set_default_push_button	(hard_button)
 
 			set_title (Default_title)
-			set_size (250, 100)
+			set_size (100, 100)
 		end
 
 feature
@@ -106,42 +108,46 @@ feature {NONE} -- Implementation
 			-- Label situated on the top of the dialog,
 			-- contains the message.
 
-	client_button: EV_BUTTON
-			-- "client" button.
+	easy_button: EV_BUTTON
+			-- "easy" button.
 
-	server_button: EV_BUTTON
-			--"server" button
+	medium_button: EV_BUTTON
+			--"medium" button
 
-	cancel_button: EV_BUTTON
-			--"cancel" button
 
+	hard_button: EV_BUTTON
+			--"hard" button
 
 feature {NONE}
-	request_about_server
-	local
-		local_server_level:ABOUT_LOCAL_SERVER_LEVEL
+	request_about_easy_level
 	do
-		create local_server_level
-		local_server_level.show
+		controller.server_connect (1)
+		current.destroy
 	end
 
 feature {NONE}
-	request_about_client
-	local
-		external_server:ABOUT_IP_EXTERNAL
+	request_about_medium_level
 	do
-		create external_server
-		external_server.show
+		controller.server_connect (2)
+		current.destroy
 	end
+
+feature {NONE}
+	request_about_hard_level
+	do
+		controller.server_connect (3)
+		current.destroy
+	end
+
 
 
 feature {NONE} -- Implementation / Constants
 
-	Default_title: STRING = "What do you want to be?"
+	Default_title: STRING = "Select Server Level"
 			-- Default title for the dialog window.
 
 	gui: MAIN_WINDOW
 
 	controller:SUDOKU_CONTROLLER
 
-end -- class ABOUT_NEW
+end -- class ABOUT_LOCAL_SERVER_LEVEL
