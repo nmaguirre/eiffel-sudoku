@@ -75,7 +75,10 @@ feature {NONE} -- Implementation
 
 	updating_gui:BOOLEAN
 
+feature {ANY} -- readable parameters
+
 	current_level : STRING
+
 feature {ANY}
 
 	-- Sets the cell in the model at the (row,col) position with the "value" value.
@@ -368,6 +371,7 @@ feature -- winning_procedure
 			window_top_five.add_action_add_player_to_top_five(current_player,top_five,current_level)
 			window_top_five.show
 		else
+			-- gui.request_about_winning_congrats
 			gui.request_about_winning_congrats
 		end
 	end
