@@ -13,7 +13,7 @@ inherit
 		export
 			{ANY} all
 		redefine
-			is_in_default_state
+			is_in_default_state, initialize
 		end
 
 	INTERFACE_NAMES
@@ -346,6 +346,39 @@ feature {ANY} -- Menu Implementation
 			build_clock_container
 			clock_container.extend (clock_table)
 		end
+
+
+		initialize
+			-- Build the interface for this window.
+		local
+			text:EV_TEXT
+--			frame_item:EV_FRAME
+		do
+			Precursor {EV_TITLED_WINDOW}
+				-- Create and add the menu bar.
+			build_standard_menu_bar
+			set_menu_bar (standard_menu_bar)
+
+			build_main_container_default
+			extend (main_container)
+
+			build_frame
+			build_clock
+			main_container.extend (clock_container)
+
+				-- Execute `request_close_window' when the user clicks
+				-- on the cross in the title bar.
+			close_request_actions.extend (agent request_about_quit)
+
+				-- Set the title of the window
+			set_title (Window_title)
+
+				-- Set the initial size of the window
+			set_size (Window_width, Window_height)
+
+			disable_user_resize
+		end
+
 
 feature {ANY} -- setters
 
