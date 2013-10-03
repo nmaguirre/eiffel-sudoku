@@ -576,8 +576,9 @@ request_about_save
 		do
 			create select_skin
 			select_skin.set_controller(controller)
-			select_skin.show
 			current.destroy
+			select_skin.show
+
    end
 
 feature{ANY} --SKINS implements following features
