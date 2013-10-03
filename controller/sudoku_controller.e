@@ -378,14 +378,26 @@ feature -- winning_procedure
 
 feature {ANY}
 
-	server_connect
+	server_connect(difficulty: INTEGER)
 	do
-		print("creating server")
+		if connected=FALSE then
+			create multiplayer.make("CLIENT")
+			multiplayer.init_server_game(difficulty)
+			print("creating server")
+			connected:= TRUE
+		end
 	end
 
 	client_connect(ip_address: STRING)
 	do
-		print("connecting client")
+		if connected=FALSE then
+			print("connecting client")
+			connected:=TRUE
+		end
 	end
+
+feature {NONE}
+	multiplayer: MULTIPLAYER_STATE
+	connected: BOOLEAN
 
 end
