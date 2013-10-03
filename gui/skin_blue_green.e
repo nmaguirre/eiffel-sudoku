@@ -9,9 +9,7 @@ class
 
 inherit
 	ABSTRACT_MAIN_WINDOW
-		redefine
-			initialize
-		end
+
 
 create
 	default_create
@@ -19,37 +17,6 @@ create
 feature {NONE} -- Initialization
 
 
-	initialize
-			-- Build the interface for this window.
-		local
-			text:EV_TEXT
-		do
-			Precursor {ABSTRACT_MAIN_WINDOW}
-
-				-- Create and add the menu bar.
-			build_standard_menu_bar
-			set_menu_bar (standard_menu_bar)
-
-			build_main_container_default
-			extend (main_container)
-
-			build_frame
-			build_clock
-			main_container.extend (clock_container)
-
-				-- Execute `request_close_window' when the user clicks
-				-- on the cross in the title bar.
-			close_request_actions.extend (agent request_about_quit)
-
-				-- Set the title of the window
-			set_title (Window_title)
-
-				-- Set the initial size of the window
-			set_size (Window_width, Window_height)
-
-			disable_user_resize
-
-		end
 
 feature --access
 
@@ -65,8 +32,8 @@ feature --access
 	local
 		a_color,b_color:EV_COLOR
 	do
-		create a_color.make_with_rgb(0.5, 0.9,0.5)
-		create b_color.make_with_rgb (0.8,0.9,0.9)
+		create a_color.make_with_rgb(0.5, 0.6, 0.7)
+		create b_color.make_with_rgb (0.8, 0.9, 0.9)
 		cell.set_paint_default(a_color,b_color)
 	end
 
