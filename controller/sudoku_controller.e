@@ -376,5 +376,16 @@ feature -- winning_procedure
 		end
 	end
 
+feature {ANY}
+
+	server_connect
+	do
+		print("creating server")
+	end
+
+	client_connect(ip_address: STRING)
+	do
+		print("connecting client")
+	end
 
 end
