@@ -65,8 +65,8 @@ feature --access
 	local
 		a_color,b_color:EV_COLOR
 	do
-		create a_color.make_with_rgb(0.5, 0.9,0.5)
-		create b_color.make_with_rgb (0.8,0.9,0.9)
+		create a_color.make_with_rgb(0.5, 0.6, 0.7)
+		create b_color.make_with_rgb (0.8, 0.9, 0.9)
 		cell.set_paint_default(a_color,b_color)
 	end
 
