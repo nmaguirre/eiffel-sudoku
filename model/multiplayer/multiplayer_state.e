@@ -31,11 +31,11 @@ feature {ANY}
 
 feature
 	--initialize a new game, and starts a server.
-	init_server_game
+	init_server_game(difficulty: INTEGER)
 	local
 		server: SUDOKU_SERVER
 	do
-		server:= create_server(1)
+		server:= create_server(difficulty)
 	end
 
 	--initialize a new game and it waits for the server IP

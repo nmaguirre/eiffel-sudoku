@@ -49,6 +49,7 @@ feature  -- Initialization
 			model_void: first_model /= void
 		do
 			model := first_model
+			update_gui
 		end
 
 	get_controller: SUDOKU_CONTROLLER
@@ -69,13 +70,13 @@ feature {NONE} -- Implementation
 
 	the_instance: SUDOKU_CONTROLLER
 
-	model: SINGLE_PLAYER_STATE
-
 	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
 
 feature {ANY} -- readable parameters
+
+	model: SINGLE_PLAYER_STATE
 
 	current_level : STRING
 
@@ -377,5 +378,28 @@ feature -- winning_procedure
 		end
 	end
 
+feature {ANY}
+
+	server_connect(difficulty: INTEGER)
+	do
+		if connected=FALSE then
+			create multiplayer.make("CLIENT")
+			multiplayer.init_server_game(difficulty)
+			print("creating server")
+			connected:= TRUE
+		end
+	end
+
+	client_connect(ip_address: STRING)
+	do
+		if connected=FALSE then
+			print("connecting client")
+			connected:=TRUE
+		end
+	end
+
+feature {NONE}
+	multiplayer: MULTIPLAYER_STATE
+	connected: BOOLEAN
 
 end
