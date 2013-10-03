@@ -69,13 +69,13 @@ feature {NONE} -- Implementation
 
 	the_instance: SUDOKU_CONTROLLER
 
-	model: SINGLE_PLAYER_STATE
-
 	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
 
 feature {ANY} -- readable parameters
+
+	model: SINGLE_PLAYER_STATE
 
 	current_level : STRING
 
