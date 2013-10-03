@@ -101,10 +101,14 @@ feature --access
 		-- Add function load to button ok
 		-- /!\ to be added straight after init! If not added
 	do
-		ok_button.select_actions.extend (agent load.load(combo_game.text))
-		ok_button.select_actions.extend (agent controller.set_model (load.get_single_player_state))
+		ok_button.select_actions.extend (agent request_load(load, controller))
 	end
 
+	request_load(load:SAVE_AND_LOAD;controller: SUDOKU_CONTROLLER)
+	do
+		load.load(combo_game.text)
+		controller.set_model (load.get_single_player_state)
+	end
 feature{NONE} -- update combo
 	update_combo ()
 	-- update combo from directory with files save game..
