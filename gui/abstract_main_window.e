@@ -483,9 +483,11 @@ feature{ANY} -- Buttons controllers implementation
 	request_about_load
 		local
 			load: ABOUT_LOAD
+			save_load: SAVE_AND_LOAD
 		do
 			create load
-
+			create save_load.init (controller.model)
+			load.add_load_action_to_button_ok (save_load,controller)
 			load.show
 		end
 
