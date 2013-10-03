@@ -49,6 +49,7 @@ feature  -- Initialization
 			model_void: first_model /= void
 		do
 			model := first_model
+			update_gui
 		end
 
 	get_controller: SUDOKU_CONTROLLER
