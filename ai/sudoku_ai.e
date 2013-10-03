@@ -45,6 +45,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 				create unsol_board.make -- Unsolved board
 				unsol_board.deep_copy(sol_board)
 				delete_cells(level)
+				cell_not_settable
 				unity := (nr_of_solutions = 1)
 				-- print ("%N new solution created %N")
 			end
@@ -54,6 +55,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 			-- print ("%N Unsolved sudoku: %N")
 			-- unsol_board.print_sudoku
 		end
+
 
 	generate_solution
 		-- Generates a valid and complete solution board
@@ -189,8 +191,8 @@ feature {SUDOKU_AI_TEST} -- Initialization
 feature -- Hint routine
 
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
-		
-				
+
+
 		local
 			random: RANDOM_NUMBER
 			pos_x: INTEGER
@@ -293,6 +295,34 @@ feature --nr_of_solutions
 	 		Result := res
 	 	end
 
+feature {NONE}
+	cell_not_settable
+		local
+			row,col:INTEGER
+		do
+			from
+				row:=1
+			until
+				row>9
+			loop
+				from
+					col:=1
+				until
+					col>9
+				loop
+					if	unsol_board.cell_value(row,col) /= 0	then
+						one_cell_not_settable(row,col)
+					end
+					col:=col+1
+				end
+				row:=row+1
+			end
+		end
+feature {ANY}
+	one_cell_not_settable(row,col: INTEGER)
+		do
+			unsol_board.define_not_settable(row,col)
+		end
 
 invariant
 	invariant_clause: True -- Your invariant here

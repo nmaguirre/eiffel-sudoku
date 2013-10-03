@@ -208,7 +208,7 @@ feature {ANY}
 			update_gui_cell_column: column >= 0 and column <= 9
 			update_gui_cell_value: value >= 0 and value <= 9
 		do
-			gui.set_value_of_cell(row, column, value)
+			gui.set_value_of_cell(row, column, value, model.board.cell_is_settable(row,column))
 		end
 
 
@@ -334,7 +334,8 @@ feature {NONE} -- control of red cells
 			hint:=model.get_hint
 			print("------------------------HINT: "+hint.get_x.out+" "+hint.get_y.out +" "+hint.get_v.out)
 			set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
-			gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v)-- set gui value
+			gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v,false)-- set gui value
+			model.hint_not_settable(hint.get_x,hint.get_y)
 		end
 	end
 

@@ -434,4 +434,10 @@ feature {ANY}
 	end
 
 
+feature{ANY}--METHOD ADD FOR GUI TEAM
+
+	define_not_settable(row,col:INTEGER)
+	do
+		cells.item (row,col).is_settable (False)
+	end
 end

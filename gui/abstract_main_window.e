@@ -76,7 +76,7 @@ feature{ANY}--INITIALIZE WINDOW
 feature --access
 
 	--Description : allows user to set one cell value
-	set_value_of_cell(row,col,value : INTEGER)
+	set_value_of_cell(row,col,value : INTEGER; is_settable : BOOLEAN)
 	require
 
 			col >= 1 and col <= 9
@@ -90,9 +90,11 @@ feature --access
 		if value = 0 then
 			current_cell.set_text ("")
 		else
-			current_cell.paint_initial
 			current_cell.set_text (value.out)
-			current_cell.disable_edit
+			if not is_settable then
+				current_cell.disable_edit
+				current_cell.paint_initial
+			end
 		end
 	end
 
