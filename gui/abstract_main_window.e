@@ -86,7 +86,7 @@ feature --access
 		current_cell : CELL_TEXT_FIELD
 	do
 		current_cell ?= l_table.item_at_position (col, row)
-		current_cell.enable_edit --NANDO
+		current_cell.enable_sensitive --NANDO
 		if value = 0 then
 			current_cell.set_text ("")
 		else
@@ -276,7 +276,7 @@ feature {ANY} -- Menu Implementation
 					current_text_field.set_minimum_width_in_characters (1)
 
 					--At begin, the cell isn't setable
-					current_text_field.disable_edit
+					current_text_field.disable_sensitive
 					-- gives the current cell its position in the board
 					current_text_field.set_position (row, col)
 
