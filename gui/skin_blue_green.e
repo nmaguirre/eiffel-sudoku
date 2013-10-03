@@ -9,9 +9,7 @@ class
 
 inherit
 	ABSTRACT_MAIN_WINDOW
-		redefine
-			initialize
-		end
+
 
 create
 	default_create
@@ -19,37 +17,6 @@ create
 feature {NONE} -- Initialization
 
 
-	initialize
-			-- Build the interface for this window.
-		local
-			text:EV_TEXT
-		do
-			Precursor {ABSTRACT_MAIN_WINDOW}
-
-				-- Create and add the menu bar.
-			build_standard_menu_bar
-			set_menu_bar (standard_menu_bar)
-
-			build_main_container_default
-			extend (main_container)
-
-			build_frame
-			build_clock
-			main_container.extend (clock_container)
-
-				-- Execute `request_close_window' when the user clicks
-				-- on the cross in the title bar.
-			close_request_actions.extend (agent request_about_quit)
-
-				-- Set the title of the window
-			set_title (Window_title)
-
-				-- Set the initial size of the window
-			set_size (Window_width, Window_height)
-
-			disable_user_resize
-
-		end
 
 feature --access
 
