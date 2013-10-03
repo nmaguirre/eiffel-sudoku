@@ -98,16 +98,18 @@ feature {NONE}
 	default_title : STRING = "External IP"
 	-- Window's title
 
+	controller:SUDOKU_CONTROLLER
+
 
 
 feature{ANY} -- Action
 
---	add_save_action_to_button_ok(save : SAVE_AND_LOAD)
---		-- Add save action to button ok.
---		--/!\ Need to be called after initialization of this class
---	do
---		button_ok.select_actions.extend (agent save.save(ip_external.text))
---	end
+	add_save_action_to_button_ok(save : SAVE_AND_LOAD)
+		-- Add save action to button ok.
+		--/!\ Need to be called after initialization of this class
+	do
+		button_ok.select_actions.extend (agent controller.client_connect(ip_external.text))
+	end
 
 feature{ANY}
 	default_name:STRING="External Server IP Insert"
