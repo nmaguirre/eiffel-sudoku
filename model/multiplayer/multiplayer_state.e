@@ -22,6 +22,8 @@ feature {ANY}
 
 	my_client: SUDOKU_CLIENT
 
+	my_server: SUDOKU_SERVER
+
 	make(player_name: STRING_8)
 	require
 		player_name /= VOID
@@ -35,7 +37,9 @@ feature
 	local
 		server: SUDOKU_SERVER
 	do
-		server:= create_server(difficulty)
+		my_server:= create_server(difficulty)
+		my_board:= my_server.ai.get_unsolved_board
+		
 	end
 
 	--initialize a new game and it waits for the server IP

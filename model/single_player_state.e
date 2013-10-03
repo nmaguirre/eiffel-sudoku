@@ -15,9 +15,13 @@ create
 
 feature {ANY}
 
-	make
+	make(ai_new: SUDOKU_AI)
 	do
-		create ai.make
+		if ai_new=Void then
+			create ai.make
+		else
+			ai:= ai_new
+		end
 		--timer should start?--
 	end
 
@@ -32,7 +36,7 @@ feature {ANY}
 		create timer.make
 	end
 
-	timer:CLOCK -- the clock 
+	timer:CLOCK -- the clock
 
 	-- Returns a hint for the respective board
 	get_hint:SUDOKU_HINT
@@ -45,12 +49,12 @@ feature {ANY}
 	do
 		Result:= ai.get_unsolved_board
 	end
-	
+
 	get_hint_number:INTEGER
 	do
 		Result:= ai.get_hint_counter
 	end
-	
+
 feature {NONE}
 
 	ai:SUDOKU_AI -- AI that will contains the unsolved board and the solved board

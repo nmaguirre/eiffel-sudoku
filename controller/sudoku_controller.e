@@ -20,7 +20,7 @@ feature  -- Initialization
 			init_red_cells_list
 			create current_level.make_empty
 
-			create model.make
+			create model.make(Void)
 		end
 
 	init_red_cells_list
@@ -76,6 +76,8 @@ feature {NONE} -- Implementation
 feature {ANY} -- readable parameters
 
 	model: SINGLE_PLAYER_STATE
+
+	multiplayer_model: MULTIPLAYER_STATE
 
 	current_level : STRING
 
@@ -381,8 +383,13 @@ feature {ANY}
 	server_connect(difficulty: INTEGER)
 	do
 		if connected=FALSE then
-			create multiplayer.make("CLIENT")
-			multiplayer.init_server_game(difficulty)
+			create multiplayer_model.make("SERVER")
+			multiplayer_model.init_server_game(difficulty)
+			create model.make(multiplayer_model.my_server.ai)
+			update_gui
+			nbr_red_cells := 0
+			model.make_timer
+			update_timer
 			print("creating server")
 			connected:= TRUE
 		end
@@ -391,13 +398,14 @@ feature {ANY}
 	client_connect(ip_address: STRING)
 	do
 		if connected=FALSE then
+			create multiplayer_model.make ("CLIENT")
+			multiplayer_model.init_client_game
 			print("connecting client")
 			connected:=TRUE
 		end
 	end
 
 feature {NONE}
-	multiplayer: MULTIPLAYER_STATE
 	connected: BOOLEAN
 
 end
