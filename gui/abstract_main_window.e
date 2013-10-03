@@ -90,7 +90,7 @@ feature --access
 		if value = 0 then
 			current_cell.set_text ("")
 		else
-			current_cell.paint_initial
+			set_cell_background_initial_colour(row,col)
 			current_cell.set_text (value.out)
 			current_cell.disable_edit
 		end
