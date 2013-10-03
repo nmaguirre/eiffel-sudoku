@@ -520,8 +520,13 @@ feature{ANY} -- Buttons controllers implementation
 	request_about_top_scores
 		local
 			top: ABOUT_TOP_FIVE
+			current_top_five : TOP_FIVE
 		do
 			create top
+			create current_top_five.init
+			if (current_top_five.retrieve (controller.current_level)) then
+				top.update_array_visible (current_top_five)
+			end
 			top.show
 		end
 
