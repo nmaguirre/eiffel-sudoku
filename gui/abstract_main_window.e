@@ -88,6 +88,7 @@ feature --access
 		current_cell ?= l_table.item_at_position (col, row)
 		current_cell.enable_sensitive --NANDO
 		if value = 0 then
+			current_cell.enable_edit
 			current_cell.set_text ("")
 		else
 			current_cell.set_text (value.out)
