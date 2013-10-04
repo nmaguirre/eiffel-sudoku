@@ -59,4 +59,11 @@ feature {NONE}
 
 	ai:SUDOKU_AI -- AI that will contains the unsolved board and the solved board
 
+feature {ANY}
+
+	hint_not_settable(row,col: INTEGER)
+	do
+		ai.one_cell_not_settable(row,col)
+	end
+
 end
