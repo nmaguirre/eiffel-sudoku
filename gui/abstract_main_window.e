@@ -491,6 +491,7 @@ feature{ANY} -- Buttons controllers implementation
 			create load
 			create save_load.init (controller.model)
 			load.add_load_action_to_button_ok (save_load,controller)
+			enable_menu_item_game_initializated
 			load.show
 		end
 
