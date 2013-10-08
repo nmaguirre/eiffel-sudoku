@@ -227,14 +227,8 @@ feature {ANY} -- Menu Implementation
 			separator_item : EV_MENU_SEPARATOR
 		do
 			create help_menu.make_with_text (Menu_help_item)
-                                                 -- Help
-            create menu_item.make_with_text (Menu_help_contents_item)
-            help_menu.extend (menu_item)		 -- Contents and Index
-
-            create separator_item.default_create
-			help_menu.extend (separator_item)  	 -- Separator
-
-			create menu_item.make_with_text (Menu_help_about_item)
+                                                -- Help
+            create menu_item.make_with_text (Menu_help_about_item)
 			menu_item.select_actions.extend (agent request_about_dialog)
 			help_menu.extend (menu_item)
 		ensure

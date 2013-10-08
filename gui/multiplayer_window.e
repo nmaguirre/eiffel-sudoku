@@ -36,7 +36,7 @@ feature {NONE} -- Initialization
 			extend (main_container)
 
 
-			set_size (120,120)
+		    set_size (120,120)
 
 
 			set_title (Default_title)
@@ -122,8 +122,13 @@ feature {NONE} -- Implementation
 			main_container_created: main_container /= Void
 		end
 
+feature {ANY}
 
+	close
 
+		do
+			main_container.destroy
+		end
 
 feature {NONE} -- Implementation / Constants
 
