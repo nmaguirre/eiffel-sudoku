@@ -339,6 +339,9 @@ feature {NONE} -- control of red cells
 			set_cell_v2(hint.get_x, hint.get_y, hint.get_v) --set model value
 			gui.set_value_of_cell(hint.get_x, hint.get_y, hint.get_v,false)-- set gui value
 			model.hint_not_settable(hint.get_x,hint.get_y)
+			if model.get_hint_number=0 then
+				gui.disable_get_hint
+			end
 		end
 	end
 
@@ -406,6 +409,8 @@ feature {ANY}
 			connected:=TRUE
 		end
 	end
+
+
 
 feature {NONE}
 	connected: BOOLEAN
