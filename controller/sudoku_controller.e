@@ -384,17 +384,17 @@ feature {ANY}
 
 	server_connect(difficulty: INTEGER)
 	do
-		if connected=FALSE then
-			create multiplayer_model.make("SERVER")
-			multiplayer_model.init_server_game(difficulty)
-			create model.make(multiplayer_model.my_server.ai)
-			update_gui
-			nbr_red_cells := 0
-			model.make_timer
-			update_timer
+--		if connected=FALSE then
+--			create multiplayer_model.make("SERVER")
+--			multiplayer_model.init_server_game(difficulty)
+--			create model.make(multiplayer_model.my_server.ai)
+--			update_gui
+--			nbr_red_cells := 0
+--			model.make_timer
+--			update_timer
 			print("creating server")
-			connected:= TRUE
-		end
+--			connected:= TRUE
+--		end
 	end
 
 	client_connect(ip_address: STRING)

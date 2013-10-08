@@ -122,7 +122,9 @@ feature {NONE}
 		local_server_level:ABOUT_LOCAL_SERVER_LEVEL
 	do
 		create local_server_level
+		local_server_level.set_controller (controller)
 		local_server_level.show
+		current.destroy
 	end
 
 feature {NONE}
@@ -132,6 +134,7 @@ feature {NONE}
 	do
 		create external_server
 		external_server.show
+		current.destroy
 	end
 
 
