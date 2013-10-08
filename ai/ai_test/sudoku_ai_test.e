@@ -13,7 +13,7 @@ inherit
 feature -- Test routine get_hint
 
 	test_get_hint_1
-			-- New test routine
+			-- Check Method get
 		local
 			ai: SUDOKU_AI
 			hint: SUDOKU_HINT

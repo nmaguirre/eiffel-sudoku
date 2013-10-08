@@ -191,8 +191,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 feature -- Hint routine
 
 	get_hint(board: SUDOKU_BOARD):SUDOKU_HINT
-
-
+	-- This Method create two random numbers and check positions in the board
 		local
 			random: RANDOM_NUMBER
 			pos_x: INTEGER
@@ -209,7 +208,7 @@ feature -- Hint routine
 				pos_x:= random.random_integer
 				pos_y:= random.random_integer
 				if not (board.cell_set (pos_x,pos_y)) then
-					create hint.make_hint (pos_x, pos_y, sol_board.cell_value (pos_x,pos_y))
+					create hint.make_hint (pos_x, pos_y, sol_board.cell_value (pos_x,pos_y)) --check positions in the board
 					set:= True
 				end
 			end  -- end loop
@@ -248,6 +247,8 @@ feature -- Access
 
 feature --nr_of_solutions
 
+	--This method generate numbers of solutions stored in the variable res
+
 	nr_of_solutions: INTEGER
 	 	local
 	 		i,j,k,res:INTEGER
@@ -279,7 +280,7 @@ feature --nr_of_solutions
 								k > 9
 							loop
 								if unsol_board.set_cell(i,j,k) then
-									res := res + nr_of_solutions
+									res := res + nr_of_solutions  --Call recursive for count solutions
 									unsol_board.unset_cell(i,j)
 								else
 									unsol_board.unset_cell(i,j)
@@ -296,7 +297,9 @@ feature --nr_of_solutions
 	 	end
 
 feature {NONE}
+	-- Make "not seteable" cells with value`s
 	cell_not_settable
+
 		local
 			row,col:INTEGER
 		do
@@ -318,7 +321,9 @@ feature {NONE}
 				row:=row+1
 			end
 		end
+
 feature {ANY}
+	-- Make "not seteable" cell with value in the unsol_board
 	one_cell_not_settable(row,col: INTEGER)
 		do
 			unsol_board.define_not_settable(row,col)
