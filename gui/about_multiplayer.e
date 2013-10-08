@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 
 			create cancel_button.make_with_text (Button_cancel_item)
 			cancel_button.set_minimum_size (75, 75)
-			cancel_button.select_actions.extend (agent destroy) --il we choose cancel then the window disapear and te player can continue to play
+			cancel_button.select_actions.extend (agent close_multiplayer_on_cancel())
 
 			create buttons_box
 			buttons_box.extend (create {EV_CELL}) -- Fill in empty space on left
@@ -92,6 +92,27 @@ feature
 
 			controller:=crt
 		end
+
+feature
+		set_multiplayer_window(window:MULTIPLAYER_WINDOW)
+
+		do
+			if window = void then
+				print("asdasd")
+			else
+				multiplayer_window:=window
+			end
+		end
+
+feature
+	close_multiplayer_on_cancel()
+	do
+		current.destroy
+		multiplayer_window.destroy
+	end
+
+
+
 
 feature -- Element change
 
@@ -146,5 +167,8 @@ feature {NONE} -- Implementation / Constants
 	gui: MAIN_WINDOW
 
 	controller:SUDOKU_CONTROLLER
+
+	multiplayer_window:MULTIPLAYER_WINDOW
+		--multiplayer window
 
 end -- class ABOUT_NEW
