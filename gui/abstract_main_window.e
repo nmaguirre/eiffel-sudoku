@@ -441,6 +441,12 @@ feature{ANY}
 		file_menu.i_th(15).enable_sensitive -- Skin
 	end
 
+--Disable Get Hnt option in File Menu
+	disable_get_hint
+	do
+		file_menu.i_th(09).disable_sensitive
+	end
+
 
 feature{ANY}
 -- Feature for updte the clock
