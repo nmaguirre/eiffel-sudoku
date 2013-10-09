@@ -253,9 +253,8 @@ feature -- Access
 
 feature --nr_of_solutions
 
-	--This method generate numbers of solutions stored in the variable res
-
 	nr_of_solutions: INTEGER
+		--This method generate numbers of solutions stored in the variable res
 	 	local
 	 		i,j,k,res:INTEGER
 			in_conflict,found:BOOLEAN
