@@ -328,8 +328,9 @@ feature {NONE}
 		end
 
 feature {ANY}
-	-- Make "not seteable" cell with value in the unsol_board
+	
 	one_cell_not_settable(row,col: INTEGER)
+		-- Make "not seteable" cell with value in the unsol_board
 		do
 			unsol_board.define_not_settable(row,col)
 		end
