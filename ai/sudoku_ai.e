@@ -302,9 +302,9 @@ feature --nr_of_solutions
 	 	end
 
 feature {NONE}
-	-- Make "not seteable" cells with value`s
+	
 	cell_not_settable
-
+		-- Make "not seteable" cells with value`s
 		local
 			row,col:INTEGER
 		do
