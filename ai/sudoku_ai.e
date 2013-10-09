@@ -218,6 +218,12 @@ feature -- Hint routine
 
 feature -- Access
 
+	solve
+	-- solves unsol_board
+		do
+			unsol_board.deep_copy(sol_board)
+		end
+
 	get_unsolved_board:SUDOKU_BOARD
 		do
 			Result := unsol_board
