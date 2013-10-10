@@ -35,6 +35,7 @@ feature {NONE} -- Initialization
 			ev_cell: EV_CELL
 		do
 			Precursor
+
 			create message_label
 			message_label.align_text_left
 

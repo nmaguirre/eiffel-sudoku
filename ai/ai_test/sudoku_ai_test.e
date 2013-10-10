@@ -13,7 +13,7 @@ inherit
 feature -- Test routine get_hint
 
 	test_get_hint_1
-			-- New test routine
+			-- Check Method get
 		local
 			ai: SUDOKU_AI
 			hint: SUDOKU_HINT
@@ -55,6 +55,7 @@ feature -- Test routine get_hint
 			v:=hint.get_v
 			assert("check value's in the board solutions and board unsolution",ai.get_sol_board.cell_value (x, y) = v)
 		end
+		
 	test_get_hint_4
 			-- New test routine
 		local
