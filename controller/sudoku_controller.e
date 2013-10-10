@@ -384,6 +384,7 @@ feature {ANY}
 
 	server_connect(difficulty: INTEGER)
 	do
+		print("creating server")
 		if connected=FALSE then
 			create multiplayer_model.make("SERVER")
 			multiplayer_model.init_server_game(difficulty)
@@ -392,7 +393,6 @@ feature {ANY}
 			nbr_red_cells := 0
 			model.make_timer
 			update_timer
-			print("creating server")
 			connected:= TRUE
 		end
 	end
