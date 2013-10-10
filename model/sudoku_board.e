@@ -433,6 +433,36 @@ feature {ANY}
 		Result := cells.item (row, col).is_set
 	end
 
+feature {SINGLE_PLAYER_STATE}
+  boards_equal(otherboard: SUDOKU_BOARD) : BOOLEAN
+   local
+   	i,j : INTEGER
+   	equals: BOOLEAN
+
+   	do
+   	equals:= true
+      from
+        i := 1
+      until
+        i > 9 or not equals
+      loop
+        from
+          j := 1
+        until
+          j > 9 or not equals
+        loop
+          if (current.cell_value (i, j) /= otherboard.cell_value (i, j)) then
+            print("Boards are differents")
+            equals := False;
+          end
+          j := j + 1
+        end
+        i := i + 1
+      end
+
+    Result := equals
+   end
+
 
 feature{ANY}--METHOD ADD FOR GUI TEAM
 
