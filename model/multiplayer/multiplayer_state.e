@@ -39,13 +39,14 @@ feature
 	do
 		my_server:= create_server(difficulty)
 		my_board:= my_server.ai.get_unsolved_board
-		
+
 	end
 
 	--initialize a new game and it waits for the server IP
 	init_client_game
 	do
 		my_client := create_client
+		my_board := my_server.ai.get_unsolved_board
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
