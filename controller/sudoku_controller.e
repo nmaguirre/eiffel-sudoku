@@ -411,7 +411,10 @@ feature {ANY}
 			multiplayer_model.init_client_game
 			create model.make (multiplayer_model.my_client.receive_ai)
 			update_gui
-			connected:=TRUE
+			nbr_red_cells := 0
+			model.make_timer
+			update_timer
+			connected:= TRUE
 		end
 	end
 

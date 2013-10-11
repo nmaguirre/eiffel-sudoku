@@ -35,9 +35,7 @@ feature {ANY}
 		second:= time_duration.second + add_time.second
 		min:=add_time.minute + time_duration.minute + second//60
 		time_duration.make (add_time.year*365*24 + add_time.month *30*24+ add_time.day*24+min//60, min\\60, second\\60)
-		--time_duration:=time_duration.plus (add_time)
 		initial_time:=actual_time
-		print("------------------------" + time_duration.second.out+ " "+time_duration.minute.out)
 	end
 
     -- Method that set time_duration.
