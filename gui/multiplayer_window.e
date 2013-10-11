@@ -125,9 +125,8 @@ feature {NONE} -- Implementation
 feature {ANY}
 
 	close
-
 		do
-			main_container.destroy
+			--main_container.destroy
 		end
 
 feature {NONE} -- Implementation / Constants
