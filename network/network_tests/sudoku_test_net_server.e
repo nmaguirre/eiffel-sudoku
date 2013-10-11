@@ -19,8 +19,8 @@ feature -- Test routines
 		local
 			l_server: SUDOKU_SERVER
 		do
-			create l_server.server_create(10000,37)
-			assert("not_void", l_server = void)
+			create l_server.server_create(1111,37)
+			assert("not_void", l_server /= void)
 		end
 
 end
