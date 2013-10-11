@@ -105,9 +105,6 @@ feature
 		multiplayer_window.destroy
 	end
 
-
-
-
 feature -- Element change
 
 	set_message (a_message: STRING)
@@ -126,10 +123,9 @@ feature {NONE} -- Implementation
 
 	server_button: EV_BUTTON
 			--"server" button
-
+ 	
 	cancel_button: EV_BUTTON
 			--"cancel" button
-
 
 feature {NONE}
 	request_about_server

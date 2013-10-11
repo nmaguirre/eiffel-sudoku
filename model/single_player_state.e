@@ -22,7 +22,6 @@ feature {ANY}
 		else
 			ai:= ai_new
 		end
-		--timer should start?--
 	end
 
 	make_level(level:INTEGER)

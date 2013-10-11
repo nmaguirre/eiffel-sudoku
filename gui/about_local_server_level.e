@@ -122,21 +122,21 @@ feature {NONE} -- Implementation
 feature {NONE}
 	request_about_easy_level
 	do
-		controller.server_connect (1)
+		controller.server_connect (30)
 		current.destroy
 	end
 
 feature {NONE}
 	request_about_medium_level
 	do
-		controller.server_connect (2)
+		controller.server_connect (32)
 		current.destroy
 	end
 
 feature {NONE}
 	request_about_hard_level
 	do
-		controller.server_connect (3)
+		controller.server_connect (37)
 		current.destroy
 	end
 
