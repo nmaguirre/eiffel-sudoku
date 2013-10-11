@@ -64,6 +64,13 @@ feature -- server action
 			socket.independent_store (a_serialized_board)
 		end
 
+	send_ai
+		require
+			non_void: socket /= Void
+		do
+			socket.independent_store (ai)
+		end
+
 	send_state_update(a_state: STRING)
 	--sends the updates of the game
 		require
