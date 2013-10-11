@@ -391,7 +391,7 @@ feature {ANY}
 		if connected=FALSE then
 			create multiplayer_model.make("SERVER")
 			multiplayer_model.init_server_game(difficulty)
-			create model.make(multiplayer_model.my_server.ai)
+			create model.make(void)
 			update_gui
 			nbr_red_cells := 0
 			model.make_timer

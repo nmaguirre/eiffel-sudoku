@@ -66,7 +66,6 @@ feature {ANY}
 		ai.one_cell_not_settable(row,col)
 	end
 
-
 feature {ANY}
   sps_equals(otherstate : SINGLE_PLAYER_STATE) : BOOLEAN
   local

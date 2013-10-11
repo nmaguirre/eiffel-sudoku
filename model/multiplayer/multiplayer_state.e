@@ -39,7 +39,7 @@ feature
 	do
 		my_server:= create_server(difficulty)
 		my_board:= my_server.ai.get_unsolved_board
-		
+
 	end
 
 	--initialize a new game and it waits for the server IP
@@ -80,6 +80,7 @@ feature
 	ensure
 		ip_correctly: ip=ip_address
 	end
+	
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
