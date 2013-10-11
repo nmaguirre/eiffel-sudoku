@@ -14,7 +14,9 @@ create
 feature {ANY}
 	name_of_player: STRING
 
-	my_board:SUDOKU_BOARD -- my sudoku board
+	board:SUDOKU_BOARD -- my sudoku board
+
+	timer:CLOCK -- the clock
 
 	adversary_board:SUDOKU_BOARD -- board of the other player
 
@@ -38,7 +40,7 @@ feature
 		server: SUDOKU_SERVER
 	do
 		my_server:= create_server(difficulty)
-		my_board:= my_server.ai.get_unsolved_board
+		board:= my_server.ai.get_unsolved_board
 
 	end
 
@@ -46,7 +48,7 @@ feature
 	init_client_game
 	do
 		my_client := create_client
-		my_board := my_server.ai.get_unsolved_board
+		board := my_server.ai.get_unsolved_board
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -81,7 +83,7 @@ feature
 	ensure
 		ip_correctly: ip=ip_address
 	end
-	
+
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
