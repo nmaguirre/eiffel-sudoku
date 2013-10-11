@@ -93,6 +93,18 @@ feature
 		ip_correctly: ip=ip_address
 	end
 
+	report_surrender
+	do
+		if my_server = VOID then
+			my_client.send_winner_id (1)
+			my_client.disconnect_client
+		else
+			my_server.send_winner_id (2)
+			my_server.close_server
+
+		end
+	end
+
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
