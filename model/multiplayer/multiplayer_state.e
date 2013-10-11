@@ -53,13 +53,14 @@ feature
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
 	report_play(row,col: INTEGER)
 	do
-
+		my_client.send_cell_position(row,col)
 	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
-	recieve_adversary_play(cell: COORDS)
+	recieve_adversary_play(cell: TUPLE[x:INTEGER; y:INTEGER])
 	do
-
+	-- this line must update the gui of the adversary board!
+--		adversary_board.set_cell(my_client.receive_cell_position)
 	end
 
 	--reports game victory to server in order to inform the adversary
