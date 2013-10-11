@@ -14,14 +14,6 @@ create
 feature {ANY}
 	name_of_player: STRING
 
-	board:SUDOKU_BOARD -- my sudoku board
-
-	timer:CLOCK -- the clock
-
-	adversary_board:SUDOKU_BOARD -- board of the other player
-
-	solved_board:SUDOKU_BOARD -- solved game
-
 	my_client: SUDOKU_CLIENT
 
 	my_server: SUDOKU_SERVER
@@ -40,7 +32,6 @@ feature
 		server: SUDOKU_SERVER
 	do
 		my_server:= create_server(difficulty)
-		board:= my_server.ai.get_unsolved_board
 		my_server.send_ai
 	end
 
@@ -93,7 +84,9 @@ feature
 		ip_correctly: ip=ip_address
 	end
 
-	report_surrender
+	is_connected: BOOLEAN
+	
+    report_surrender
 	do
 		if my_server = VOID then
 			my_client.send_winner_id (1)
@@ -104,7 +97,6 @@ feature
 
 		end
 	end
-
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
@@ -118,6 +110,7 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 		server: SUDOKU_SERVER
 	do
 		create server.server_create (server_port, difficult_level) -- By default hardcode the ip server with 11111.
+		is_connected:= True
 		result:= server
 	end
 
@@ -127,6 +120,7 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 		client: SUDOKU_CLIENT
 	do
 		create client.connect(ip_address, name_of_player, server_port)
+		is_connected:= True
 		result:= client
 	end
 
