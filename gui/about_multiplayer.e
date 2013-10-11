@@ -86,22 +86,13 @@ feature
 		set_controller(crt:SUDOKU_CONTROLLER)
 
 		do
-			if crt = void then
-				print("asdasd")
-			end
-
 			controller:=crt
 		end
 
 feature
 		set_multiplayer_window(window:MULTIPLAYER_WINDOW)
-
 		do
-			if window = void then
-				print("asdasd")
-			else
-				multiplayer_window:=window
-			end
+			multiplayer_window:=window
 		end
 
 feature
@@ -110,9 +101,6 @@ feature
 		current.destroy
 		multiplayer_window.destroy
 	end
-
-
-
 
 feature -- Element change
 
@@ -135,7 +123,6 @@ feature {NONE} -- Implementation
 
 	cancel_button: EV_BUTTON
 			--"cancel" button
-
 
 feature {NONE}
 	request_about_server

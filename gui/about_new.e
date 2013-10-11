@@ -91,12 +91,7 @@ feature {NONE} -- Initialization
 
 feature
 		set_controller(crt:SUDOKU_CONTROLLER)
-
 		do
-			if crt = void then
-				print("asdasd")
-			end
-
 			controller:=crt
 		end
 
