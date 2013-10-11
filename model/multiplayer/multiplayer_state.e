@@ -51,7 +51,7 @@ feature
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
-	report_play
+	report_play(row,col: INTEGER)
 	do
 
 	end
