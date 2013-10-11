@@ -21,7 +21,7 @@ feature -- Test routines
 			l_client: SUDOKU_CLIENT
 		do
 			-- Creating with ip address and port number.
-			create l_client.connect("127.0.0.1", "player1", 10000)
+			create l_client.connect("127.0.0.1", "player1", 1111)
 
 			assert("client_not_void", l_client /= void)
 		end
