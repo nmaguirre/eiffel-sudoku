@@ -58,6 +58,14 @@ feature --Client actions
 			end
 		end
 
+	receive_ai(): SUDOKU_AI
+	--receives a solved board
+		do
+			if attached{SUDOKU_AI} socket.retrieved as l_msg then
+				Result := l_msg
+			end
+		end
+
 	receive_unsolved_board(): SUDOKU_BOARD
 	--receives a unsolved board
 		do

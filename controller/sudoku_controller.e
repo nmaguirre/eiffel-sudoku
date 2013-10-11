@@ -126,6 +126,9 @@ feature {ANY}
 			update_timer
 	        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
 	 			insertion_correct := model.board.set_cell(row, col, value)
+	 				if(connected and insertion_correct) then
+						multiplayer_model.report_play(row,col)
+				end
 	        else
 	        	if value /= model.board.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
 	        		update_gui_cell(row, col, model.board.cell_value(row, col))
@@ -147,6 +150,10 @@ feature {ANY}
 			-- After setting a cell ask if board is solved if so... tell user he WON
 			if model.board.is_solved then
 				winning_procedure
+
+				if(connected) then
+					multiplayer_model.report_victory
+				end
 			end
 		end
 	end
@@ -403,7 +410,7 @@ feature {ANY}
 			create multiplayer_model.make ("CLIENT")
 			multiplayer_model.set_ip_address (ip_address)
 			multiplayer_model.init_client_game
-			create model.make (multiplayer_model.my_server.ai)
+			create model.make (multiplayer_model.my_client.receive_ai)
 			update_gui
 			connected:=TRUE
 		end
