@@ -1,3 +1,4 @@
+
 note
 	description: "Summary description for {MULTIPLAYER_WINDOW}."
 	author: ""
@@ -70,13 +71,11 @@ feature {NONE} -- Implementation
 			current_text_field : CELL_TEXT_FIELD
 			row,col: INTEGER
 			font : EV_FONT
-
+			a_colour : EV_COLOR
 		do
 			main_container.disable_sensitive -- the container is unlocked
 			create font.default_create
 			font.set_weight( (create {EV_FONT_CONSTANTS}).weight_bold)
-
-
 			from
 				row:= 1
 			until
@@ -97,9 +96,9 @@ feature {NONE} -- Implementation
 					current_text_field.disable_edit
 					-- gives the current cell its position in the board
 					current_text_field.set_position (row, col)
-
 					l_table.put_at_position (current_text_field, col,row,1,1)
-					current_text_field.paint_default
+					create a_colour.make_with_rgb (0.1, 0.9, 0.2)
+					current_text_field.set_background_color (a_colour)
 					col := col +1
 				end
 				row := row +1
@@ -122,7 +121,34 @@ feature {NONE} -- Implementation
 			main_container_created: main_container /= Void
 		end
 
+
+
 feature {ANY}
+
+	paint_cell(x,y:INTEGER)
+	require
+		correct_row: x>=1 and x<=9
+		correct_column: y>=1 and y<=9
+	local
+		current_cell : CELL_TEXT_FIELD
+	do
+		current_cell ?= l_table.item_at_position (y, x)
+		current_cell.paint_red
+	end
+
+	unpaint_cell(x,y:INTEGER)
+	require
+		correct_row: x>=1 and x<=9
+		correct_column: y>=1 and y<=9
+	local
+		a_colour:EV_COLOR
+		current_cell : CELL_TEXT_FIELD
+	do
+		create a_colour.make_with_rgb (0.1, 0.9, 0.2)
+		current_cell ?= l_table.item_at_position (y, x)
+		current_cell.set_background_color (a_colour)
+	end
+
 
 	close
 		do
