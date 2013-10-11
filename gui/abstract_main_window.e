@@ -105,7 +105,7 @@ feature {ANY} -- Menu Implementation
 			-- (as stated in `initialize')
 		do
 			Result := (width = Window_width) and then
-					(height = Window_height) and then
+					--(height = Window_height) and then
 					(title.is_equal (Window_title))
 		end
 

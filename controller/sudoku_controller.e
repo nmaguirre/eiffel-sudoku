@@ -315,9 +315,7 @@ feature {NONE} -- control of red cells
 		solver:SUDOKU_SOLVER
 	do
 		create solver.init_with_board (model.board)
-		print("Start solve %N")
 		solver.solve_board
-		print("Stop solve %N")
 		update_gui
 	end
 
@@ -387,11 +385,10 @@ feature {ANY}
 
 	server_connect(difficulty: INTEGER)
 	do
-		print("creating server")
 		if connected=FALSE then
 			create multiplayer_model.make("SERVER")
 			multiplayer_model.init_server_game(difficulty)
-			create model.make(void)
+			create model.make(multiplayer_model.my_server.ai)
 			update_gui
 			nbr_red_cells := 0
 			model.make_timer
@@ -404,7 +401,6 @@ feature {ANY}
 	do
 		if connected=FALSE then
 			create multiplayer_model.make ("CLIENT")
-			print("connecting client ")
 			multiplayer_model.set_ip_address (ip_address)
 			multiplayer_model.init_client_game
 			create model.make (multiplayer_model.my_server.ai)
