@@ -47,13 +47,7 @@ feature {SUDOKU_AI_TEST} -- Initialization
 				delete_cells(level)
 				cell_not_settable
 				unity := (nr_of_solutions = 1)
-				-- print ("%N new solution created %N")
 			end
-			-- print ("%N Sudoku solution: %N")
-			-- sol_board.print_sudoku
-			-- print ("%N valid? " + sol_board.is_solved.out + "%N")
-			-- print ("%N Unsolved sudoku: %N")
-			-- unsol_board.print_sudoku
 		end
 
 
@@ -302,7 +296,7 @@ feature --nr_of_solutions
 	 	end
 
 feature {NONE}
-	
+
 	cell_not_settable
 		-- Make "not seteable" cells with value`s
 		local
@@ -328,7 +322,7 @@ feature {NONE}
 		end
 
 feature {ANY}
-	
+
 	one_cell_not_settable(row,col: INTEGER)
 		-- Make "not seteable" cell with value in the unsol_board
 		do

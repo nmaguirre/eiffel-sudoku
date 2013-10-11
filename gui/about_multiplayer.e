@@ -84,24 +84,18 @@ feature {NONE} -- Initialization
 
 feature
 		set_controller(crt:SUDOKU_CONTROLLER)
-
+		require
+			crt /= void
 		do
-			if crt = void then
-				print("asdasd")
-			end
-
 			controller:=crt
 		end
 
 feature
 		set_multiplayer_window(window:MULTIPLAYER_WINDOW)
-
+		require
+			window /= void
 		do
-			if window = void then
-				print("asdasd")
-			else
-				multiplayer_window:=window
-			end
+			multiplayer_window:=window
 		end
 
 feature
