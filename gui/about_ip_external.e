@@ -36,7 +36,7 @@ initialize
 			set_size (dialogb_width,dialogb_height)
 
 			-- Create button_close
-			create button_ok.make_with_text_and_action ("Ok",agent destroy)
+			create button_ok.make_with_text_and_action ("Ok",agent press_button_ok)
 			button_ok.set_minimum_size (okb_width, okb_height)
 
 			-- Create button_cancel
@@ -100,19 +100,21 @@ feature {NONE}
 
 	controller:SUDOKU_CONTROLLER
 
+feature{NONE} -- Action
 
-
-feature{ANY} -- Action
-
-	add_save_action_to_button_ok(save : SAVE_AND_LOAD)
-		-- Add save action to button ok.
-		--/!\ Need to be called after initialization of this class
+	press_button_ok
 	do
-		button_ok.select_actions.extend (agent controller.client_connect(ip_external.text))
+		controller.client_connect(ip_external.text)
+		Current.destroy
 	end
+
+
 
 feature{ANY}
 	default_name:STRING="External Server IP Insert"
 
-
+	set_controller(cont: SUDOKU_CONTROLLER)
+	do
+		controller:= cont
+	end
 end

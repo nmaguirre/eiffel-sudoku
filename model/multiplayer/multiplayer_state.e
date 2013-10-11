@@ -46,6 +46,7 @@ feature
 	init_client_game
 	do
 		my_client := create_client
+		my_board := my_server.ai.get_unsolved_board
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.

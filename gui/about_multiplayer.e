@@ -154,6 +154,7 @@ feature {NONE}
 		external_server:ABOUT_IP_EXTERNAL
 	do
 		create external_server
+		external_server.set_controller(controller)
 		external_server.show
 		current.destroy
 	end
