@@ -126,7 +126,7 @@ feature {ANY}
 			update_timer
 	        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
 	 			insertion_correct := model.board.set_cell(row, col, value)
-	 				if(connected and insertion_correct) then
+	 				if(multiplayer_model.is_connected and insertion_correct) then
 						multiplayer_model.report_play(row,col)
 				end
 	        else
@@ -151,7 +151,7 @@ feature {ANY}
 			if model.board.is_solved then
 				winning_procedure
 
-				if(connected) then
+				if(multiplayer_model.is_connected) then
 					multiplayer_model.report_victory
 				end
 			end
@@ -391,36 +391,25 @@ feature {ANY}
 
 	server_connect(difficulty: INTEGER)
 	do
-		if connected=FALSE then
-			create multiplayer_model.make("SERVER")
-			multiplayer_model.init_server_game(difficulty)
-			create model.make(multiplayer_model.my_server.ai)
-			update_gui
-			nbr_red_cells := 0
-			model.make_timer
-			update_timer
-			connected:= TRUE
-		end
+		create multiplayer_model.make("SERVER")
+		multiplayer_model.init_server_game(difficulty)
+		create model.make(multiplayer_model.my_server.ai)
+		update_gui
+		nbr_red_cells := 0
+		model.make_timer
+		update_timer
 	end
 
 	client_connect(ip_address: STRING)
 	do
-		if connected=FALSE then
-			create multiplayer_model.make ("CLIENT")
-			multiplayer_model.set_ip_address (ip_address)
-			multiplayer_model.init_client_game
-			create model.make (multiplayer_model.my_client.receive_ai)
-			update_gui
-			nbr_red_cells := 0
-			model.make_timer
-			update_timer
-			connected:= TRUE
-		end
+		create multiplayer_model.make ("CLIENT")
+		multiplayer_model.set_ip_address (ip_address)
+		multiplayer_model.init_client_game
+		create model.make (multiplayer_model.my_client.receive_ai)
+		update_gui
+		nbr_red_cells := 0
+		model.make_timer
+		update_timer
 	end
-
-
-
-feature {NONE}
-	connected: BOOLEAN
 
 end
