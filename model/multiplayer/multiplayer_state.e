@@ -44,25 +44,34 @@ feature
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
 	report_play(row,col: INTEGER)
 	do
-		my_client.send_cell_position(row,col)
+		if my_server = VOID then
+			my_client.send_cell_position(row,col)
+		else
+			my_server.send_cell_position(row,col)
+			end
 	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
-	recieve_adversary_play(cell: TUPLE[x:INTEGER; y:INTEGER])
+	receive_adversary_play
+	local
+	    coords : TUPLE[INTEGER,INTEGER]
 	do
-	-- this line must update the gui of the adversary board!
---		adversary_board.set_cell(my_client.receive_cell_position)
+	-- must be updated the gui of the adversary board!
+		if my_server = VOID then
+			coords := my_client.receive_cell_position
+		else
+			coords := my_server.receive_cell_position
+		end
 	end
 
 	--reports game victory to server in order to inform the adversary
 	report_victory
 	do
-
-	end
-
-	--reports the current uster decision to leave the game (implying a victory for the opponent)
-	report_surrender
-	do
+		if my_server = VOID then
+			my_client.send_winner_id(2) -- this parameter must be the ID of the current client.
+		else
+			my_server.send_winner_id(1)
+		end
 
 	end
 
@@ -76,6 +85,18 @@ feature
 	end
 
 	is_connected: BOOLEAN
+	
+    report_surrender
+	do
+		if my_server = VOID then
+			my_client.send_winner_id (1)
+			my_client.disconnect_client
+		else
+			my_server.send_winner_id (2)
+			my_server.close_server
+
+		end
+	end
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
