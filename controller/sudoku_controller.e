@@ -16,7 +16,7 @@ feature  -- Initialization
 
 		once
 			the_instance := Current
-
+			create multiplayer_controller.make
 			init_red_cells_list
 			create current_level.make_empty
 
@@ -69,6 +69,8 @@ feature -- Status report
 feature {NONE} -- Implementation
 
 	the_instance: SUDOKU_CONTROLLER
+
+	multiplayer_controller : SUDOKU_MULTIPLAYER_CONTROLLER
 
 	gui: ABSTRACT_MAIN_WINDOW
 

@@ -6,25 +6,29 @@ note
 
 class
 	SUDOKU_MULTIPLAYER_CONTROLLER
+create
+	make
 
 feature{ANY}
 
-    view: ABSTRACT_MAIN_WINDOW
+    view: MULTIPLAYER_WINDOW
 
-	multiplayer: MULTIPLAYER_STATE
-
-	set_multiplayer_window(v: ABSTRACT_MAIN_WINDOW)
+	make
 	do
-		view:= v
 	end
 
-	paint_cell
+	set_multiplayer_window(v: MULTIPLAYER_WINDOW)
 	do
-
+		view := v
 	end
 
-	unpaint_cell
+	paint_cell(x, y : INTEGER)
 	do
+		view.paint_cell(x,y)
+	end
 
+	unpaint_cell(x, y : INTEGER)
+	do
+		view.unpaint_cell(x,y)
 	end
 end
