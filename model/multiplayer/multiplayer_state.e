@@ -85,7 +85,7 @@ feature
 	end
 
 	is_connected: BOOLEAN
-	
+
     report_surrender
 	do
 		if my_server = VOID then
@@ -97,6 +97,22 @@ feature
 
 		end
 	end
+
+	 receive_something
+	 do
+
+	 end
+
+	 is_server_game: BOOLEAN
+	 do
+
+	 end
+
+	 is_client_game: BOOLEAN
+	 do
+	 	
+	 end
+
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
