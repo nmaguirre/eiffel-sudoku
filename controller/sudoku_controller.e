@@ -17,6 +17,7 @@ feature  -- Initialization
 		once
 			the_instance := Current
 			create multiplayer_controller.make
+			create multiplayer_model.make (" ") --Add this line because we had the problem "multiplayer_model void"
 			init_red_cells_list
 			create current_level.make_empty
 
@@ -206,7 +207,6 @@ feature {ANY}
 				row := row + 1
 			end
 			updating_gui := false
-
 			--now that the gui is update we can check if the model is solved
 			if model.board.is_solved then
 				gui.request_about_winning_congrats
@@ -221,6 +221,9 @@ feature {ANY}
 			update_gui_cell_value: value >= 0 and value <= 9
 		do
 			gui.set_value_of_cell(row, column, value, model.board.cell_is_settable(row,column))
+			if is_already_present(row,column) then
+				gui.set_cell_background_color_red(row,column)
+			end
 		end
 
 
@@ -239,9 +242,9 @@ feature{ANY}
 			--new_model:SINGLE_PLAYER_STATE
 		do
 			create model.make_level(level)
-			update_gui
 			-- need to reset the list of red cells
 			nbr_red_cells := 0
+			update_gui
 			model.make_timer
 			update_timer
 		end
@@ -302,7 +305,7 @@ feature {NONE} -- control of red cells
 
 			-- if at this position the cell is no longer in conflict with another we change its color
 			-- and delete it from the list
-			if model.board.is_insertion_correct (coords.x,coords.y) then
+			if model.board.is_insertion_correct (coords.x,coords.y) or model.board.cell_value (coords.x,coords.y)=0 then -- position in board that contain a available value or haven't value should't be paint red
 				gui.set_cell_background_color_default (coords.x, coords.y)
 
 				-- to delete it from the list we put the last coords at the place of the current coords
