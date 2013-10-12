@@ -17,7 +17,13 @@ feature{ANY}
 	do
 	end
 
-	set_multiplayer_window(v: MULTIPLAYER_WINDOW)
+    -- Take a board and displays it into the MULTIPLAYER_WINDOW
+    load_board(new_board: SUDOKU_BOARD)
+    do
+    
+    end
+	
+    set_multiplayer_window(v: MULTIPLAYER_WINDOW)
 	do
 		view := v
 	end

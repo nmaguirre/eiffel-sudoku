@@ -30,6 +30,8 @@ feature
 	init_server_game(difficulty: INTEGER)
 	local
 		server: SUDOKU_SERVER
+    require
+        connection_not_available: is_connected = False
 	do
 		my_server:= create_server(difficulty)
 		my_server.send_ai
@@ -37,24 +39,30 @@ feature
 
 	--initialize a new game and it waits for the server IP
 	init_client_game
+    require
+        connection_not_available: is_connected = False
 	do
 		my_client := create_client
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
 	report_play(row,col: INTEGER)
+    require
+        connection_available: is_connected = True
 	do
-		if my_server = VOID then
+        if is_client_game then
 			my_client.send_cell_position(row,col)
 		else
 			my_server.send_cell_position(row,col)
-			end
+        end
 	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
 	receive_adversary_play
 	local
 	    coords : TUPLE[INTEGER,INTEGER]
+    require
+        connection_available: is_connected = True
 	do
 	-- must be updated the gui of the adversary board!
 		if my_server = VOID then
@@ -66,8 +74,10 @@ feature
 
 	--reports game victory to server in order to inform the adversary
 	report_victory
+    require
+        connection_available: is_connected = True
 	do
-		if my_server = VOID then
+        if is_client_game then
 			my_client.send_winner_id(2) -- this parameter must be the ID of the current client.
 		else
 			my_server.send_winner_id(1)
@@ -78,6 +88,7 @@ feature
 	set_ip_address(ip: STRING)
 	require
 		ip_distinct_of_void: ip/=VOID
+        connection_not_available: is_connected = False
 	do
 		ip_address:= ip
 	ensure
@@ -87,6 +98,8 @@ feature
 	is_connected: BOOLEAN
 
     report_surrender
+    require
+        connection_available: is_connected = True
 	do
 		if my_server = VOID then
 			my_client.send_winner_id (1)
@@ -94,24 +107,34 @@ feature
 		else
 			my_server.send_winner_id (2)
 			my_server.close_server
-
 		end
 	end
 
-	 receive_something
-	 do
+	-- Return true iff anybody send me something.
+	receive_something: BOOLEAN
+    require
+        connection_available: is_connected = True
+	do
+        if is_server_game then
+            Result:= my_server.socket.is_readable
+        else
+            Result:= my_client.socket.is_readable
+        end
+    ensure
+        connection_available: is_connected = True
+	end
 
-	 end
+    -- Returns true iff the player is the server.
+    is_server_game: BOOLEAN
+    do
 
-	 is_server_game: BOOLEAN
-	 do
+    end
 
-	 end
+    -- Returns true iff the player is the client.
+	is_client_game: BOOLEAN
+	do
 
-	 is_client_game: BOOLEAN
-	 do
-	 	
-	 end
+    end
 
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
@@ -124,6 +147,8 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 	create_server(difficult_level: INTEGER): SUDOKU_SERVER
 	local
 		server: SUDOKU_SERVER
+    require
+        connection: is_connected = False
 	do
 		create server.server_create (server_port, difficult_level) -- By default hardcode the ip server with 11111.
 		is_connected:= True
@@ -134,6 +159,8 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 	create_client: SUDOKU_CLIENT
 	local
 		client: SUDOKU_CLIENT
+    require
+        connection: is_connected = False
 	do
 		create client.connect(ip_address, name_of_player, server_port)
 		is_connected:= True
