@@ -135,7 +135,7 @@ feature {NONE}
 		create local_server_level
 		local_server_level.set_controller (controller)
 		local_server_level.show
-	--	current.destroy
+		current.destroy
 	end
 
 feature {NONE}
@@ -146,7 +146,7 @@ feature {NONE}
 		create external_server
 		external_server.set_controller(controller)
 		external_server.show
-	--	current.destroy
+		current.destroy
 	end
 
 

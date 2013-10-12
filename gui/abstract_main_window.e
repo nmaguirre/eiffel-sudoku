@@ -585,6 +585,7 @@ feature{ANY} -- Buttons controllers implementation
 		do
 			create multiplayer_window
 			multiplayer_window.show
+			controller.set_multiplayer_controller_view(multiplayer_window)
 			create about_multiplayer
 			about_multiplayer.set_controller (controller)
 			about_multiplayer.set_multiplayer_window (multiplayer_window)

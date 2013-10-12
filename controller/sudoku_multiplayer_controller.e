@@ -11,8 +11,6 @@ create
 
 feature{ANY}
 
-    view: MULTIPLAYER_WINDOW
-
 	make
 	do
 	end
@@ -71,4 +69,9 @@ feature{ANY}
 	do
 		view.unpaint_cell(x,y)
 	end
+    
+feature{NONE}
+
+	view: MULTIPLAYER_WINDOW
+
 end

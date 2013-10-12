@@ -20,7 +20,7 @@ feature  -- Initialization
 			create multiplayer_model.make (" ") --Add this line because we had the problem "multiplayer_model void"
 			init_red_cells_list
 			create current_level.make_empty
-
+			create multiplayer_controller.make  -- Creates the controller for the multiplayer_window
 			create model.make(Void)
 		end
 
@@ -58,6 +58,13 @@ feature  -- Initialization
 		do
 			Result := the_instance
 		end
+
+	set_multiplayer_controller_view(view : MULTIPLAYER_WINDOW)
+	require
+		valid_view: view /= Void
+	do
+		multiplayer_controller.set_multiplayer_window(view)
+	end
 
 feature -- Status report
 
@@ -399,6 +406,7 @@ feature {ANY}
 		create multiplayer_model.make("SERVER")
 		multiplayer_model.init_server_game(difficulty)
 		create model.make(multiplayer_model.my_server.ai)
+		multiplayer_controller.load_board(model.board)
 		update_gui
 		nbr_red_cells := 0
 		model.make_timer
@@ -411,6 +419,7 @@ feature {ANY}
 		multiplayer_model.set_ip_address (ip_address)
 		multiplayer_model.init_client_game
 		create model.make (multiplayer_model.my_client.receive_ai)
+		multiplayer_controller.load_board(model.board)
 		update_gui
 		nbr_red_cells := 0
 		model.make_timer
