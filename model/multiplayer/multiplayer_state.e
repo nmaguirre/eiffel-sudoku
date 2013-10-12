@@ -77,7 +77,7 @@ feature
 	    coords : TUPLE[INTEGER,INTEGER]
 	do
 	-- must be updated the gui of the adversary board!
-		if my_server = VOID then
+		if is_client_game then
 			coords := my_client.receive_cell_position
 		else
 			coords := my_server.receive_cell_position
@@ -115,12 +115,13 @@ feature
     --Returns true iff server or client it's running.
 	is_connected: BOOLEAN
 
+	--Reports to the adversary that I surrendered, i.e. he's the winner
     report_surrender
     require
         connection_available: is_connected = True
 	do
-		if my_server = VOID then
-			my_client.send_winner_id (1)
+		if is_client_game then
+			my_client.send_winner_id (1) 
 			my_client.disconnect_client
 		else
 			my_server.send_winner_id (2)
@@ -128,7 +129,7 @@ feature
 		end
 	end
 
-	-- Return true iff anybody send me something.
+	-- Return true iff anybody sent me something.
 	receive_something: BOOLEAN
     require
         connection_available: is_connected = True
@@ -145,13 +146,13 @@ feature
     -- Returns true iff the player is the server.
     is_server_game: BOOLEAN
     do
-
+		Result := is_connected and my_server /= Void and my_client = Void
     end
 
     -- Returns true iff the player is the client.
 	is_client_game: BOOLEAN
 	do
-
+		Result := is_connected and my_client /= Void and my_server = Void
     end
 
 
