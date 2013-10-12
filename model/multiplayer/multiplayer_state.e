@@ -28,12 +28,13 @@ feature {ANY}
 feature
 	--initialize a new game, and starts a server.
 	init_server_game(difficulty: INTEGER)
-	local
-		server: SUDOKU_SERVER
     require
         connection_not_available: is_connected = False
+	local
+		server: SUDOKU_SERVER
 	do
 		my_server:= create_server(difficulty)
+        is_connected := True
 		my_server.send_ai
 	end
 
@@ -43,6 +44,7 @@ feature
         connection_not_available: is_connected = False
 	do
 		my_client := create_client
+        is_connected := True
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -59,10 +61,10 @@ feature
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
 	receive_adversary_play
-	local
-	    coords : TUPLE[INTEGER,INTEGER]
     require
         connection_available: is_connected = True
+	local
+	    coords : TUPLE[INTEGER,INTEGER]
 	do
 	-- must be updated the gui of the adversary board!
 		if my_server = VOID then
@@ -145,10 +147,10 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
 	--creates a server in orden to start a sudoku game
 	create_server(difficult_level: INTEGER): SUDOKU_SERVER
-	local
-		server: SUDOKU_SERVER
     require
         connection: is_connected = False
+	local
+		server: SUDOKU_SERVER
 	do
 		create server.server_create (server_port, difficult_level) -- By default hardcode the ip server with 11111.
 		is_connected:= True
@@ -157,10 +159,10 @@ feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
 	--creates a client from wich connect to a server in order to communicate with other player.
 	create_client: SUDOKU_CLIENT
-	local
-		client: SUDOKU_CLIENT
     require
         connection: is_connected = False
+	local
+		client: SUDOKU_CLIENT
 	do
 		create client.connect(ip_address, name_of_player, server_port)
 		is_connected:= True
