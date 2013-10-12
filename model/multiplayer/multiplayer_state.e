@@ -36,6 +36,8 @@ feature
 		my_server:= create_server(difficulty)
         is_connected := True
 		my_server.send_ai
+    ensure
+        connection_available: is_connected = True
 	end
 
 	--initialize a new game and it waits for the server IP
@@ -45,6 +47,8 @@ feature
 	do
 		my_client := create_client
         is_connected := True
+    ensure
+        connection_available: is_connected = True
 	end
 
 	--reports a correct fill in the current sudoku board, in order to reflect changes in the adversary board.
@@ -57,6 +61,8 @@ feature
 		else
 			my_server.send_cell_position(row,col)
         end
+    ensure
+        connection_available: is_connected = True
 	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
@@ -72,6 +78,8 @@ feature
 		else
 			coords := my_server.receive_cell_position
 		end
+    ensure
+        connection_available: is_connected = True
 	end
 
 	--reports game victory to server in order to inform the adversary
@@ -84,7 +92,8 @@ feature
 		else
 			my_server.send_winner_id(1)
 		end
-
+    ensure
+        connection_available: is_connected = True
 	end
 
 	set_ip_address(ip: STRING)
@@ -95,8 +104,10 @@ feature
 		ip_address:= ip
 	ensure
 		ip_correctly: ip=ip_address
+        connection_not_available: is_connected = False
 	end
 
+    --Returns true iff server or client it's running.
 	is_connected: BOOLEAN
 
     report_surrender
