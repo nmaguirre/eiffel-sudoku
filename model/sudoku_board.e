@@ -250,7 +250,6 @@ feature --Control for insertion
 		-- coords of the square :
 		row_square := ((row_cell-1)//3)*3+1
 		col_square := ((col_cell-1)//3)*3+1
-		-- print("Coords of the square : (r:" + row_square.out + ",c:" + col_square.out + ")%N")
 		from
 			--beginning row index of the square
 			cur_row := row_square
@@ -452,7 +451,6 @@ feature {SINGLE_PLAYER_STATE}
           j > 9 or not equals
         loop
           if (current.cell_value (i, j) /= otherboard.cell_value (i, j)) then
-            print("Boards are differents")
             equals := False;
           end
           j := j + 1
