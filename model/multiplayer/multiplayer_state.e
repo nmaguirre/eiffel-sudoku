@@ -12,12 +12,16 @@ create
 	make
 
 feature {ANY}
+    -- Name of the current player.
 	name_of_player: STRING
 
+    -- Instance of the connection of the client.
 	my_client: SUDOKU_CLIENT
 
+    -- Instance of the connection of the server.
 	my_server: SUDOKU_SERVER
 
+    -- Constructor of the class. Take the name of the player.
 	make(player_name: STRING_8)
 	require
 		player_name /= VOID
@@ -96,6 +100,7 @@ feature
         connection_available: is_connected = True
 	end
 
+    -- Modified the ip address.
 	set_ip_address(ip: STRING)
 	require
 		ip_distinct_of_void: ip/=VOID
@@ -152,8 +157,10 @@ feature
 
 feature {TEST_INIT_SERVER_GAME, TEST_INIT_CLIENT_GAME}
 
+    -- Port of the server HARCODED.
 	server_port: INTEGER = 1111
 
+    -- ip address of the client.
 	ip_address: STRING
 
 	--creates a server in orden to start a sudoku game
