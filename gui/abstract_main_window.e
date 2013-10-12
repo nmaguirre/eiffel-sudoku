@@ -573,10 +573,8 @@ feature{ANY} -- Buttons controllers implementation
 	local
 	hint : ABOUT_HINT
 	do
-		--create hint.make(controller)
-		--hint.add_hint_action (controller)
-		--hint.show
-		controller.get_hint
+		create hint.make(controller)
+		hint.show
 	end
 
 	request_about_multiplayer

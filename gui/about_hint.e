@@ -28,10 +28,10 @@ feature {NONE} -- Initialization
 
 	make(c:SUDOKU_CONTROLLER)
 	do
-		default_create
 		controller:=c
+		default_create
 	end
-	
+
 	initialize
 			-- Populate the dialog box.
 		local
@@ -41,6 +41,7 @@ feature {NONE} -- Initialization
 			horizontal_separator: EV_HORIZONTAL_SEPARATOR
 			buttons_box: EV_HORIZONTAL_BOX
 			ev_cell: EV_CELL
+			hint_information: STRING
 		do
 			Precursor
 			create pixmap
@@ -102,7 +103,8 @@ feature {NONE} -- Initialization
 			set_default_cancel_button (cancel_button)
 
 			set_title (Default_title)
-			set_message (Default_message)
+			hint_information:= "<<You have "+ controller.how_many_hint.out + " hint available>>"
+			set_message (Default_message + "%N" +hint_information)
 			set_size (400, 150)
 		end
 

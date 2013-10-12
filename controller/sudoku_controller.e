@@ -417,4 +417,11 @@ feature {ANY}
 		update_timer
 	end
 
+feature{ANY}
+	--Feature that returns a hint number available
+	how_many_hint:INTEGER
+	do
+		Result:= model.get_hint_number
+	end
+	
 end
