@@ -157,7 +157,7 @@ feature {ANY}
 
 feature {NONE} -- Implementation / Constants
 
-	Default_title: STRING = "Player 2"
+	Default_title: STRING = "Adversario"
 			-- Default title for the dialog window.
 
 	gui: MAIN_WINDOW
