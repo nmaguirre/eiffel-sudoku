@@ -129,7 +129,29 @@ feature {ANY}
         set_cell_value: value>=1 and value<=9
     local
     	insertion_correct : BOOLEAN
+		not_receiving : BOOLEAN
 	do
+		-- check if I'm playing multiplayer and I had received a message
+		if multiplayer_model.is_connected and multiplayer_model.receive_something then
+			from
+			until not_receiving
+			loop
+				if multiplayer_model.is_server_game then
+					if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_server.socket.retrieved as l_msg then
+						multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+					end
+				end
+				if multiplayer_model.is_client_game then
+					if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_client.socket.retrieved as l_msg then
+						multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+					end
+				end
+				not_receiving := not multiplayer_model.receive_something
+			end
+
+			
+		end
+
 		-- we are informing to set_cell if we are updating or not the gui
 		-- if not it means we have to set the cells from the model
 		if not  updating_gui  then

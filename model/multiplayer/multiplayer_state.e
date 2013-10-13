@@ -70,7 +70,7 @@ feature
 	end
 
 	--recieves the coordenades from a move from the adversary and modifies the proper board.
-	receive_adversary_play
+	receive_adversary_play(x,y:INTEGER)
     require
         connection_available: is_connected = True
 	local
@@ -78,10 +78,11 @@ feature
 	do
 	-- must be updated the gui of the adversary board!
 		if is_client_game then
-			coords := my_client.receive_cell_position
+--			coords := my_client.receive_cell_position
 		else
-			coords := my_server.receive_cell_position
+--			coords := my_server.receive_cell_position
 		end
+		print("ME LLEGO UNA JUGADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     ensure
         connection_available: is_connected = True
 	end
@@ -135,9 +136,9 @@ feature
         connection_available: is_connected = True
 	do
         if is_server_game then
-            Result:= my_server.socket.is_readable
+			Result:= my_server.socket.is_readable
         else
-            Result:= my_client.socket.is_readable
+			Result:= my_client.socket.is_readable
         end
     ensure
         connection_available: is_connected = True
