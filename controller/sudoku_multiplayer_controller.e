@@ -69,6 +69,10 @@ feature{ANY}
 	do
 		view.unpaint_cell(x,y)
 	end
+
+    surrended
+    do
+    end
     
 feature{NONE}
 
