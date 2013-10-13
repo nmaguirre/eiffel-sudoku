@@ -99,6 +99,29 @@ feature --access
 		end
 	end
 
+	set_non_editable_board
+	local
+		i, j : INTEGER
+		current_cell : CELL_TEXT_FIELD
+	do
+		from
+			i := 1
+		until i > 9
+		loop
+			from
+				j := 1
+			until j > 9
+			loop
+				current_cell ?= l_table.item_at_position (j,i)
+				current_cell.enable_sensitive
+				current_cell.disable_edit
+				j := j + 1	
+			end
+			i := i + 1
+		end
+	end
+
+
 feature {ANY} -- Menu Implementation
 	is_in_default_state: BOOLEAN
 			-- Is the window in its default state
