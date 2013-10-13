@@ -609,6 +609,7 @@ feature{ANY} -- Buttons controllers implementation
 			about_window: ABOUT_QUIT
 		do
 			create about_window
+			about_window.set_controller(controller)
 			about_window.add_close_action(Current)
 			about_window.show
 		end

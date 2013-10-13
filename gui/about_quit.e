@@ -108,9 +108,16 @@ feature {NONE} -- Initialization
 
 feature -- Add actions
 
+		multiplayer_surrender
+		do
+			if controller.multiplayer_model /= VOID and controller.multiplayer_model.is_connected then
+				controller.multiplayer_model.report_surrender
+			end
+		end
 		-- /!\ new to be added straight after init! If not added, it won't close the window
 		add_close_action(window_to_close : ABSTRACT_MAIN_WINDOW)
 		do
+			ok_button.select_actions.extend (agent multiplayer_surrender)
 			ok_button.select_actions.extend (agent window_to_close.request_close_window)
 		end
 
@@ -128,6 +135,11 @@ feature -- Element change
 		do
 			message_label.set_text (a_message)
 		end
+
+	set_controller(c: SUDOKU_CONTROLLER)
+	do
+		controller:= c
+	end
 
 feature {NONE} -- Implementation
 
@@ -154,6 +166,8 @@ feature {NONE} -- Implementation / Constants
 	 end
 
 	gui: MAIN_WINDOW
+
+	controller: SUDOKU_CONTROLLER
 
 
 end -- class ABOUT_DIALOG
