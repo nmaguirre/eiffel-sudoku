@@ -83,6 +83,8 @@ feature {NONE} -- Implementation
 	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
+	you_lose : BOOLEAN
+	you_win : BOOLEAN
 
 feature {ANY} -- readable parameters
 
@@ -130,64 +132,85 @@ feature {ANY}
     local
     	insertion_correct : BOOLEAN
 		not_receiving : BOOLEAN
+		lose: ABOUT_LOSE
+		win: ABOUT_WIN
 	do
-		-- check if I'm playing multiplayer and I had received a message
-		if multiplayer_model.is_connected and multiplayer_model.receive_something then
-			from
-			until not_receiving
-			loop
-				if multiplayer_model.is_server_game then
-					if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_server.socket.retrieved as l_msg then
-						multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+		if (not you_win and not you_lose) then
+			-- check if I'm playing multiplayer and I had received a message
+			if multiplayer_model.is_connected and multiplayer_model.receive_something then
+				from
+				until not_receiving
+				loop
+					if multiplayer_model.is_server_game then
+						if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_server.socket.retrieved as l_msg then
+							multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+						end
+						-- Si llego un integer quiere decir que gano el otro, o que se retiro. FALTA VERIFICAR ESTO!!
+						if attached{INTEGER} multiplayer_model.my_server.socket.retrieved as l_msg then 
+							you_lose := True
+						end
 					end
-				end
-				if multiplayer_model.is_client_game then
-					if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_client.socket.retrieved as l_msg then
-						multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+					if multiplayer_model.is_client_game then
+						if attached{TUPLE[INTEGER,INTEGER]} multiplayer_model.my_client.socket.retrieved as l_msg then
+							multiplayer_controller.paint_cell(l_msg.integer_32_item(1), l_msg.integer_32_item(2))
+						end
+						-- Si llego un integer quiere decir que gano el otro, o que se retiro. FALTA VERIFICAR ESTO!!
+						if attached{INTEGER} multiplayer_model.my_client.socket.retrieved as l_msg then
+							you_lose := True
+						end
 					end
+					not_receiving := not multiplayer_model.receive_something
 				end
-				not_receiving := not multiplayer_model.receive_something
 			end
-
-			
-		end
-
-		-- we are informing to set_cell if we are updating or not the gui
-		-- if not it means we have to set the cells from the model
-		if not  updating_gui  then
-			update_timer
-	        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
-	 			insertion_correct := model.board.set_cell(row, col, value)
-	 				if(multiplayer_model.is_connected and insertion_correct) then
+	
+			-- we are informing to set_cell if we are updating or not the gui
+			-- if not it means we have to set the cells from the model
+			if not updating_gui then
+				update_timer
+		        if model.board.cell_is_settable(row,col) then --if cell is settable, so change model value.
+		 			insertion_correct := model.board.set_cell(row, col, value)
+		 			if(multiplayer_model.is_connected and insertion_correct) then
 						multiplayer_model.report_play(row,col)
+					end
+		        else
+		        	if value /= model.board.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
+		        		update_gui_cell(row, col, model.board.cell_value(row, col))
+		        		gui.set_cell_background_initial_colour (row, col)
+		        	end
+		        	insertion_correct := True
 				end
-	        else
-	        	if value /= model.board.cell_value (row, col) then --If cell isn't settable and new value =/ model value, can't modifique model value, because value was create for random.
-	        		update_gui_cell(row, col, model.board.cell_value(row, col))
-	        		gui.set_cell_background_initial_colour (row, col)
-	        	end
-	        	insertion_correct := True
-			end
-
-			-- we control here if this insertion was correct
-			if insertion_correct then
-				gui.set_cell_background_color_default(row,col)
-			else
-				gui.set_cell_background_color_red(row,col)
-				add_coord_red_cell(row,col)
-			end
-			-- check current conflicts
-			check_red_cells
-
-			-- After setting a cell ask if board is solved if so... tell user he WON
-			if model.board.is_solved then
-				winning_procedure
-
-				if(multiplayer_model.is_connected) then
-					multiplayer_model.report_victory
+	
+				-- we control here if this insertion was correct
+				if insertion_correct then
+					gui.set_cell_background_color_default(row,col)
+				else
+					gui.set_cell_background_color_red(row,col)
+					add_coord_red_cell(row,col)
+				end
+				-- check current conflicts
+				check_red_cells
+	
+				-- After setting a cell ask if board is solved if so... tell user he WON
+				if model.board.is_solved then
+					if multiplayer_model.is_connected then 
+						if not you_lose then
+							you_win := True
+							multiplayer_model.report_victory
+							create win.default_create
+							win.show
+							gui.set_non_editable_board
+						end
+					else
+						winning_procedure
+					end
+				end
+				if you_lose then
+					create lose.default_create
+					lose.show
+					gui.set_non_editable_board
 				end
 			end
-		end
+		end -- end if --
 	end
 
 
@@ -423,6 +446,7 @@ feature -- winning_procedure
 
 feature {ANY}
 
+	-- the server start a new game with the respective difficulty
 	server_connect(difficulty: INTEGER)
 	do
 		create multiplayer_model.make("SERVER")
@@ -435,6 +459,7 @@ feature {ANY}
 		update_timer
 	end
 
+	-- the client connects to the respective ip_adress
 	client_connect(ip_address: STRING)
 	do
 		create multiplayer_model.make ("CLIENT")
@@ -446,6 +471,26 @@ feature {ANY}
 		nbr_red_cells := 0
 		model.make_timer
 		update_timer
+	end
+
+	-- the board isn't settable anymore because a player won the game
+	non_settable_board
+	local
+		i, j : INTEGER
+	do
+		from
+			i := 1
+		until i > 9
+		loop
+			from
+				j := 1
+			until j > 9
+			loop
+				gui.set_value_of_cell(i, j, model.board.cell_value(i,j), false)
+				j := j + 1	
+			end
+			i := i + 1
+		end
 	end
 
 feature{ANY}
