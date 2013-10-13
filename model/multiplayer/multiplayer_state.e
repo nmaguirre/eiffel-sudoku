@@ -69,24 +69,6 @@ feature
         connection_available: is_connected = True
 	end
 
-	--recieves the coordenades from a move from the adversary and modifies the proper board.
-	receive_adversary_play(x,y:INTEGER)
-    require
-        connection_available: is_connected = True
-	local
-	    coords : TUPLE[INTEGER,INTEGER]
-	do
-	-- must be updated the gui of the adversary board!
-		if is_client_game then
---			coords := my_client.receive_cell_position
-		else
---			coords := my_server.receive_cell_position
-		end
-		print("ME LLEGO UNA JUGADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    ensure
-        connection_available: is_connected = True
-	end
-
 	--reports game victory to server in order to inform the adversary
 	report_victory
     require
