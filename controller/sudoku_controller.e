@@ -83,6 +83,8 @@ feature {NONE} -- Implementation
 	gui: ABSTRACT_MAIN_WINDOW
 
 	updating_gui:BOOLEAN
+	you_lose : BOOLEAN
+	you_win : BOOLEAN
 
 feature {ANY} -- readable parameters
 
@@ -130,8 +132,6 @@ feature {ANY}
     local
     	insertion_correct : BOOLEAN
 		not_receiving : BOOLEAN
-		you_lose : BOOLEAN
-		you_win : BOOLEAN
 		lose: ABOUT_LOSE
 		win: ABOUT_WIN
 	do
